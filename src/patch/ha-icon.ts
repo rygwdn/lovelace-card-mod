@@ -10,29 +10,35 @@ Patch various icon elements to consider the following variables:
 */
 
 const updateIcon = (el) => {
-  const styles = window.getComputedStyle(el);
+  const styles = el._cm_live_styles = el._cm_live_styles ?? window.getComputedStyle(el);
 
-  const icon = styles.getPropertyValue("--card-mod-icon");
-  if (icon) el.icon = icon.trim();
+  if (el._update_queued) return;
+  el._update_queued = true;
 
-  const color = styles.getPropertyValue("--card-mod-icon-color");
-  if (color) el.style.color = color;
+  requestAnimationFrame(() => {
+    const icon = styles.getPropertyValue("--card-mod-icon");
+    if (icon) el.icon = icon.trim();
 
-  const filter = styles.getPropertyValue("--card-mod-icon-dim");
-  if (filter === "none") el.style.filter = "none";
+    const color = styles.getPropertyValue("--card-mod-icon-color");
+    if (color) el.style.color = color;
+
+    const filter = styles.getPropertyValue("--card-mod-icon-dim");
+    if (filter === "none") el.style.filter = "none";
+  });
 };
 
-const bindCardMod = async (el) => {
+const bindCardMod = async (el, update = true) => {
   // Find the most relevant card-mods in order to listen to change events so we can react quickly
-
-  updateIcon(el);
   el._boundCardMod = el._boundCardMod ?? new Set();
   const newCardMods = await findParentCardMod(el);
+
+  if (update || newCardMods.size > 0) updateIcon(el);
 
   for (const cm of newCardMods) {
     if (el._boundCardMod.has(cm)) continue;
 
     cm.addEventListener("card-mod-update", async () => {
+      console.log("card-mod-update", cm);
       await cm.updateComplete;
       updateIcon(el);
     });
@@ -42,7 +48,7 @@ const bindCardMod = async (el) => {
   // Find card-mod elements created later, increased interval
   if (el.cm_retries < 5) {
     el.cm_retries++;
-    return window.setTimeout(() => bindCardMod(el), 250 * el.cm_retries);
+    return window.setTimeout(() => bindCardMod(el, false), 250 * el.cm_retries);
   }
 };
 
