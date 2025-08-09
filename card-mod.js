@@ -1,1 +1,2082 @@
-var e,t,n,r,i,o,a,s;function u(e,t){return t||(t=e.slice(0)),Object.freeze(Object.defineProperties(e,{raw:{value:Object.freeze(t)}}))}function c(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function l(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?c(Object(n),!0).forEach((function(t){d(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):c(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function d(e,t,n){return(t=T(t))in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function h(){return h="undefined"!=typeof Reflect&&Reflect.get?Reflect.get.bind():function(e,t,n){var r=function(e,t){for(;!Object.prototype.hasOwnProperty.call(e,t)&&null!==(e=$(e)););return e}(e,t);if(r){var i=Object.getOwnPropertyDescriptor(r,t);return i.get?i.get.call(arguments.length<3?e:n):i.value}},h.apply(this,arguments)}function f(e){return function(e){if(Array.isArray(e))return O(e)}(e)||function(e){if("undefined"!=typeof Symbol&&null!=e[Symbol.iterator]||null!=e["@@iterator"])return Array.from(e)}(e)||S(e)||function(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function v(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){var n=null==e?null:"undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(null!=n){var r,i,o,a,s=[],u=!0,c=!1;try{if(o=(n=n.call(e)).next,0===t){if(Object(n)!==n)return;u=!1}else for(;!(u=(r=o.call(n)).done)&&(s.push(r.value),s.length!==t);u=!0);}catch(e){c=!0,i=e}finally{try{if(!u&&null!=n.return&&(a=n.return(),Object(a)!==a))return}finally{if(c)throw i}}return s}}(e,t)||S(e,t)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function p(){p=function(){return t};var e,t={},n=Object.prototype,r=n.hasOwnProperty,i=Object.defineProperty||function(e,t,n){e[t]=n.value},o="function"==typeof Symbol?Symbol:{},a=o.iterator||"@@iterator",s=o.asyncIterator||"@@asyncIterator",u=o.toStringTag||"@@toStringTag";function c(e,t,n){return Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}),e[t]}try{c({},"")}catch(e){c=function(e,t,n){return e[t]=n}}function l(e,t,n,r){var o=t&&t.prototype instanceof b?t:b,a=Object.create(o.prototype),s=new j(r||[]);return i(a,"_invoke",{value:S(e,n,s)}),a}function d(e,t,n){try{return{type:"normal",arg:e.call(t,n)}}catch(e){return{type:"throw",arg:e}}}t.wrap=l;var h="suspendedStart",f="suspendedYield",v="executing",y="completed",m={};function b(){}function g(){}function _(){}var w={};c(w,a,(function(){return this}));var k=Object.getPrototypeOf,x=k&&k(k(T([])));x&&x!==n&&r.call(x,a)&&(w=x);var E=_.prototype=b.prototype=Object.create(w);function $(e){["next","throw","return"].forEach((function(t){c(e,t,(function(e){return this._invoke(t,e)}))}))}function A(e,t){function n(i,o,a,s){var u=d(e[i],e,o);if("throw"!==u.type){var c=u.arg,l=c.value;return l&&"object"==M(l)&&r.call(l,"__await")?t.resolve(l.__await).then((function(e){n("next",e,a,s)}),(function(e){n("throw",e,a,s)})):t.resolve(l).then((function(e){c.value=e,a(c)}),(function(e){return n("throw",e,a,s)}))}s(u.arg)}var o;i(this,"_invoke",{value:function(e,r){function i(){return new t((function(t,i){n(e,r,t,i)}))}return o=o?o.then(i,i):i()}})}function S(t,n,r){var i=h;return function(o,a){if(i===v)throw new Error("Generator is already running");if(i===y){if("throw"===o)throw a;return{value:e,done:!0}}for(r.method=o,r.arg=a;;){var s=r.delegate;if(s){var u=O(s,r);if(u){if(u===m)continue;return u}}if("next"===r.method)r.sent=r._sent=r.arg;else if("throw"===r.method){if(i===h)throw i=y,r.arg;r.dispatchException(r.arg)}else"return"===r.method&&r.abrupt("return",r.arg);i=v;var c=d(t,n,r);if("normal"===c.type){if(i=r.done?y:f,c.arg===m)continue;return{value:c.arg,done:r.done}}"throw"===c.type&&(i=y,r.method="throw",r.arg=c.arg)}}}function O(t,n){var r=n.method,i=t.iterator[r];if(i===e)return n.delegate=null,"throw"===r&&t.iterator.return&&(n.method="return",n.arg=e,O(t,n),"throw"===n.method)||"return"!==r&&(n.method="throw",n.arg=new TypeError("The iterator does not provide a '"+r+"' method")),m;var o=d(i,t.iterator,n.arg);if("throw"===o.type)return n.method="throw",n.arg=o.arg,n.delegate=null,m;var a=o.arg;return a?a.done?(n[t.resultName]=a.value,n.next=t.nextLoc,"return"!==n.method&&(n.method="next",n.arg=e),n.delegate=null,m):a:(n.method="throw",n.arg=new TypeError("iterator result is not an object"),n.delegate=null,m)}function P(e){var t={tryLoc:e[0]};1 in e&&(t.catchLoc=e[1]),2 in e&&(t.finallyLoc=e[2],t.afterLoc=e[3]),this.tryEntries.push(t)}function C(e){var t=e.completion||{};t.type="normal",delete t.arg,e.completion=t}function j(e){this.tryEntries=[{tryLoc:"root"}],e.forEach(P,this),this.reset(!0)}function T(t){if(t||""===t){var n=t[a];if(n)return n.call(t);if("function"==typeof t.next)return t;if(!isNaN(t.length)){var i=-1,o=function n(){for(;++i<t.length;)if(r.call(t,i))return n.value=t[i],n.done=!1,n;return n.value=e,n.done=!0,n};return o.next=o}}throw new TypeError(M(t)+" is not iterable")}return g.prototype=_,i(E,"constructor",{value:_,configurable:!0}),i(_,"constructor",{value:g,configurable:!0}),g.displayName=c(_,u,"GeneratorFunction"),t.isGeneratorFunction=function(e){var t="function"==typeof e&&e.constructor;return!!t&&(t===g||"GeneratorFunction"===(t.displayName||t.name))},t.mark=function(e){return Object.setPrototypeOf?Object.setPrototypeOf(e,_):(e.__proto__=_,c(e,u,"GeneratorFunction")),e.prototype=Object.create(E),e},t.awrap=function(e){return{__await:e}},$(A.prototype),c(A.prototype,s,(function(){return this})),t.AsyncIterator=A,t.async=function(e,n,r,i,o){void 0===o&&(o=Promise);var a=new A(l(e,n,r,i),o);return t.isGeneratorFunction(n)?a:a.next().then((function(e){return e.done?e.value:a.next()}))},$(E),c(E,u,"Generator"),c(E,a,(function(){return this})),c(E,"toString",(function(){return"[object Generator]"})),t.keys=function(e){var t=Object(e),n=[];for(var r in t)n.push(r);return n.reverse(),function e(){for(;n.length;){var r=n.pop();if(r in t)return e.value=r,e.done=!1,e}return e.done=!0,e}},t.values=T,j.prototype={constructor:j,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=e,this.done=!1,this.delegate=null,this.method="next",this.arg=e,this.tryEntries.forEach(C),!t)for(var n in this)"t"===n.charAt(0)&&r.call(this,n)&&!isNaN(+n.slice(1))&&(this[n]=e)},stop:function(){this.done=!0;var e=this.tryEntries[0].completion;if("throw"===e.type)throw e.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var n=this;function i(r,i){return s.type="throw",s.arg=t,n.next=r,i&&(n.method="next",n.arg=e),!!i}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],s=a.completion;if("root"===a.tryLoc)return i("end");if(a.tryLoc<=this.prev){var u=r.call(a,"catchLoc"),c=r.call(a,"finallyLoc");if(u&&c){if(this.prev<a.catchLoc)return i(a.catchLoc,!0);if(this.prev<a.finallyLoc)return i(a.finallyLoc)}else if(u){if(this.prev<a.catchLoc)return i(a.catchLoc,!0)}else{if(!c)throw new Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return i(a.finallyLoc)}}}},abrupt:function(e,t){for(var n=this.tryEntries.length-1;n>=0;--n){var i=this.tryEntries[n];if(i.tryLoc<=this.prev&&r.call(i,"finallyLoc")&&this.prev<i.finallyLoc){var o=i;break}}o&&("break"===e||"continue"===e)&&o.tryLoc<=t&&t<=o.finallyLoc&&(o=null);var a=o?o.completion:{};return a.type=e,a.arg=t,o?(this.method="next",this.next=o.finallyLoc,m):this.complete(a)},complete:function(e,t){if("throw"===e.type)throw e.arg;return"break"===e.type||"continue"===e.type?this.next=e.arg:"return"===e.type?(this.rval=this.arg=e.arg,this.method="return",this.next="end"):"normal"===e.type&&t&&(this.next=t),m},finish:function(e){for(var t=this.tryEntries.length-1;t>=0;--t){var n=this.tryEntries[t];if(n.finallyLoc===e)return this.complete(n.completion,n.afterLoc),C(n),m}},catch:function(e){for(var t=this.tryEntries.length-1;t>=0;--t){var n=this.tryEntries[t];if(n.tryLoc===e){var r=n.completion;if("throw"===r.type){var i=r.arg;C(n)}return i}}throw new Error("illegal catch attempt")},delegateYield:function(t,n,r){return this.delegate={iterator:T(t),resultName:n,nextLoc:r},"next"===this.method&&(this.arg=e),m}},t}function y(e,t,n,r,i,o,a){try{var s=e[o](a),u=s.value}catch(e){return void n(e)}s.done?t(u):Promise.resolve(u).then(r,i)}function m(e){return function(){var t=this,n=arguments;return new Promise((function(r,i){var o=e.apply(t,n);function a(e){y(o,r,i,a,s,"next",e)}function s(e){y(o,r,i,a,s,"throw",e)}a(void 0)}))}}function b(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),Object.defineProperty(e,"prototype",{writable:!1}),t&&E(e,t)}function g(e){var t=x();return function(){var n,r=$(e);if(t){var i=$(this).constructor;n=Reflect.construct(r,arguments,i)}else n=r.apply(this,arguments);return function(e,t){if(t&&("object"===M(t)||"function"==typeof t))return t;if(void 0!==t)throw new TypeError("Derived constructors may only return object or undefined");return _(e)}(this,n)}}function _(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}function w(e){var t="function"==typeof Map?new Map:void 0;return w=function(e){if(null===e||!function(e){try{return-1!==Function.toString.call(e).indexOf("[native code]")}catch(t){return"function"==typeof e}}(e))return e;if("function"!=typeof e)throw new TypeError("Super expression must either be null or a function");if(void 0!==t){if(t.has(e))return t.get(e);t.set(e,n)}function n(){return k(e,arguments,$(this).constructor)}return n.prototype=Object.create(e.prototype,{constructor:{value:n,enumerable:!1,writable:!0,configurable:!0}}),E(n,e)},w(e)}function k(e,t,n){return k=x()?Reflect.construct.bind():function(e,t,n){var r=[null];r.push.apply(r,t);var i=new(Function.bind.apply(e,r));return n&&E(i,n.prototype),i},k.apply(null,arguments)}function x(){if("undefined"==typeof Reflect||!Reflect.construct)return!1;if(Reflect.construct.sham)return!1;if("function"==typeof Proxy)return!0;try{return Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],(function(){}))),!0}catch(e){return!1}}function E(e,t){return E=Object.setPrototypeOf?Object.setPrototypeOf.bind():function(e,t){return e.__proto__=t,e},E(e,t)}function $(e){return $=Object.setPrototypeOf?Object.getPrototypeOf.bind():function(e){return e.__proto__||Object.getPrototypeOf(e)},$(e)}function A(e,t){var n="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!n){if(Array.isArray(e)||(n=S(e))||t&&e&&"number"==typeof e.length){n&&(e=n);var r=0,i=function(){};return{s:i,n:function(){return r>=e.length?{done:!0}:{done:!1,value:e[r++]}},e:function(e){throw e},f:i}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var o,a=!0,s=!1;return{s:function(){n=n.call(e)},n:function(){var e=n.next();return a=e.done,e},e:function(e){s=!0,o=e},f:function(){try{a||null==n.return||n.return()}finally{if(s)throw o}}}}function S(e,t){if(e){if("string"==typeof e)return O(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);return"Object"===n&&e.constructor&&(n=e.constructor.name),"Map"===n||"Set"===n?Array.from(e):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?O(e,t):void 0}}function O(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}function P(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function C(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,T(r.key),r)}}function j(e,t,n){return t&&C(e.prototype,t),n&&C(e,n),Object.defineProperty(e,"prototype",{writable:!1}),e}function T(e){var t=function(e,t){if("object"!=M(e)||!e)return e;var n=e[Symbol.toPrimitive];if(void 0!==n){var r=n.call(e,t||"default");if("object"!=M(r))return r;throw new TypeError("@@toPrimitive must return a primitive value.")}return("string"===t?String:Number)(e)}(e,"string");return"symbol"==M(t)?t:String(t)}function M(e){return M="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},M(e)}function N(e,t,n,r){var i,o=arguments.length,a=o<3?t:null===r?r=Object.getOwnPropertyDescriptor(t,n):r;if("object"===("undefined"==typeof Reflect?"undefined":M(Reflect))&&"function"==typeof Reflect.decorate)a=Reflect.decorate(e,t,n,r);else for(var s=e.length-1;s>=0;s--)(i=e[s])&&(a=(o<3?i(a):o>3?i(t,n,a):i(t,n))||a);return o>3&&a&&Object.defineProperty(t,n,a),a}"function"==typeof SuppressedError&&SuppressedError;var R=globalThis,U=R.ShadowRoot&&(void 0===R.ShadyCSS||R.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,L=Symbol(),D=new WeakMap,H=function(){function e(t,n,r){if(P(this,e),this._$cssResult$=!0,r!==L)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=n}return j(e,[{key:"styleSheet",get:function(){var e=this.o,t=this.t;if(U&&void 0===e){var n=void 0!==t&&1===t.length;n&&(e=D.get(t)),void 0===e&&((this.o=e=new CSSStyleSheet).replaceSync(this.cssText),n&&D.set(t,e))}return e}},{key:"toString",value:function(){return this.cssText}}]),e}(),I=U?function(e){return e}:function(e){return e instanceof CSSStyleSheet?function(e){var t,n="",r=A(e.cssRules);try{for(r.s();!(t=r.n()).done;){n+=t.value.cssText}}catch(e){r.e(e)}finally{r.f()}return function(e){return new H("string"==typeof e?e:e+"",void 0,L)}(n)}(e):e},z=Object.is,q=Object.defineProperty,B=Object.getOwnPropertyDescriptor,V=Object.getOwnPropertyNames,W=Object.getOwnPropertySymbols,J=Object.getPrototypeOf,G=globalThis,F=G.trustedTypes,Y=F?F.emptyScript:"",K=G.reactiveElementPolyfillSupport,Z=function(e,t){return e},Q={toAttribute:function(e,t){switch(t){case Boolean:e=e?Y:null;break;case Object:case Array:e=null==e?e:JSON.stringify(e)}return e},fromAttribute:function(e,t){var n=e;switch(t){case Boolean:n=null!==e;break;case Number:n=null===e?null:Number(e);break;case Object:case Array:try{n=JSON.parse(e)}catch(e){n=null}}return n}},X=function(e,t){return!z(e,t)},ee={attribute:!0,type:String,converter:Q,reflect:!1,hasChanged:X};null!==(e=Symbol.metadata)&&void 0!==e||(Symbol.metadata=Symbol("metadata")),null!==(t=G.litPropertyMetadata)&&void 0!==t||(G.litPropertyMetadata=new WeakMap);var te=function(e){b(r,w(HTMLElement));var t,n=g(r);function r(){var e;return P(this,r),(e=n.call(this))._$Ep=void 0,e.isUpdatePending=!1,e.hasUpdated=!1,e._$Em=null,e._$Ev(),e}return j(r,[{key:"_$Ev",value:function(){var e,t=this;this._$Eg=new Promise((function(e){return t.enableUpdating=e})),this._$AL=new Map,this._$ES(),this.requestUpdate(),null===(e=this.constructor.l)||void 0===e||e.forEach((function(e){return e(t)}))}},{key:"addController",value:function(e){var t,n;(null!==(t=this._$E_)&&void 0!==t?t:this._$E_=new Set).add(e),void 0!==this.renderRoot&&this.isConnected&&(null===(n=e.hostConnected)||void 0===n||n.call(e))}},{key:"removeController",value:function(e){var t;null===(t=this._$E_)||void 0===t||t.delete(e)}},{key:"_$ES",value:function(){var e,t=new Map,n=A(this.constructor.elementProperties.keys());try{for(n.s();!(e=n.n()).done;){var r=e.value;this.hasOwnProperty(r)&&(t.set(r,this[r]),delete this[r])}}catch(e){n.e(e)}finally{n.f()}t.size>0&&(this._$Ep=t)}},{key:"createRenderRoot",value:function(){var e,t=null!==(e=this.shadowRoot)&&void 0!==e?e:this.attachShadow(this.constructor.shadowRootOptions);return function(e,t){if(U)e.adoptedStyleSheets=t.map((function(e){return e instanceof CSSStyleSheet?e:e.styleSheet}));else{var n,r=A(t);try{for(r.s();!(n=r.n()).done;){var i=n.value,o=document.createElement("style"),a=R.litNonce;void 0!==a&&o.setAttribute("nonce",a),o.textContent=i.cssText,e.appendChild(o)}}catch(e){r.e(e)}finally{r.f()}}}(t,this.constructor.elementStyles),t}},{key:"connectedCallback",value:function(){var e,t;null!==(e=this.renderRoot)&&void 0!==e||(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),null===(t=this._$E_)||void 0===t||t.forEach((function(e){var t;return null===(t=e.hostConnected)||void 0===t?void 0:t.call(e)}))}},{key:"enableUpdating",value:function(e){}},{key:"disconnectedCallback",value:function(){var e;null===(e=this._$E_)||void 0===e||e.forEach((function(e){var t;return null===(t=e.hostDisconnected)||void 0===t?void 0:t.call(e)}))}},{key:"attributeChangedCallback",value:function(e,t,n){this._$AK(e,n)}},{key:"_$EO",value:function(e,t){var n=this.constructor.elementProperties.get(e),r=this.constructor._$Eu(e,n);if(void 0!==r&&!0===n.reflect){var i,o=(void 0!==(null===(i=n.converter)||void 0===i?void 0:i.toAttribute)?n.converter:Q).toAttribute(t,n.type);this._$Em=e,null==o?this.removeAttribute(r):this.setAttribute(r,o),this._$Em=null}}},{key:"_$AK",value:function(e,t){var n=this.constructor,r=n._$Eh.get(e);if(void 0!==r&&this._$Em!==r){var i,o=n.getPropertyOptions(r),a="function"==typeof o.converter?{fromAttribute:o.converter}:void 0!==(null===(i=o.converter)||void 0===i?void 0:i.fromAttribute)?o.converter:Q;this._$Em=r,this[r]=a.fromAttribute(t,o.type),this._$Em=null}}},{key:"requestUpdate",value:function(e,t,n){var r=arguments.length>3&&void 0!==arguments[3]&&arguments[3],i=arguments.length>4?arguments[4]:void 0;if(void 0!==e){var o,a;if(null!==(o=n)&&void 0!==o||(n=this.constructor.getPropertyOptions(e)),!(null!==(a=n.hasChanged)&&void 0!==a?a:X)(r?i:this[e],t))return;this.C(e,t,n)}!1===this.isUpdatePending&&(this._$Eg=this._$EP())}},{key:"C",value:function(e,t,n){var r;this._$AL.has(e)||this._$AL.set(e,t),!0===n.reflect&&this._$Em!==e&&(null!==(r=this._$Ej)&&void 0!==r?r:this._$Ej=new Set).add(e)}},{key:"_$EP",value:(t=m(p().mark((function e(){var t;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return this.isUpdatePending=!0,e.prev=1,e.next=4,this._$Eg;case 4:e.next=9;break;case 6:e.prev=6,e.t0=e.catch(1),Promise.reject(e.t0);case 9:if(t=this.scheduleUpdate(),e.t1=null!=t,!e.t1){e.next=14;break}return e.next=14,t;case 14:return e.abrupt("return",!this.isUpdatePending);case 15:case"end":return e.stop()}}),e,this,[[1,6]])}))),function(){return t.apply(this,arguments)})},{key:"scheduleUpdate",value:function(){return this.performUpdate()}},{key:"performUpdate",value:function(){if(this.isUpdatePending){if(!this.hasUpdated){var e;if(null!==(e=this.renderRoot)&&void 0!==e||(this.renderRoot=this.createRenderRoot()),this._$Ep){var t,n=A(this._$Ep);try{for(n.s();!(t=n.n()).done;){var r=v(t.value,2),i=r[0],o=r[1];this[i]=o}}catch(e){n.e(e)}finally{n.f()}this._$Ep=void 0}var a=this.constructor.elementProperties;if(a.size>0){var s,u=A(a);try{for(u.s();!(s=u.n()).done;){var c=v(s.value,2),l=c[0],d=c[1];!0!==d.wrapped||this._$AL.has(l)||void 0===this[l]||this.C(l,this[l],d)}}catch(e){u.e(e)}finally{u.f()}}}var h=!1,f=this._$AL;try{var p;(h=this.shouldUpdate(f))?(this.willUpdate(f),null!==(p=this._$E_)&&void 0!==p&&p.forEach((function(e){var t;return null===(t=e.hostUpdate)||void 0===t?void 0:t.call(e)})),this.update(f)):this._$ET()}catch(f){throw h=!1,this._$ET(),f}h&&this._$AE(f)}}},{key:"willUpdate",value:function(e){}},{key:"_$AE",value:function(e){var t;null!==(t=this._$E_)&&void 0!==t&&t.forEach((function(e){var t;return null===(t=e.hostUpdated)||void 0===t?void 0:t.call(e)})),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(e)),this.updated(e)}},{key:"_$ET",value:function(){this._$AL=new Map,this.isUpdatePending=!1}},{key:"updateComplete",get:function(){return this.getUpdateComplete()}},{key:"getUpdateComplete",value:function(){return this._$Eg}},{key:"shouldUpdate",value:function(e){return!0}},{key:"update",value:function(e){var t=this;this._$Ej&&(this._$Ej=this._$Ej.forEach((function(e){return t._$EO(e,t[e])}))),this._$ET()}},{key:"updated",value:function(e){}},{key:"firstUpdated",value:function(e){}}],[{key:"addInitializer",value:function(e){var t;this._$Ei(),(null!==(t=this.l)&&void 0!==t?t:this.l=[]).push(e)}},{key:"observedAttributes",get:function(){return this.finalize(),this._$Eh&&f(this._$Eh.keys())}},{key:"createProperty",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:ee;if(t.state&&(t.attribute=!1),this._$Ei(),this.elementProperties.set(e,t),!t.noAccessor){var n=Symbol(),r=this.getPropertyDescriptor(e,n,t);void 0!==r&&q(this.prototype,e,r)}}},{key:"getPropertyDescriptor",value:function(e,t,n){var r,i=null!==(r=B(this.prototype,e))&&void 0!==r?r:{get:function(){return this[t]},set:function(e){this[t]=e}},o=i.get,a=i.set;return{get:function(){return null==o?void 0:o.call(this)},set:function(t){var r=null==o?void 0:o.call(this);a.call(this,t),this.requestUpdate(e,r,n)},configurable:!0,enumerable:!0}}},{key:"getPropertyOptions",value:function(e){var t;return null!==(t=this.elementProperties.get(e))&&void 0!==t?t:ee}},{key:"_$Ei",value:function(){if(!this.hasOwnProperty(Z("elementProperties"))){var e=J(this);e.finalize(),void 0!==e.l&&(this.l=f(e.l)),this.elementProperties=new Map(e.elementProperties)}}},{key:"finalize",value:function(){if(!this.hasOwnProperty(Z("finalized"))){if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(Z("properties"))){var e,t=this.properties,n=A([].concat(f(V(t)),f(W(t))));try{for(n.s();!(e=n.n()).done;){var r=e.value;this.createProperty(r,t[r])}}catch(e){n.e(e)}finally{n.f()}}var i=this[Symbol.metadata];if(null!==i){var o=litPropertyMetadata.get(i);if(void 0!==o){var a,s=A(o);try{for(s.s();!(a=s.n()).done;){var u=v(a.value,2),c=u[0],l=u[1];this.elementProperties.set(c,l)}}catch(e){s.e(e)}finally{s.f()}}}this._$Eh=new Map;var d,h=A(this.elementProperties);try{for(h.s();!(d=h.n()).done;){var p=v(d.value,2),y=p[0],m=p[1],b=this._$Eu(y,m);void 0!==b&&this._$Eh.set(b,y)}}catch(e){h.e(e)}finally{h.f()}this.elementStyles=this.finalizeStyles(this.styles)}}},{key:"finalizeStyles",value:function(e){var t=[];if(Array.isArray(e)){var n,r=A(new Set(e.flat(1/0).reverse()));try{for(r.s();!(n=r.n()).done;){var i=n.value;t.unshift(I(i))}}catch(e){r.e(e)}finally{r.f()}}else void 0!==e&&t.push(I(e));return t}},{key:"_$Eu",value:function(e,t){var n=t.attribute;return!1===n?void 0:"string"==typeof n?n:"string"==typeof e?e.toLowerCase():void 0}}]),r}();te.elementStyles=[],te.shadowRootOptions={mode:"open"},te[Z("elementProperties")]=new Map,te[Z("finalized")]=new Map,null!=K&&K({ReactiveElement:te}),(null!==(n=G.reactiveElementVersions)&&void 0!==n?n:G.reactiveElementVersions=[]).push("2.0.2");var ne=globalThis,re=ne.trustedTypes,ie=re?re.createPolicy("lit-html",{createHTML:function(e){return e}}):void 0,oe="$lit$",ae="lit$".concat((Math.random()+"").slice(9),"$"),se="?"+ae,ue="<".concat(se,">"),ce=document,le=function(){return ce.createComment("")},de=function(e){return null===e||"object"!=M(e)&&"function"!=typeof e},he=Array.isArray,fe="[ \t\n\f\r]",ve=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,pe=/-->/g,ye=/>/g,me=RegExp(">|".concat(fe,"(?:([^\\s\"'>=/]+)(").concat(fe,"*=").concat(fe,"*(?:[^ \t\n\f\r\"'`<>=]|(\"|')|))|$)"),"g"),be=/'/g,ge=/"/g,_e=/^(?:script|style|textarea|title)$/i,we=function(e){return function(t){for(var n=arguments.length,r=new Array(n>1?n-1:0),i=1;i<n;i++)r[i-1]=arguments[i];return{_$litType$:e,strings:t,values:r}}}(1),ke=Symbol.for("lit-noChange"),xe=Symbol.for("lit-nothing"),Ee=new WeakMap,$e=ce.createTreeWalker(ce,129);function Ae(e,t){if(!Array.isArray(e)||!e.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==ie?ie.createHTML(t):t}var Se=function(e,t){for(var n,r=e.length-1,i=[],o=2===t?"<svg>":"",a=ve,s=0;s<r;s++){for(var u=e[s],c=void 0,l=void 0,d=-1,h=0;h<u.length&&(a.lastIndex=h,null!==(l=a.exec(u)));){var f;h=a.lastIndex,a===ve?"!--"===l[1]?a=pe:void 0!==l[1]?a=ye:void 0!==l[2]?(_e.test(l[2])&&(n=RegExp("</"+l[2],"g")),a=me):void 0!==l[3]&&(a=me):a===me?">"===l[0]?(a=null!==(f=n)&&void 0!==f?f:ve,d=-1):void 0===l[1]?d=-2:(d=a.lastIndex-l[2].length,c=l[1],a=void 0===l[3]?me:'"'===l[3]?ge:be):a===ge||a===be?a=me:a===pe||a===ye?a=ve:(a=me,n=void 0)}var v=a===me&&e[s+1].startsWith("/>")?" ":"";o+=a===ve?u+ue:d>=0?(i.push(c),u.slice(0,d)+oe+u.slice(d)+ae+v):u+ae+(-2===d?s:v)}return[Ae(e,o+(e[r]||"<?>")+(2===t?"</svg>":"")),i]},Oe=function(){function e(t,n){var r,i=t.strings,o=t._$litType$;P(this,e),this.parts=[];var a=0,s=0,u=i.length-1,c=this.parts,l=v(Se(i,o),2),d=l[0],h=l[1];if(this.el=e.createElement(d,n),$e.currentNode=this.el.content,2===o){var p=this.el.content.firstChild;p.replaceWith.apply(p,f(p.childNodes))}for(;null!==(r=$e.nextNode())&&c.length<u;){if(1===r.nodeType){if(r.hasAttributes()){var y,m=A(r.getAttributeNames());try{for(m.s();!(y=m.n()).done;){var b=y.value;if(b.endsWith(oe)){var g=h[s++],_=r.getAttribute(b).split(ae),w=/([.?@])?(.*)/.exec(g);c.push({type:1,index:a,name:w[2],strings:_,ctor:"."===w[1]?Me:"?"===w[1]?Ne:"@"===w[1]?Re:Te}),r.removeAttribute(b)}else b.startsWith(ae)&&(c.push({type:6,index:a}),r.removeAttribute(b))}}catch(e){m.e(e)}finally{m.f()}}if(_e.test(r.tagName)){var k=r.textContent.split(ae),x=k.length-1;if(x>0){r.textContent=re?re.emptyScript:"";for(var E=0;E<x;E++)r.append(k[E],le()),$e.nextNode(),c.push({type:2,index:++a});r.append(k[x],le())}}}else if(8===r.nodeType)if(r.data===se)c.push({type:2,index:a});else for(var $=-1;-1!==($=r.data.indexOf(ae,$+1));)c.push({type:7,index:a}),$+=ae.length-1;a++}}return j(e,null,[{key:"createElement",value:function(e,t){var n=ce.createElement("template");return n.innerHTML=e,n}}]),e}();function Pe(e,t){var n,r,i,o,a,s=arguments.length>2&&void 0!==arguments[2]?arguments[2]:e,u=arguments.length>3?arguments[3]:void 0;if(t===ke)return t;var c=void 0!==u?null===(n=s._$Co)||void 0===n?void 0:n[u]:s._$Cl,l=de(t)?void 0:t._$litDirective$;return(null===(r=c)||void 0===r?void 0:r.constructor)!==l&&(null!==(i=c)&&void 0!==i&&null!==(o=i._$AO)&&void 0!==o&&o.call(i,!1),void 0===l?c=void 0:(c=new l(e))._$AT(e,s,u),void 0!==u?(null!==(a=s._$Co)&&void 0!==a?a:s._$Co=[])[u]=c:s._$Cl=c),void 0!==c&&(t=Pe(e,c._$AS(e,t.values),c,u)),t}var Ce=function(){function e(t,n){P(this,e),this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=n}return j(e,[{key:"parentNode",get:function(){return this._$AM.parentNode}},{key:"_$AU",get:function(){return this._$AM._$AU}},{key:"u",value:function(e){var t,n=this._$AD,r=n.el.content,i=n.parts,o=(null!==(t=null==e?void 0:e.creationScope)&&void 0!==t?t:ce).importNode(r,!0);$e.currentNode=o;for(var a=$e.nextNode(),s=0,u=0,c=i[0];void 0!==c;){var l;if(s===c.index){var d=void 0;2===c.type?d=new je(a,a.nextSibling,this,e):1===c.type?d=new c.ctor(a,c.name,c.strings,this,e):6===c.type&&(d=new Ue(a,this,e)),this._$AV.push(d),c=i[++u]}s!==(null===(l=c)||void 0===l?void 0:l.index)&&(a=$e.nextNode(),s++)}return $e.currentNode=ce,o}},{key:"p",value:function(e){var t,n=0,r=A(this._$AV);try{for(r.s();!(t=r.n()).done;){var i=t.value;void 0!==i&&(void 0!==i.strings?(i._$AI(e,i,n),n+=i.strings.length-2):i._$AI(e[n])),n++}}catch(e){r.e(e)}finally{r.f()}}}]),e}(),je=function(){function e(t,n,r,i){var o;P(this,e),this.type=2,this._$AH=xe,this._$AN=void 0,this._$AA=t,this._$AB=n,this._$AM=r,this.options=i,this._$Cv=null===(o=null==i?void 0:i.isConnected)||void 0===o||o}return j(e,[{key:"_$AU",get:function(){var e,t;return null!==(e=null===(t=this._$AM)||void 0===t?void 0:t._$AU)&&void 0!==e?e:this._$Cv}},{key:"parentNode",get:function(){var e,t=this._$AA.parentNode,n=this._$AM;return void 0!==n&&11===(null===(e=t)||void 0===e?void 0:e.nodeType)&&(t=n.parentNode),t}},{key:"startNode",get:function(){return this._$AA}},{key:"endNode",get:function(){return this._$AB}},{key:"_$AI",value:function(e){e=Pe(this,e,arguments.length>1&&void 0!==arguments[1]?arguments[1]:this),de(e)?e===xe||null==e||""===e?(this._$AH!==xe&&this._$AR(),this._$AH=xe):e!==this._$AH&&e!==ke&&this._(e):void 0!==e._$litType$?this.g(e):void 0!==e.nodeType?this.$(e):function(e){return he(e)||"function"==typeof(null==e?void 0:e[Symbol.iterator])}(e)?this.T(e):this._(e)}},{key:"k",value:function(e){return this._$AA.parentNode.insertBefore(e,this._$AB)}},{key:"$",value:function(e){this._$AH!==e&&(this._$AR(),this._$AH=this.k(e))}},{key:"_",value:function(e){this._$AH!==xe&&de(this._$AH)?this._$AA.nextSibling.data=e:this.$(ce.createTextNode(e)),this._$AH=e}},{key:"g",value:function(e){var t,n=e.values,r=e._$litType$,i="number"==typeof r?this._$AC(e):(void 0===r.el&&(r.el=Oe.createElement(Ae(r.h,r.h[0]),this.options)),r);if((null===(t=this._$AH)||void 0===t?void 0:t._$AD)===i)this._$AH.p(n);else{var o=new Ce(i,this),a=o.u(this.options);o.p(n),this.$(a),this._$AH=o}}},{key:"_$AC",value:function(e){var t=Ee.get(e.strings);return void 0===t&&Ee.set(e.strings,t=new Oe(e)),t}},{key:"T",value:function(t){he(this._$AH)||(this._$AH=[],this._$AR());var n,r,i=this._$AH,o=0,a=A(t);try{for(a.s();!(r=a.n()).done;){var s=r.value;o===i.length?i.push(n=new e(this.k(le()),this.k(le()),this,this.options)):n=i[o],n._$AI(s),o++}}catch(e){a.e(e)}finally{a.f()}o<i.length&&(this._$AR(n&&n._$AB.nextSibling,o),i.length=o)}},{key:"_$AR",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:this._$AA.nextSibling,t=arguments.length>1?arguments[1]:void 0;for(null===(n=this._$AP)||void 0===n||n.call(this,!1,!0,t);e&&e!==this._$AB;){var n,r=e.nextSibling;e.remove(),e=r}}},{key:"setConnected",value:function(e){var t;void 0===this._$AM&&(this._$Cv=e,null===(t=this._$AP)||void 0===t||t.call(this,e))}}]),e}(),Te=function(){function e(t,n,r,i,o){P(this,e),this.type=1,this._$AH=xe,this._$AN=void 0,this.element=t,this.name=n,this._$AM=i,this.options=o,r.length>2||""!==r[0]||""!==r[1]?(this._$AH=Array(r.length-1).fill(new String),this.strings=r):this._$AH=xe}return j(e,[{key:"tagName",get:function(){return this.element.tagName}},{key:"_$AU",get:function(){return this._$AM._$AU}},{key:"_$AI",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:this,n=arguments.length>2?arguments[2]:void 0,r=arguments.length>3?arguments[3]:void 0,i=this.strings,o=!1;if(void 0===i)e=Pe(this,e,t,0),(o=!de(e)||e!==this._$AH&&e!==ke)&&(this._$AH=e);else{var a,s,u=e;for(e=i[0],a=0;a<i.length-1;a++){var c;(s=Pe(this,u[n+a],t,a))===ke&&(s=this._$AH[a]),o||(o=!de(s)||s!==this._$AH[a]),s===xe?e=xe:e!==xe&&(e+=(null!==(c=s)&&void 0!==c?c:"")+i[a+1]),this._$AH[a]=s}}o&&!r&&this.O(e)}},{key:"O",value:function(e){e===xe?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=e?e:"")}}]),e}(),Me=function(e){b(n,Te);var t=g(n);function n(){var e;return P(this,n),(e=t.apply(this,arguments)).type=3,e}return j(n,[{key:"O",value:function(e){this.element[this.name]=e===xe?void 0:e}}]),n}(),Ne=function(e){b(n,Te);var t=g(n);function n(){var e;return P(this,n),(e=t.apply(this,arguments)).type=4,e}return j(n,[{key:"O",value:function(e){this.element.toggleAttribute(this.name,!!e&&e!==xe)}}]),n}(),Re=function(e){b(n,Te);var t=g(n);function n(e,r,i,o,a){var s;return P(this,n),(s=t.call(this,e,r,i,o,a)).type=5,s}return j(n,[{key:"_$AI",value:function(e){var t;if((e=null!==(t=Pe(this,e,arguments.length>1&&void 0!==arguments[1]?arguments[1]:this,0))&&void 0!==t?t:xe)!==ke){var n=this._$AH,r=e===xe&&n!==xe||e.capture!==n.capture||e.once!==n.once||e.passive!==n.passive,i=e!==xe&&(n===xe||r);r&&this.element.removeEventListener(this.name,this,n),i&&this.element.addEventListener(this.name,this,e),this._$AH=e}}},{key:"handleEvent",value:function(e){var t,n;"function"==typeof this._$AH?this._$AH.call(null!==(t=null===(n=this.options)||void 0===n?void 0:n.host)&&void 0!==t?t:this.element,e):this._$AH.handleEvent(e)}}]),n}(),Ue=function(){function e(t,n,r){P(this,e),this.element=t,this.type=6,this._$AN=void 0,this._$AM=n,this.options=r}return j(e,[{key:"_$AU",get:function(){return this._$AM._$AU}},{key:"_$AI",value:function(e){Pe(this,e)}}]),e}(),Le=ne.litHtmlPolyfillSupport;null!=Le&&Le(Oe,je),(null!==(r=ne.litHtmlVersions)&&void 0!==r?r:ne.litHtmlVersions=[]).push("3.1.0");var De=function(e){b(n,te);var t=g(n);function n(){var e;return P(this,n),(e=t.apply(this,arguments)).renderOptions={host:_(e)},e._$Do=void 0,e}return j(n,[{key:"createRenderRoot",value:function(){var e,t,r=h($(n.prototype),"createRenderRoot",this).call(this);return null!==(t=(e=this.renderOptions).renderBefore)&&void 0!==t||(e.renderBefore=r.firstChild),r}},{key:"update",value:function(e){var t=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),h($(n.prototype),"update",this).call(this,e),this._$Do=function(e,t,n){var r,i=null!==(r=null==n?void 0:n.renderBefore)&&void 0!==r?r:t,o=i._$litPart$;if(void 0===o){var a,s=null!==(a=null==n?void 0:n.renderBefore)&&void 0!==a?a:null;i._$litPart$=o=new je(t.insertBefore(le(),s),s,void 0,null!=n?n:{})}return o._$AI(e),o}(t,this.renderRoot,this.renderOptions)}},{key:"connectedCallback",value:function(){var e;h($(n.prototype),"connectedCallback",this).call(this),null===(e=this._$Do)||void 0===e||e.setConnected(!0)}},{key:"disconnectedCallback",value:function(){var e;h($(n.prototype),"disconnectedCallback",this).call(this),null===(e=this._$Do)||void 0===e||e.setConnected(!1)}},{key:"render",value:function(){return ke}}]),n}();De._$litElement$=!0,De.finalized=!0,null===(i=globalThis.litElementHydrateSupport)||void 0===i||i.call(globalThis,{LitElement:De});var He=globalThis.litElementPolyfillSupport;null==He||He({LitElement:De}),(null!==(o=globalThis.litElementVersions)&&void 0!==o?o:globalThis.litElementVersions=[]).push("4.0.2");var Ie,ze={attribute:!0,type:String,converter:Q,reflect:!1,hasChanged:X};function qe(e){return function(t,n){return"object"==M(n)?function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:ze,t=arguments.length>1?arguments[1]:void 0,n=arguments.length>2?arguments[2]:void 0,r=n.kind,i=n.metadata,o=globalThis.litPropertyMetadata.get(i);if(void 0===o&&globalThis.litPropertyMetadata.set(i,o=new Map),o.set(n.name,e),"accessor"===r){var a=n.name;return{set:function(n){var r=t.get.call(this);t.set.call(this,n),this.requestUpdate(a,r,e)},init:function(t){return void 0!==t&&this.C(a,void 0,e),t}}}if("setter"===r){var s=n.name;return function(n){var r=this[s];t.call(this,n),this.requestUpdate(s,r,e)}}throw Error("Unsupported decorator location: "+r)}(e,t,n):function(e,t,n){var r=t.hasOwnProperty(n);return t.constructor.createProperty(n,r?l(l({},e),{},{wrapped:!0}):e),r?Object.getOwnPropertyDescriptor(t,n):void 0}(e,t,n)}}var Be=new WeakMap,Ve=function(){},We=function(){function e(t){var n=this;P(this,e),this.subscribers=[],this.settlement=null,this[Ie]="Unpromise",this.promise="function"==typeof t?new Promise(t):t;var r=this.promise.then((function(e){var t=n.subscribers;n.subscribers=null,n.settlement={status:"fulfilled",value:e},null==t||t.forEach((function(t){(0,t.resolve)(e)}))}));"catch"in r&&r.catch((function(e){var t=n.subscribers;n.subscribers=null,n.settlement={status:"rejected",reason:e},null==t||t.forEach((function(t){(0,t.reject)(e)}))}))}var t,n,r;return j(e,[{key:"subscribe",value:function(){var e,t,n=this,r=this.settlement;if(null===r){if(null===this.subscribers)throw new Error("Unpromise settled but still has subscribers");var i=function(){var e,t;return{promise:new Promise((function(n,r){e=n,t=r})),resolve:e,reject:t}}();this.subscribers=function(e,t){return[].concat(f(e),[t])}(this.subscribers,i),e=i.promise,t=function(){null!==n.subscribers&&(n.subscribers=function(e,t){var n=e.indexOf(t);return-1!==n?function(e,t){return[].concat(f(e.slice(0,t)),f(e.slice(t+1)))}(e,n):e}(n.subscribers,i))}}else{e="fulfilled"===r.status?Promise.resolve(r.value):Promise.reject(r.reason),t=Ve}return Object.assign(e,{unsubscribe:t})}},{key:"then",value:function(e,t){var n=this.subscribe(),r=n.unsubscribe;return Object.assign(n.then(e,t),{unsubscribe:r})}},{key:"catch",value:function(e){var t=this.subscribe(),n=t.unsubscribe;return Object.assign(t.catch(e),{unsubscribe:n})}},{key:"finally",value:function(e){var t=this.subscribe(),n=t.unsubscribe;return Object.assign(t.finally(e),{unsubscribe:n})}}],[{key:"proxy",value:function(t){var n=e.getSubscribablePromise(t);return M(n)<"u"?n:e.createSubscribablePromise(t)}},{key:"createSubscribablePromise",value:function(t){var n=new e(t);return Be.set(t,n),Be.set(n,n),n}},{key:"getSubscribablePromise",value:function(e){return Be.get(e)}},{key:"resolve",value:function(t){var n="object"==M(t)&&null!==t&&"then"in t&&"function"==typeof t.then?t:Promise.resolve(t);return e.proxy(n).subscribe()}},{key:"any",value:(r=m(p().mark((function t(n){var r;return p().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return r=(Array.isArray(n)?n:f(n)).map(e.resolve),t.prev=1,t.next=4,Promise.any(r);case 4:return t.abrupt("return",t.sent);case 5:return t.prev=5,r.forEach((function(e){(0,e.unsubscribe)()})),t.finish(5);case 8:case"end":return t.stop()}}),t,null,[[1,,5,8]])}))),function(e){return r.apply(this,arguments)})},{key:"race",value:(n=m(p().mark((function t(n){var r;return p().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return r=(Array.isArray(n)?n:f(n)).map(e.resolve),t.prev=1,t.next=4,Promise.race(r);case 4:return t.abrupt("return",t.sent);case 5:return t.prev=5,r.forEach((function(e){(0,e.unsubscribe)()})),t.finish(5);case 8:case"end":return t.stop()}}),t,null,[[1,,5,8]])}))),function(e){return n.apply(this,arguments)})},{key:"raceReferences",value:(t=m(p().mark((function e(t){var n,r,i;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return n=t.map(Ge),e.prev=1,e.next=4,Promise.race(n);case 4:return e.abrupt("return",e.sent);case 5:e.prev=5,r=A(n);try{for(r.s();!(i=r.n()).done;)i.value.unsubscribe()}catch(e){r.e(e)}finally{r.f()}return e.finish(5);case 9:case"end":return e.stop()}}),e,null,[[1,,5,9]])}))),function(e){return t.apply(this,arguments)})}]),e}();Ie=Symbol.toStringTag;var Je=We;function Ge(e){return Je.proxy(e).then((function(){return[e]}))}function Fe(){return Ye.apply(this,arguments)}function Ye(){return Ye=m(p().mark((function e(){var t;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,Je.race([customElements.whenDefined("home-assistant"),customElements.whenDefined("hc-main")]);case 2:t=customElements.get("home-assistant")?"home-assistant":"hc-main";case 3:if(document.querySelector(t)){e.next=8;break}return e.next=6,new Promise((function(e){return window.setTimeout(e,100)}));case 6:e.next=3;break;case 8:return e.abrupt("return",document.querySelector(t));case 9:case"end":return e.stop()}}),e)}))),Ye.apply(this,arguments)}function Ke(){return Ze.apply(this,arguments)}function Ze(){return Ze=m(p().mark((function e(){var t;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,Fe();case 2:t=e.sent;case 3:if(t.hass){e.next=8;break}return e.next=6,new Promise((function(e){return window.setTimeout(e,100)}));case 6:e.next=3;break;case 8:return e.abrupt("return",t.hass);case 9:case"end":return e.stop()}}),e)}))),Ze.apply(this,arguments)}var Qe="browser_mod-browser-id";window.cardMod_template_cache=window.cardMod_template_cache||{};var Xe=window.cardMod_template_cache;function et(e,t){var n=Xe[e];n&&(n.value=t.result,n.callbacks.forEach((function(e){return e(t.result)})))}function tt(e,t,n){return nt.apply(this,arguments)}function nt(){return(nt=m(p().mark((function e(t,n,r){var i,o,a,s;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,Ke();case 2:i=e.sent,o=i.connection,a=JSON.stringify([n,r]),(s=Xe[a])?(s.callbacks.has(t)||rt(t),t(s.value),s.callbacks.add(t)):(rt(t),t(""),r=Object.assign({user:i.user.name,browser:document.querySelector("hc-main")?"CAST":localStorage[Qe]?localStorage[Qe]:"",hash:location.hash.substr(1)||""},r),Xe[a]=s={template:n,variables:r,value:"",callbacks:new Set([t]),unsubscribe:o.subscribeMessage((function(e){return et(a,e)}),{type:"render_template",template:n,variables:r})});case 7:case"end":return e.stop()}}),e)})))).apply(this,arguments)}function rt(e){return it.apply(this,arguments)}function it(){return(it=m(p().mark((function e(t){var n,r,i,o,a,s;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:r=0,i=Object.entries(Xe);case 1:if(!(r<i.length)){e.next=10;break}if(o=v(i[r],2),a=o[0],!(s=o[1]).callbacks.has(t)){e.next=7;break}return s.callbacks.delete(t),0==s.callbacks.size&&(n=s.unsubscribe,delete Xe[a]),e.abrupt("break",10);case 7:r++,e.next=1;break;case 10:if(!n){e.next=16;break}return e.next=13,n;case 13:return e.t0=e.sent,e.next=16,(0,e.t0)();case 16:case"end":return e.stop()}}),e)})))).apply(this,arguments)}var ot="3.4.5",at=function(){var e=m(p().mark((function e(){var t,n;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(!customElements.get("developer-tools-event")){e.next=2;break}return e.abrupt("return");case 2:return e.next=4,customElements.whenDefined("partial-panel-resolver");case 4:return(t=document.createElement("partial-panel-resolver")).hass={panels:[{url_path:"tmp",component_name:"developer-tools"}]},t._updateRoutes(),e.next=9,t.routerOptions.routes.tmp.load();case 9:return e.next=11,customElements.whenDefined("developer-tools-router");case 11:return n=document.createElement("developer-tools-router"),e.next=14,n.routerOptions.routes.event.load();case 14:case"end":return e.stop()}}),e)})));return function(){return e.apply(this,arguments)}}(),st=function(){var e=m(p().mark((function e(t){var n;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,at();case 2:return(n=document.createElement("ha-yaml-editor"))._onChange(new CustomEvent("yaml",{detail:{value:t}})),e.abrupt("return",n.value);case 5:case"end":return e.stop()}}),e)})));return function(t){return e.apply(this,arguments)}}();function ut(e){return ct.apply(this,arguments)}function ct(){return ct=m(p().mark((function e(t){var n,r,i,o,a;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(t.type){e.next=2;break}return e.abrupt("return",null);case 2:return r=t.parentElement?t.parentElement:t,i=window.getComputedStyle(r).getPropertyValue("--card-mod-theme"),e.next=6,Ke();case 6:if(o=e.sent){e.next=9;break}return e.abrupt("return",{});case 9:if((a=null!==(n=null==o?void 0:o.themes.themes)&&void 0!==n?n:{})[i]){e.next=12;break}return e.abrupt("return",{});case 12:if(!a[i]["card-mod-".concat(t.type,"-yaml")]){e.next=16;break}return e.abrupt("return",st(a[i]["card-mod-".concat(t.type,"-yaml")]));case 16:if(!a[i]["card-mod-".concat(t.type)]){e.next=20;break}return e.abrupt("return",{".":a[i]["card-mod-".concat(t.type)]});case 20:return e.abrupt("return",{});case 21:case"end":return e.stop()}}),e)}))),ct.apply(this,arguments)}var lt="SELECTTREE-TIMEOUT";function dt(e){return ht.apply(this,arguments)}function ht(){return ht=m(p().mark((function e(t){var n,r,i,o=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(n=o.length>1&&void 0!==o[1]&&o[1],!(null===(r=t.localName)||void 0===r?void 0:r.includes("-"))){e.next=4;break}return e.next=4,customElements.whenDefined(t.localName);case 4:if(!t.updateComplete){e.next=7;break}return e.next=7,t.updateComplete;case 7:if(!n){e.next=18;break}if(!t.pageRendered){e.next=11;break}return e.next=11,t.pageRendered;case 11:if(!t._panelState){e.next=18;break}i=0;case 13:if(!("loaded"!==t._panelState&&i++<5)){e.next=18;break}return e.next=16,new Promise((function(e){return setTimeout(e,100)}));case 16:e.next=13;break;case 18:case"end":return e.stop()}}),e)}))),ht.apply(this,arguments)}function ft(e,t){return vt.apply(this,arguments)}function vt(){return vt=m(p().mark((function e(t,n){var r,i,o,a,s,u,c,l=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:for(r=l.length>2&&void 0!==l[2]&&l[2],i=[t],"string"==typeof n&&(n=n.split(/(\$| )/));""===n[n.length-1];)n.pop();o=A(n.entries()),e.prev=5,o.s();case 7:if((a=o.n()).done){e.next=24;break}if(s=v(a.value,2),s[0],"$"!==(u=s[1])){e.next=14;break}return e.next=12,Promise.all(f(i).map((function(e){return dt(e)})));case 12:return i=f(i).map((function(e){return e.shadowRoot})),e.abrupt("continue",22);case 14:if(c=i[0]){e.next=17;break}return e.abrupt("return",null);case 17:if(u.trim().length){e.next=19;break}return e.abrupt("continue",22);case 19:return e.next=21,dt(c);case 21:i=c.querySelectorAll(u);case 22:e.next=7;break;case 24:e.next=29;break;case 26:e.prev=26,e.t0=e.catch(5),o.e(e.t0);case 29:return e.prev=29,o.f(),e.finish(29);case 32:return e.abrupt("return",r?i:i[0]);case 33:case"end":return e.stop()}}),e,null,[[5,26,29,32]])}))),vt.apply(this,arguments)}function pt(e,t){return yt.apply(this,arguments)}function yt(){return yt=m(p().mark((function e(t,n){var r,i,o=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return r=o.length>2&&void 0!==o[2]&&o[2],i=o.length>3&&void 0!==o[3]?o[3]:1e4,e.abrupt("return",Je.race([ft(t,n,r),new Promise((function(e,t){return setTimeout((function(){return t(new Error(lt))}),i)}))]).catch((function(e){if(!e.message||e.message!==lt)throw e;return null})));case 3:case"end":return e.stop()}}),e)}))),yt.apply(this,arguments)}var mt=function(e){b(n,De);var t=g(n);function n(){var e;return P(this,n),(e=t.apply(this,arguments))._cardMod=[],e}return j(n,[{key:"setConfig",value:function(e,t){for(var n=arguments.length,r=new Array(n>2?n-2:0),i=2;i<n;i++)r[i-2]=arguments[i];null==e||e.apply(void 0,[t].concat(r)),this._cardMod.forEach((function(e){var n;e.variables={config:t},e.styles=(null===(n=t.card_mod)||void 0===n?void 0:n.style)||{}}))}},{key:"updated",value:function(e){for(var t=this,n=arguments.length,r=new Array(n>1?n-1:0),i=1;i<n;i++)r[i-1]=arguments[i];null==e||e.apply(void 0,r),Promise.all([this.updateComplete]).then((function(){return t._cardMod.forEach((function(e){var t;return null===(t=e.refresh)||void 0===t?void 0:t.call(e)}))}))}}]),n}();function bt(e,t){return gt.apply(this,arguments)}function gt(){return gt=m(p().mark((function e(t,n){var r,i,o,a,s,u,c,l=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return i=l.length>3&&void 0!==l[3]?l[3]:{},o=!(l.length>4&&void 0!==l[4])||l[4],c=!1,void 0!==(a=l.length>5&&void 0!==l[5]?l[5]:void 0)&&"string"!=typeof a&&(c=!0,o=a,a=void 0),"boolean"!=typeof o&&(o=!0,c=!0),"string"==typeof(r=l.length>2&&void 0!==l[2]?l[2]:void 0)&&(r={style:r},c=!0),r&&0!==Object.keys(r).length&&void 0===(null!==(u=null!==(s=null==r?void 0:r.style)&&void 0!==s?s:null==r?void 0:r.class)&&void 0!==u?u:null==r?void 0:r.debug)&&(r={style:r},c=!0),c&&!window.cm_compatibility_warning&&(window.cm_compatibility_warning=!0,console.groupCollapsed("Card-mod warning"),console.info("You are using a custom card which relies on card-mod, and uses an outdated signature for applyToElement."),console.info("The outdated signature will be removed at some point in the future. Hopefully the developer of your card will have updated their card by then."),console.info("The card used card-mod to apply styles here:",t),console.groupEnd()),e.abrupt("return",_t(t,n,r,i,o,a));case 11:case"end":return e.stop()}}),e)}))),gt.apply(this,arguments)}function _t(e,t){return wt.apply(this,arguments)}function wt(){return wt=m(p().mark((function e(t,n){var r,i,o,a,s,u,c,l,d,h,v,y,b,g,_,w=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(o=w.length>3&&void 0!==w[3]?w[3]:{},a=!(w.length>4&&void 0!==w[4])||w[4],s=w.length>5&&void 0!==w[5]?w[5]:void 0,b=(null==(i=w.length>2&&void 0!==w[2]?w[2]:void 0)?void 0:i.debug)?function(){for(var e,t=arguments.length,n=new Array(t),r=0;r<t;r++)n[r]=arguments[r];return(e=console).log.apply(e,["CardMod Debug:"].concat(n))}:function(){},b.apply(void 0,["Applying card-mod to:"].concat(f((null==t?void 0:t.host)?["#shadow-root of:",null==t?void 0:t.host]:[t]),["type: ",n,"configuration: ",i])),t){e.next=8;break}return e.abrupt("return");case 8:if(!(null===(u=t.localName)||void 0===u?void 0:u.includes("-"))){e.next=11;break}return e.next=11,customElements.whenDefined(t.localName);case 11:return t._cardMod=t._cardMod||[],g=null!==(c=t._cardMod.find((function(e){return e.type===n})))&&void 0!==c?c:document.createElement("card-mod"),b("Applying card-mod in:",g),g.type=n,g.debug=null!==(l=null==i?void 0:i.debug)&&void 0!==l&&l,t._cardMod.includes(g)||t._cardMod.push(g),window.setTimeout(m(p().mark((function e(){var n,r,s,u;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,Promise.all([t.updateComplete]);case 2:(u=(null!==(n=t.modElement)&&void 0!==n?n:a)&&null!==(r=t.shadowRoot)&&void 0!==r?r:t).contains(g)||u.appendChild(g),g.variables=o,g.styles=null!==(s=null==i?void 0:i.style)&&void 0!==s?s:"";case 6:case"end":return e.stop()}}),e)}))),1),_=null!==(v="string"==typeof(null==i?void 0:i.class)?null===(h=null===(d=null==i?void 0:i.class)||void 0===d?void 0:d.split)||void 0===h?void 0:h.call(d," "):null==i?void 0:i.class)&&void 0!==v?v:[],null===(y=t.classList)||void 0===y||(r=y).add.apply(r,f(_).concat([s])),e.abrupt("return",g);case 21:case"end":return e.stop()}}),e)}))),wt.apply(this,arguments)}function kt(e,t){var n=function(e){return e&&"object"===M(e)&&!Array.isArray(e)};if(n(e)&&n(t))for(var r in t)n(t[r])?(e[r]||Object.assign(e,d({},r,{})),"string"==typeof e[r]&&(e[r]={".":e[r]}),kt(e[r],t[r])):e[r]?e[r]=t[r]+e[r]:e[r]=t[r];return e}function xt(e,t){if(e===t)return!0;if(M(e)!==M(t))return!1;if(!(e instanceof Object&&t instanceof Object))return!1;for(var n in e)if(e.hasOwnProperty(n)){if(!t.hasOwnProperty(n))return!1;if(e[n]!==t[n]){if("object"!==M(e[n]))return!1;if(!xt(e[n],t[n]))return!1}}for(var r in t)if(t.hasOwnProperty(r)&&!e.hasOwnProperty(r))return!1;return!0}var Et=function(e){b(s,De);var t,n,r,i,o=g(s);function s(){var e;return P(this,s),(e=o.call(this)).card_mod_children={},e.card_mod_parent=void 0,e.debug=!1,e._fixed_styles={},e._styles="",e._rendered_styles="",e._observer=new MutationObserver((function(t){var n,r=A(t);try{for(r.s();!(n=r.n()).done;){var i=n.value;if("card-mod"===i.target.localName)return;i.addedNodes.length&&i.addedNodes.forEach((function(e){e.localName})),i.removedNodes.length&&i.removedNodes.forEach((function(e){e.localName}))}}catch(e){r.e(e)}finally{r.f()}stop||e.refresh()})),document.addEventListener("cm_update",(function(){e._process_styles(e.card_mod_input)})),e}return j(s,[{key:"connectedCallback",value:function(){h($(s.prototype),"connectedCallback",this).call(this),this.refresh(),this.setAttribute("slot","none"),this.style.display="none"}},{key:"disconnectedCallback",value:function(){h($(s.prototype),"disconnectedCallback",this).call(this),this._disconnect()}},{key:"styles",get:function(){return this._styles},set:function(e){xt(e,this.card_mod_input)||(this.card_mod_input=e,this._process_styles(e))}},{key:"refresh",value:function(){this._connect()}},{key:"_debug",value:function(){for(var e,t=arguments.length,n=new Array(t),r=0;r<t;r++)n[r]=arguments[r];this.debug&&(e=console).log.apply(e,["CardMod Debug:"].concat(n))}},{key:"_process_styles",value:(i=m(p().mark((function e(t){var n,r;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return n="string"==typeof t?{".":t}:JSON.parse(JSON.stringify(t)),e.next=3,ut(this);case 3:r=e.sent,kt(n,r),this._fixed_styles=n,this.refresh();case 7:case"end":return e.stop()}}),e,this)}))),function(e){return i.apply(this,arguments)})},{key:"_style_child",value:(r=m(p().mark((function e(t,n){var r,i,o,a=this,s=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return r=s.length>2&&void 0!==s[2]?s[2]:0,i=this.parentElement||this.parentNode,e.next=4,pt(i,t,!0);case 4:if((o=e.sent)&&o.length){e.next=11;break}if(!(r>5)){e.next=8;break}throw new Error("NoElements");case 8:return e.next=10,new Promise((function(e){return setTimeout(e,100*r)}));case 10:return e.abrupt("return",this._style_child(t,n,r+1));case 11:return e.abrupt("return",f(o).map(function(){var e=m(p().mark((function e(t){var r;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,_t(t,"".concat(a.type,"-child"),{style:n,debug:a.debug},a.variables,!1);case 2:return(r=e.sent)&&(r.card_mod_parent=a),e.abrupt("return",r);case 5:case"end":return e.stop()}}),e)})));return function(t){return e.apply(this,arguments)}}()));case 12:case"end":return e.stop()}}),e,this)}))),function(e,t){return r.apply(this,arguments)})},{key:"_connect",value:(n=m(p().mark((function e(){var t,n,r,i,o,a,s,u,c,l,d,h,f,y=this;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:o=null!==(t=this._fixed_styles)&&void 0!==t?t:{},a={},s="",u=!1,this.parentElement||this.parentNode,this._debug("(Re)connecting",this),c=p().mark((function e(){var t,n,r;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:t=v(d[l],2),n=t[0],r=t[1],"."===n?"string"==typeof r?s=r:y._debug("Style of '.' must be a string: ",r):(u=!0,a[n]=y._style_child(n,r).catch((function(e){if("NoElements"!=e.message)throw e;y.debug&&(console.groupCollapsed("card-mod found no elements"),console.info("Looked for ".concat(n)),console.info(y),console.groupEnd())})));case 2:case"end":return e.stop()}}),e)})),l=0,d=Object.entries(o);case 8:if(!(l<d.length)){e.next=13;break}return e.delegateYield(c(),"t0",10);case 10:l++,e.next=8;break;case 13:e.t1=p().keys(this.card_mod_children);case 14:if((e.t2=e.t1()).done){e.next=30;break}if(h=e.t2.value,a[h]){e.next=28;break}return e.next=19,this.card_mod_children[h];case 19:if(e.t4=n=e.sent,e.t3=null===e.t4,e.t3){e.next=23;break}e.t3=void 0===n;case 23:if(!e.t3){e.next=27;break}e.next=28;break;case 27:n.forEach(function(){var e=m(p().mark((function e(t){return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,t;case 2:return e.abrupt("return",e.sent.styles="");case 3:case"end":return e.stop()}}),e)})));return function(t){return e.apply(this,arguments)}}());case 28:e.next=14;break;case 30:if(this.card_mod_children=a,this._styles!==s){e.next=33;break}return e.abrupt("return");case 33:this._styles=s,(b=this._styles)&&(String(b).includes("{%")||String(b).includes("{{"))?(this._renderer=this._renderer||this._style_rendered.bind(this),tt(this._renderer,this._styles,this.variables)):this._style_rendered(this._styles||""),u&&(this._observer.disconnect(),f=null!==(r=this.parentElement)&&void 0!==r?r:this.parentNode,this._observer.observe(null!==(i=null==f?void 0:f.host)&&void 0!==i?i:f,{childList:!0}));case 36:case"end":return e.stop()}var b}),e,this)}))),function(){return n.apply(this,arguments)})},{key:"_disconnect",value:(t=m(p().mark((function e(){var t,n;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return this._observer.disconnect(),this._styles="",e.next=4,rt(this._renderer);case 4:null===(n=null===(t=this.card_mod_parent)||void 0===t?void 0:t.refresh)||void 0===n||n.call(t);case 5:case"end":return e.stop()}}),e,this)}))),function(){return t.apply(this,arguments)})},{key:"_style_rendered",value:function(e){this._rendered_styles!==e&&(this._rendered_styles=e),this.dispatchEvent(new Event("card-mod-update"))}},{key:"createRenderRoot",value:function(){return this}},{key:"render",value:function(){return we(a||(a=u(["\n      <style>\n        ","\n      </style>\n    "])),this._rendered_styles)}}],[{key:"applyToElement",get:function(){return bt}}]),s}();N([qe({attribute:"card-mod-type",reflect:!0})],Et.prototype,"type",void 0),N([qe()],Et.prototype,"_rendered_styles",void 0),customElements.get("card-mod")||(customElements.define("card-mod",Et),console.info("%cCARD-MOD ".concat(ot," IS INSTALLED"),"color: green; font-weight: bold")),m(p().mark((function e(){return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(void 0!==customElements.get("home-assistant")){e.next=5;break}return e.next=3,new Promise((function(e){return window.setTimeout(e,100)}));case 3:e.next=0;break;case 5:customElements.get("card-mod")||customElements.define("card-mod",Et);case 6:case"end":return e.stop()}}),e)})))();var $t=function(e,t,n){if("constructor"!==t){var r=e[t];if(!(null==r?void 0:r.cm_patched)){var i=function(){for(var e=arguments.length,t=new Array(e),i=0;i<e;i++)t[i]=arguments[i];try{return n.call.apply(n,[this,null==r?void 0:r.bind(this)].concat(t))}catch(e){return console.error("Card-mod",e),null==r?void 0:r.bind(this).apply(void 0,t)}};i.cm_patched=!0,e[t]=i}}},At=function(e,t){if(e)for(var n in Object.getOwnPropertyDescriptors(t.prototype))$t(e,n,t.prototype[n])},St=function(){var e=m(p().mark((function e(t,n,r){var i;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if("string"!=typeof t){e.next=4;break}return e.next=3,customElements.whenDefined(t);case 3:t=customElements.get(t);case 4:return i=At(t.prototype,n),null==r||r(),e.abrupt("return",i);case 7:case"end":return e.stop()}}),e)})));return function(t,n,r){return e.apply(this,arguments)}}();function Ot(e,t){return function(n){St(e,n,t)}}var Pt=function(e){b(r,mt);var t,n=g(r);function r(){var e;return P(this,r),(e=n.apply(this,arguments))._cardMod=[],e}return j(r,[{key:"firstUpdated",value:(t=m(p().mark((function e(t){var n,r,i,o,a,s,u,c,l,d=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:for(o=d.length,a=new Array(o>1?o-1:0),s=1;s<o;s++)a[s-1]=d[s];return e.next=3,null==t?void 0:t.apply(void 0,a);case 3:return u=Ct(this),c="type-".concat(null===(r=null===(n=null==u?void 0:u.type)||void 0===n?void 0:n.replace)||void 0===r?void 0:r.call(n,":","-")),e.next=7,_t(this,"card",null==u?void 0:u.card_mod,{config:u},!1,c);case 7:if(l=null===(i=this.parentNode)||void 0===i?void 0:i.host){e.next=10;break}return e.abrupt("return");case 10:At(l,mt),l._cardMod=this._cardMod;case 12:case"end":return e.stop()}}),e,this)}))),function(e){return t.apply(this,arguments)})}]),r}();function Ct(e){return e.config?e.config:e._config?e._config:e.host?Ct(e.host):e.parentElement?Ct(e.parentElement):e.parentNode?Ct(e.parentNode):null}Pt=N([Ot("ha-card")],Pt);var jt=function(e){b(n,mt);var t=g(n);function n(){return P(this,n),t.apply(this,arguments)}return j(n,[{key:"_renderEntity",value:function(e,t){for(var n,r,i=arguments.length,o=new Array(i>2?i-2:0),a=2;a<i;a++)o[a-2]=arguments[a];var s=null==e?void 0:e.apply(void 0,[t].concat(o));if("custom:mod-card"===(null==t?void 0:t.type))return s;if(!(null==s?void 0:s.values))return s;var u=s.values[0];if(!u)return s;var c="type-".concat(null===(r=null===(n=null==t?void 0:t.type)||void 0===n?void 0:n.replace)||void 0===r?void 0:r.call(n,":","-")),l=function(){var e=m(p().mark((function e(){return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,dt(u);case 2:At(u,mt),_t(u,"row",null==t?void 0:t.card_mod,{config:t},!0,c),u.addEventListener("ll-rebuild",l);case 5:case"end":return e.stop()}}),e)})));return function(){return e.apply(this,arguments)}}();return Promise.all([this.updateComplete]).then((function(){return l()})),s}}]),n}();jt=N([Ot("hui-entities-card")],jt);var Tt=function(e){b(n,mt);var t=g(n);function n(){return P(this,n),t.apply(this,arguments)}return j(n,[{key:"updated",value:function(e){for(var t,n,r,i=arguments.length,o=new Array(i>1?i-1:0),a=1;a<i;a++)o[a-1]=arguments[a];null==e||e.apply(void 0,o);var s,u=A(this.shadowRoot.querySelectorAll("ha-card div.entity"));try{for(u.s();!(s=u.n()).done;){var c=s.value;At(c,mt);for(var l=null!==(t=c.shadowRoot)&&void 0!==t?t:c.attachShadow({mode:"open"});c.firstChild;)l.append(c.firstChild);var d=null!==(n=c.querySelector("style[card-mod]"))&&void 0!==n?n:document.createElement("style");d.setAttribute("card-mod",""),d.innerHTML="\ndiv {\n  width: 100%;\n  text-align: center;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.name {\n  min-height: var(--paper-font-body1_-_line-height, 20px);\n}\nstate-badge {\n  margin: 8px 0;\n}\n",l.append(d);var h=null!==(r=c.config)&&void 0!==r?r:c.entityConfig;_t(c,"glance",null==h?void 0:h.card_mod,{config:h})}}catch(e){u.e(e)}finally{u.f()}}}]),n}();Tt=N([Ot("hui-glance-card")],Tt);var Mt=function(e){b(r,mt);var t,n=g(r);function r(){return P(this,r),n.apply(this,arguments)}return j(r,[{key:"firstUpdated",value:(t=m(p().mark((function e(t){var n,r,i,o,a=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:for(n=a.length,r=new Array(n>1?n-1:0),i=1;i<n;i++)r[i-1]=a[i];return e.next=3,null==t?void 0:t.apply(void 0,r);case 3:return o=this._config,e.next=6,_t(this,"badge",null==o?void 0:o.card_mod,{config:o});case 6:case"end":return e.stop()}}),e,this)}))),function(e){return t.apply(this,arguments)})}]),r}();Mt=N([Ot("hui-state-label-badge")],Mt);var Nt=function(e){b(n,mt);var t=g(n);function n(){return P(this,n),t.apply(this,arguments)}return j(n,[{key:"updated",value:function(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];null==e||e.apply(void 0,n),_t(this,"view",void 0,{},!1)}}]),n}();Nt=N([Ot("hui-view")],Nt);var Rt=function(e){b(n,mt);var t=g(n);function n(){return P(this,n),t.apply(this,arguments)}return j(n,[{key:"firstUpdated",value:function(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];null==e||e.apply(void 0,n),_t(this,"root")}}]),n}();Rt=N([Ot("hui-root",(function(){pt(document,"home-assistant$home-assistant-main$partial-panel-resolver ha-panel-lovelace$hui-root",!1).then((function(e){return null==e?void 0:e.firstUpdated()}))}))],Rt);var Ut=function(e){b(n,mt);var t=g(n);function n(){return P(this,n),t.apply(this,arguments)}return j(n,[{key:"showDialog",value:function(e,t){for(var n=this,r=arguments.length,i=new Array(r>2?r-2:0),o=2;o<r;o++)i[o-2]=arguments[o];null==e||e.apply(void 0,[t].concat(i)),this.requestUpdate(),this.updateComplete.then(m(p().mark((function e(){var r;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(r=n.shadowRoot.querySelector("ha-dialog")){e.next=3;break}return e.abrupt("return");case 3:_t(r,"more-info",void 0,{config:t},!1);case 4:case"end":return e.stop()}}),e)}))))}}]),n}();Ut=N([Ot("ha-more-info-dialog")],Ut);var Lt=function(e){b(n,mt);var t=g(n);function n(){return P(this,n),t.apply(this,arguments)}return j(n,[{key:"firstUpdated",value:function(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];null==e||e.apply(void 0,n),_t(this,"sidebar")}}]),n}();Lt=N([Ot("ha-sidebar",(function(){pt(document,"home-assistant$home-assistant-main$ha-sidebar",!1).then((function(e){return null==e?void 0:e.firstUpdated()}))}))],Lt);var Dt=function(e){b(n,De);var t=g(n);function n(){return P(this,n),t.apply(this,arguments)}return j(n,[{key:"setConfig",value:function(e,t){var n,r,i,o,a,s=JSON.parse(JSON.stringify(t));if(this._cardModData={card:s.card_mod,entities:[]},delete s.card_mod,Array.isArray(s.entities)){var u,c=A(null===(r=null===(n=s.entities)||void 0===n?void 0:n.entries)||void 0===r?void 0:r.call(n));try{for(c.s();!(u=c.n()).done;){var l=v(u.value,2),d=l[0],h=l[1];this._cardModData.entities[d]=h.card_mod,delete h.card_mod}}catch(e){c.e(e)}finally{c.f()}}for(var f=arguments.length,p=new Array(f>2?f-2:0),y=2;y<f;y++)p[y-2]=arguments[y];if(e.apply(void 0,[s].concat(p)),Array.isArray(s.entities)){var m,b=A(null===(o=null===(i=s.entities)||void 0===i?void 0:i.entries)||void 0===o?void 0:o.call(i));try{for(b.s();!(m=b.n()).done;){var g=v(m.value,2),_=g[0],w=g[1];(null===(a=this._cardModData)||void 0===a?void 0:a.entities[_])&&(w.card_mod=this._cardModData.entities[_])}}catch(e){b.e(e)}finally{b.f()}}}}]),n}(),Ht=function(e){b(r,De);var t,n=g(r);function r(){return P(this,r),n.apply(this,arguments)}return j(r,[{key:"getConfigElement",value:(t=m(p().mark((function e(t){var n,r,i,o,a=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:for(n=a.length,r=new Array(n>1?n-1:0),i=1;i<n;i++)r[i-1]=a[i];return e.next=3,t.apply(void 0,r);case 3:return o=e.sent,At(o,Dt),e.abrupt("return",o);case 6:case"end":return e.stop()}}),e)}))),function(e){return t.apply(this,arguments)})},{key:"_handleUIConfigChanged",value:function(e,t){var n,r=null===(n=this._configElement)||void 0===n?void 0:n._cardModData;r&&(t.detail.config.card_mod=r.card);for(var i=arguments.length,o=new Array(i>2?i-2:0),a=2;a<i;a++)o[a-2]=arguments[a];e.apply(void 0,[t].concat(o))}}]),r}();Ht=N([Ot("hui-card-element-editor")],Ht);var It=function(e){b(n,De);var t=g(n);function n(){return P(this,n),t.apply(this,arguments)}return j(n,[{key:"updated",value:function(e){for(var t,n,r,i,o,a=arguments.length,s=new Array(a>1?a-1:0),u=1;u<a;u++)s[u-1]=arguments[u];null==e||e.apply(void 0,s),this._cardModIcon||(this._cardModIcon=document.createElement("ha-icon"),this._cardModIcon.icon="mdi:brush");var c=this.shadowRoot.querySelector("mwc-button[slot=secondaryAction]");c&&(c.appendChild(this._cardModIcon),(null===(t=this._cardConfig)||void 0===t?void 0:t.card_mod)||Array.isArray(null===(n=this._cardConfig)||void 0===n?void 0:n.entities)&&(null===(o=null===(i=null===(r=this._cardConfig)||void 0===r?void 0:r.entities)||void 0===i?void 0:i.some)||void 0===o?void 0:o.call(i,(function(e){return e.card_mod})))?this._cardModIcon.style.visibility="visible":this._cardModIcon.style.visibility="hidden")}}]),n}();It=N([Ot("hui-dialog-edit-card")],It);var zt=function(e){b(n,mt);var t=g(n);function n(){return P(this,n),t.apply(this,arguments)}return j(n,[{key:"setConfig",value:function(e){for(var t,n,r=arguments.length,i=new Array(r>1?r-1:0),o=1;o<r;o++)i[o-1]=arguments[o];null==e||e.apply(void 0,i);var a,s=A(this._elements.entries());try{for(s.s();!(a=s.n()).done;){var u=v(a.value,2),c=u[0],l=u[1];dt(l),At(l,mt);var d=this._config.elements[c],h="type-".concat(null===(n=null===(t=null==d?void 0:d.type)||void 0===t?void 0:t.replace)||void 0===n?void 0:n.call(t,":","-"));_t(l,"element",null==d?void 0:d.card_mod,{config:d},!0,h)}}catch(e){s.e(e)}finally{s.f()}}}]),n}();zt=N([Ot("hui-picture-elements-card")],zt);var qt=function(e){var t=window.getComputedStyle(e),n=t.getPropertyValue("--card-mod-icon");n&&(e.icon=n.trim());var r=t.getPropertyValue("--card-mod-icon-color");r&&(e.style.color=r),"none"===t.getPropertyValue("--card-mod-icon-dim")&&(e.style.filter="none")},Bt=function(){var e=m(p().mark((function e(t){var n,r,i,o,a;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return qt(t),t._boundCardMod=null!==(n=t._boundCardMod)&&void 0!==n?n:new Set,e.next=4,Ft(t);case 4:r=e.sent,i=A(r),e.prev=6,a=p().mark((function e(){var n;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(n=o.value,!t._boundCardMod.has(n)){e.next=3;break}return e.abrupt("return",1);case 3:n.addEventListener("card-mod-update",m(p().mark((function e(){return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,n.updateComplete;case 2:qt(t);case 3:case"end":return e.stop()}}),e)})))),t._boundCardMod.add(n);case 5:case"end":return e.stop()}}),e)})),i.s();case 9:if((o=i.n()).done){e.next=15;break}return e.delegateYield(a(),"t0",11);case 11:if(!e.t0){e.next=13;break}return e.abrupt("continue",13);case 13:e.next=9;break;case 15:e.next=20;break;case 17:e.prev=17,e.t1=e.catch(6),i.e(e.t1);case 20:return e.prev=20,i.f(),e.finish(20);case 23:if(!(t.cm_retries<5)){e.next=26;break}return t.cm_retries++,e.abrupt("return",window.setTimeout((function(){return Bt(t)}),250*t.cm_retries));case 26:case"end":return e.stop()}}),e,null,[[6,17,20,23]])})));return function(t){return e.apply(this,arguments)}}(),Vt=function(e){b(n,mt);var t=g(n);function n(){var e;return P(this,n),(e=t.apply(this,arguments)).cm_retries=0,e}return j(n,[{key:"updated",value:function(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];null==e||e.apply(void 0,n),this.cm_retries=0,Bt(this)}}]),n}();Vt=N([Ot("ha-state-icon")],Vt);var Wt=function(e){b(n,mt);var t=g(n);function n(){var e;return P(this,n),(e=t.apply(this,arguments)).cm_retries=0,e}return j(n,[{key:"updated",value:function(e){for(var t=arguments.length,n=new Array(t>1?t-1:0),r=1;r<t;r++)n[r-1]=arguments[r];null==e||e.apply(void 0,n),this.cm_retries=0,Bt(this)}}]),n}();Wt=N([Ot("ha-icon")],Wt);var Jt=function(e){b(n,mt);var t=g(n);function n(){var e;return P(this,n),(e=t.apply(this,arguments)).cm_retries=0,e}return j(n,[{key:"updated",value:function(e){for(var t,n,r=arguments.length,i=new Array(r>1?r-1:0),o=1;o<r;o++)i[o-1]=arguments[o];null==e||e.apply(void 0,i),"ha-icon"!==(null===(n=null===(t=this.parentNode)||void 0===t?void 0:t.host)||void 0===n?void 0:n.localName)&&(this.cm_retries=0,Bt(this))}}]),n}();function Gt(e,t){var n,r=A(t);try{for(r.s();!(n=r.n()).done;){var i=n.value;e.add(i)}}catch(e){r.e(e)}finally{r.f()}}function Ft(e){return Yt.apply(this,arguments)}function Yt(){return Yt=m(p().mark((function e(t){var n,r,i,o,a,s=arguments;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(n=s.length>1&&void 0!==s[1]?s[1]:0,r=new Set,10!=n){e.next=4;break}return e.abrupt("return",r);case 4:if(t){e.next=6;break}return e.abrupt("return",r);case 6:if(!t.updateComplete){e.next=9;break}return e.next=9,t.updateComplete;case 9:if(t._cardMod){i=A(t._cardMod);try{for(i.s();!(o=i.n()).done;)(a=o.value).styles&&r.add(a)}catch(e){i.e(e)}finally{i.f()}}if(!t.parentElement){e.next=19;break}return e.t0=Gt,e.t1=r,e.next=15,Ft(t.parentElement,n+1);case 15:e.t2=e.sent,(0,e.t0)(e.t1,e.t2),e.next=26;break;case 19:if(!t.parentNode){e.next=26;break}return e.t3=Gt,e.t4=r,e.next=24,Ft(t.parentNode,n+1);case 24:e.t5=e.sent,(0,e.t3)(e.t4,e.t5);case 26:if(!t.host){e.next=33;break}return e.t6=Gt,e.t7=r,e.next=31,Ft(t.host,n+1);case 31:e.t8=e.sent,(0,e.t6)(e.t7,e.t8);case 33:return e.abrupt("return",r);case 34:case"end":return e.stop()}}),e)}))),Yt.apply(this,arguments)}Jt=N([Ot("ha-svg-icon")],Jt);var Kt="\nha-card {\n  background: none;\n  box-shadow: none;\n  border: none;\n  transition: none;\n}",Zt=function(e){b(r,De);var t,n=g(r);function r(){return P(this,r),n.apply(this,arguments)}return j(r,[{key:"setConfig",value:function(e){var t;this._config=JSON.parse(JSON.stringify(e));var n=(null===(t=this._config.card_mod)||void 0===t?void 0:t.style)||this._config.style;void 0===n?n=Kt:"string"==typeof n?n=Kt+n:n["."]?n["."]=Kt+n["."]:n["."]=Kt,this._config.card_mod={style:n},this.build_card(e.card)}},{key:"build_card",value:(t=m(p().mark((function e(t){var n,r=this;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(void 0!==this._hass){e.next=3;break}return e.next=3,new Promise((function(e){return r._hassResolve=e}));case 3:return this._hassResolve=void 0,e.next=6,window.loadCardHelpers();case 6:return n=e.sent,e.next=9,n.createCardElement(t);case 9:this.card=e.sent,this.card.hass=this._hass;case 11:case"end":return e.stop()}}),e,this)}))),function(e){return t.apply(this,arguments)})},{key:"firstUpdated",value:function(){var e=this;window.setTimeout((function(){var t,n;if(null===(n=null===(t=e.card)||void 0===t?void 0:t.shadowRoot)||void 0===n?void 0:n.querySelector("ha-card")){console.info("%cYou are doing it wrong!","color: red; font-weight: bold");var r=e.card.localName.replace(/hui-(.*)-card/,"$1");console.info("mod-card should NEVER be used with a card that already has a ha-card element, such as ".concat(r))}}),3e3)}},{key:"hass",set:function(e){this._hass=e,this.card&&(this.card.hass=e),this._hassResolve&&this._hassResolve()}},{key:"render",value:function(){return we(s||(s=u([" <ha-card modcard> "," </ha-card> "])),this.card)}},{key:"getCardSize",value:function(){if(this._config.report_size)return this._config.report_size;var e=this.shadowRoot;return e&&(e=e.querySelector("ha-card card-maker")),e&&(e=e.getCardSize),e&&(e=e()),e||1}}]),r}();function Qt(){document.dispatchEvent(new Event("cm_update"))}N([qe()],Zt.prototype,"card",void 0),customElements.get("mod-card")||customElements.define("mod-card",Zt),m(p().mark((function e(){return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:if(void 0!==customElements.get("home-assistant")){e.next=5;break}return e.next=3,new Promise((function(e){return window.setTimeout(e,100)}));case 3:e.next=0;break;case 5:customElements.get("mod-card")||customElements.define("mod-card",Zt);case 6:case"end":return e.stop()}}),e)})))();var Xt,en,tn,nn=[customElements.whenDefined("home-assistant"),customElements.whenDefined("hc-main")];Je.race(nn).then((function(){window.setTimeout(m(p().mark((function e(){var t,n,r;return p().wrap((function(e){for(;;)switch(e.prev=e.next){case 0:return e.next=2,Ke();case 2:r=e.sent;case 3:if(r){e.next=8;break}return e.next=6,new Promise((function(e){return window.setTimeout(e,500)}));case 6:e.next=3;break;case 8:r.connection.subscribeEvents((function(){window.setTimeout(Qt,500)}),"themes_updated"),null===(t=document.querySelector("home-assistant"))||void 0===t||t.addEventListener("settheme",Qt),null===(n=document.querySelector("hc-main"))||void 0===n||n.addEventListener("settheme",Qt);case 11:case"end":return e.stop()}}),e)}))),1e3)}));var rn,on=[],an=A(document.querySelectorAll("script"));try{for(an.s();!(rn=an.n()).done;){var sn=rn.value;if(null===(en=null===(Xt=null==sn?void 0:sn.innerText)||void 0===Xt?void 0:Xt.trim())||void 0===en?void 0:en.startsWith("import(")){var un,cn=null===(tn=sn.innerText.split("\n"))||void 0===tn?void 0:tn.map((function(e){return e.trim()})),ln=A(cn);try{for(ln.s();!(un=ln.n()).done;){var dn=un.value;on.push(dn.replace(/^import\(\"/,"").replace(/\"\);/,""))}}catch(e){ln.e(e)}finally{ln.f()}}}}catch(e){an.e(e)}finally{an.f()}on.some((function(e){return e.includes("/card-mod.js")}))||console.info("You may not be getting optimal performance out of card-mod.\nSee https://github.com/thomasloven/lovelace-card-mod#performance-improvements");
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+function __decorate(decorators, target, key, desc) {
+  var c = arguments.length,
+    r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+    d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
+  var e = new Error(message);
+  return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
+
+/**
+ * @license
+ * Copyright 2019 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const t$1 = globalThis,
+  e$2 = t$1.ShadowRoot && (void 0 === t$1.ShadyCSS || t$1.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype,
+  s$2 = Symbol(),
+  o$4 = new WeakMap();
+class n$4 {
+  constructor(t, e, o) {
+    if (this._$cssResult$ = !0, o !== s$2) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
+    this.cssText = t, this.t = e;
+  }
+  get styleSheet() {
+    let t = this.o;
+    const s = this.t;
+    if (e$2 && void 0 === t) {
+      const e = void 0 !== s && 1 === s.length;
+      e && (t = o$4.get(s)), void 0 === t && ((this.o = t = new CSSStyleSheet()).replaceSync(this.cssText), e && o$4.set(s, t));
+    }
+    return t;
+  }
+  toString() {
+    return this.cssText;
+  }
+}
+const r$4 = t => new n$4("string" == typeof t ? t : t + "", void 0, s$2),
+  S$1 = (s, o) => {
+    if (e$2) s.adoptedStyleSheets = o.map(t => t instanceof CSSStyleSheet ? t : t.styleSheet);else for (const e of o) {
+      const o = document.createElement("style"),
+        n = t$1.litNonce;
+      void 0 !== n && o.setAttribute("nonce", n), o.textContent = e.cssText, s.appendChild(o);
+    }
+  },
+  c$2 = e$2 ? t => t : t => t instanceof CSSStyleSheet ? (t => {
+    let e = "";
+    for (const s of t.cssRules) e += s.cssText;
+    return r$4(e);
+  })(t) : t;
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const {
+    is: i$1,
+    defineProperty: e$1,
+    getOwnPropertyDescriptor: r$3,
+    getOwnPropertyNames: h$2,
+    getOwnPropertySymbols: o$3,
+    getPrototypeOf: n$3
+  } = Object,
+  a$2 = globalThis,
+  c$1 = a$2.trustedTypes,
+  l$2 = c$1 ? c$1.emptyScript : "",
+  p$1 = a$2.reactiveElementPolyfillSupport,
+  d$1 = (t, s) => t,
+  u$2 = {
+    toAttribute(t, s) {
+      switch (s) {
+        case Boolean:
+          t = t ? l$2 : null;
+          break;
+        case Object:
+        case Array:
+          t = null == t ? t : JSON.stringify(t);
+      }
+      return t;
+    },
+    fromAttribute(t, s) {
+      let i = t;
+      switch (s) {
+        case Boolean:
+          i = null !== t;
+          break;
+        case Number:
+          i = null === t ? null : Number(t);
+          break;
+        case Object:
+        case Array:
+          try {
+            i = JSON.parse(t);
+          } catch (t) {
+            i = null;
+          }
+      }
+      return i;
+    }
+  },
+  f$2 = (t, s) => !i$1(t, s),
+  y$2 = {
+    attribute: !0,
+    type: String,
+    converter: u$2,
+    reflect: !1,
+    hasChanged: f$2
+  };
+Symbol.metadata ??= Symbol("metadata"), a$2.litPropertyMetadata ??= new WeakMap();
+class b$1 extends HTMLElement {
+  static addInitializer(t) {
+    this._$Ei(), (this.l ??= []).push(t);
+  }
+  static get observedAttributes() {
+    return this.finalize(), this._$Eh && [...this._$Eh.keys()];
+  }
+  static createProperty(t) {
+    let s = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : y$2;
+    if (s.state && (s.attribute = !1), this._$Ei(), this.elementProperties.set(t, s), !s.noAccessor) {
+      const i = Symbol(),
+        r = this.getPropertyDescriptor(t, i, s);
+      void 0 !== r && e$1(this.prototype, t, r);
+    }
+  }
+  static getPropertyDescriptor(t, s, i) {
+    const {
+      get: e,
+      set: h
+    } = r$3(this.prototype, t) ?? {
+      get() {
+        return this[s];
+      },
+      set(t) {
+        this[s] = t;
+      }
+    };
+    return {
+      get() {
+        return e?.call(this);
+      },
+      set(s) {
+        const r = e?.call(this);
+        h.call(this, s), this.requestUpdate(t, r, i);
+      },
+      configurable: !0,
+      enumerable: !0
+    };
+  }
+  static getPropertyOptions(t) {
+    return this.elementProperties.get(t) ?? y$2;
+  }
+  static _$Ei() {
+    if (this.hasOwnProperty(d$1("elementProperties"))) return;
+    const t = n$3(this);
+    t.finalize(), void 0 !== t.l && (this.l = [...t.l]), this.elementProperties = new Map(t.elementProperties);
+  }
+  static finalize() {
+    if (this.hasOwnProperty(d$1("finalized"))) return;
+    if (this.finalized = !0, this._$Ei(), this.hasOwnProperty(d$1("properties"))) {
+      const t = this.properties,
+        s = [...h$2(t), ...o$3(t)];
+      for (const i of s) this.createProperty(i, t[i]);
+    }
+    const t = this[Symbol.metadata];
+    if (null !== t) {
+      const s = litPropertyMetadata.get(t);
+      if (void 0 !== s) for (const [t, i] of s) this.elementProperties.set(t, i);
+    }
+    this._$Eh = new Map();
+    for (const [t, s] of this.elementProperties) {
+      const i = this._$Eu(t, s);
+      void 0 !== i && this._$Eh.set(i, t);
+    }
+    this.elementStyles = this.finalizeStyles(this.styles);
+  }
+  static finalizeStyles(s) {
+    const i = [];
+    if (Array.isArray(s)) {
+      const e = new Set(s.flat(1 / 0).reverse());
+      for (const s of e) i.unshift(c$2(s));
+    } else void 0 !== s && i.push(c$2(s));
+    return i;
+  }
+  static _$Eu(t, s) {
+    const i = s.attribute;
+    return !1 === i ? void 0 : "string" == typeof i ? i : "string" == typeof t ? t.toLowerCase() : void 0;
+  }
+  constructor() {
+    super(), this._$Ep = void 0, this.isUpdatePending = !1, this.hasUpdated = !1, this._$Em = null, this._$Ev();
+  }
+  _$Ev() {
+    this._$Eg = new Promise(t => this.enableUpdating = t), this._$AL = new Map(), this._$ES(), this.requestUpdate(), this.constructor.l?.forEach(t => t(this));
+  }
+  addController(t) {
+    (this._$E_ ??= new Set()).add(t), void 0 !== this.renderRoot && this.isConnected && t.hostConnected?.();
+  }
+  removeController(t) {
+    this._$E_?.delete(t);
+  }
+  _$ES() {
+    const t = new Map(),
+      s = this.constructor.elementProperties;
+    for (const i of s.keys()) this.hasOwnProperty(i) && (t.set(i, this[i]), delete this[i]);
+    t.size > 0 && (this._$Ep = t);
+  }
+  createRenderRoot() {
+    const t = this.shadowRoot ?? this.attachShadow(this.constructor.shadowRootOptions);
+    return S$1(t, this.constructor.elementStyles), t;
+  }
+  connectedCallback() {
+    this.renderRoot ??= this.createRenderRoot(), this.enableUpdating(!0), this._$E_?.forEach(t => t.hostConnected?.());
+  }
+  enableUpdating(t) {}
+  disconnectedCallback() {
+    this._$E_?.forEach(t => t.hostDisconnected?.());
+  }
+  attributeChangedCallback(t, s, i) {
+    this._$AK(t, i);
+  }
+  _$EO(t, s) {
+    const i = this.constructor.elementProperties.get(t),
+      e = this.constructor._$Eu(t, i);
+    if (void 0 !== e && !0 === i.reflect) {
+      const r = (void 0 !== i.converter?.toAttribute ? i.converter : u$2).toAttribute(s, i.type);
+      this._$Em = t, null == r ? this.removeAttribute(e) : this.setAttribute(e, r), this._$Em = null;
+    }
+  }
+  _$AK(t, s) {
+    const i = this.constructor,
+      e = i._$Eh.get(t);
+    if (void 0 !== e && this._$Em !== e) {
+      const t = i.getPropertyOptions(e),
+        r = "function" == typeof t.converter ? {
+          fromAttribute: t.converter
+        } : void 0 !== t.converter?.fromAttribute ? t.converter : u$2;
+      this._$Em = e, this[e] = r.fromAttribute(s, t.type), this._$Em = null;
+    }
+  }
+  requestUpdate(t, s, i) {
+    let e = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : !1;
+    let r = arguments.length > 4 ? arguments[4] : undefined;
+    if (void 0 !== t) {
+      if (i ??= this.constructor.getPropertyOptions(t), !(i.hasChanged ?? f$2)(e ? r : this[t], s)) return;
+      this.C(t, s, i);
+    }
+    !1 === this.isUpdatePending && (this._$Eg = this._$EP());
+  }
+  C(t, s, i) {
+    this._$AL.has(t) || this._$AL.set(t, s), !0 === i.reflect && this._$Em !== t && (this._$Ej ??= new Set()).add(t);
+  }
+  async _$EP() {
+    this.isUpdatePending = !0;
+    try {
+      await this._$Eg;
+    } catch (t) {
+      Promise.reject(t);
+    }
+    const t = this.scheduleUpdate();
+    return null != t && (await t), !this.isUpdatePending;
+  }
+  scheduleUpdate() {
+    return this.performUpdate();
+  }
+  performUpdate() {
+    if (!this.isUpdatePending) return;
+    if (!this.hasUpdated) {
+      if (this.renderRoot ??= this.createRenderRoot(), this._$Ep) {
+        for (const [t, s] of this._$Ep) this[t] = s;
+        this._$Ep = void 0;
+      }
+      const t = this.constructor.elementProperties;
+      if (t.size > 0) for (const [s, i] of t) !0 !== i.wrapped || this._$AL.has(s) || void 0 === this[s] || this.C(s, this[s], i);
+    }
+    let t = !1;
+    const s = this._$AL;
+    try {
+      t = this.shouldUpdate(s), t ? (this.willUpdate(s), this._$E_?.forEach(t => t.hostUpdate?.()), this.update(s)) : this._$ET();
+    } catch (s) {
+      throw t = !1, this._$ET(), s;
+    }
+    t && this._$AE(s);
+  }
+  willUpdate(t) {}
+  _$AE(t) {
+    this._$E_?.forEach(t => t.hostUpdated?.()), this.hasUpdated || (this.hasUpdated = !0, this.firstUpdated(t)), this.updated(t);
+  }
+  _$ET() {
+    this._$AL = new Map(), this.isUpdatePending = !1;
+  }
+  get updateComplete() {
+    return this.getUpdateComplete();
+  }
+  getUpdateComplete() {
+    return this._$Eg;
+  }
+  shouldUpdate(t) {
+    return !0;
+  }
+  update(t) {
+    this._$Ej &&= this._$Ej.forEach(t => this._$EO(t, this[t])), this._$ET();
+  }
+  updated(t) {}
+  firstUpdated(t) {}
+}
+b$1.elementStyles = [], b$1.shadowRootOptions = {
+  mode: "open"
+}, b$1[d$1("elementProperties")] = new Map(), b$1[d$1("finalized")] = new Map(), p$1?.({
+  ReactiveElement: b$1
+}), (a$2.reactiveElementVersions ??= []).push("2.0.2");
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const t = globalThis,
+  i = t.trustedTypes,
+  s$1 = i ? i.createPolicy("lit-html", {
+    createHTML: t => t
+  }) : void 0,
+  e = "$lit$",
+  h$1 = `lit$${(Math.random() + "").slice(9)}$`,
+  o$2 = "?" + h$1,
+  n$2 = `<${o$2}>`,
+  r$2 = document,
+  l$1 = () => r$2.createComment(""),
+  c = t => null === t || "object" != typeof t && "function" != typeof t,
+  a$1 = Array.isArray,
+  u$1 = t => a$1(t) || "function" == typeof t?.[Symbol.iterator],
+  d = "[ \t\n\f\r]",
+  f$1 = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,
+  v = /-->/g,
+  _ = />/g,
+  m$1 = RegExp(`>|${d}(?:([^\\s"'>=/]+)(${d}*=${d}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`, "g"),
+  p = /'/g,
+  g = /"/g,
+  $ = /^(?:script|style|textarea|title)$/i,
+  y$1 = t => function (i) {
+    for (var _len = arguments.length, s = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      s[_key - 1] = arguments[_key];
+    }
+    return {
+      _$litType$: t,
+      strings: i,
+      values: s
+    };
+  },
+  x = y$1(1),
+  w = Symbol.for("lit-noChange"),
+  T = Symbol.for("lit-nothing"),
+  A = new WeakMap(),
+  E = r$2.createTreeWalker(r$2, 129);
+function C(t, i) {
+  if (!Array.isArray(t) || !t.hasOwnProperty("raw")) throw Error("invalid template strings array");
+  return void 0 !== s$1 ? s$1.createHTML(i) : i;
+}
+const P = (t, i) => {
+  const s = t.length - 1,
+    o = [];
+  let r,
+    l = 2 === i ? "<svg>" : "",
+    c = f$1;
+  for (let i = 0; i < s; i++) {
+    const s = t[i];
+    let a,
+      u,
+      d = -1,
+      y = 0;
+    for (; y < s.length && (c.lastIndex = y, u = c.exec(s), null !== u);) y = c.lastIndex, c === f$1 ? "!--" === u[1] ? c = v : void 0 !== u[1] ? c = _ : void 0 !== u[2] ? ($.test(u[2]) && (r = RegExp("</" + u[2], "g")), c = m$1) : void 0 !== u[3] && (c = m$1) : c === m$1 ? ">" === u[0] ? (c = r ?? f$1, d = -1) : void 0 === u[1] ? d = -2 : (d = c.lastIndex - u[2].length, a = u[1], c = void 0 === u[3] ? m$1 : '"' === u[3] ? g : p) : c === g || c === p ? c = m$1 : c === v || c === _ ? c = f$1 : (c = m$1, r = void 0);
+    const x = c === m$1 && t[i + 1].startsWith("/>") ? " " : "";
+    l += c === f$1 ? s + n$2 : d >= 0 ? (o.push(a), s.slice(0, d) + e + s.slice(d) + h$1 + x) : s + h$1 + (-2 === d ? i : x);
+  }
+  return [C(t, l + (t[s] || "<?>") + (2 === i ? "</svg>" : "")), o];
+};
+class V {
+  constructor(_ref, n) {
+    let {
+      strings: t,
+      _$litType$: s
+    } = _ref;
+    let r;
+    this.parts = [];
+    let c = 0,
+      a = 0;
+    const u = t.length - 1,
+      d = this.parts,
+      [f, v] = P(t, s);
+    if (this.el = V.createElement(f, n), E.currentNode = this.el.content, 2 === s) {
+      const t = this.el.content.firstChild;
+      t.replaceWith(...t.childNodes);
+    }
+    for (; null !== (r = E.nextNode()) && d.length < u;) {
+      if (1 === r.nodeType) {
+        if (r.hasAttributes()) for (const t of r.getAttributeNames()) if (t.endsWith(e)) {
+          const i = v[a++],
+            s = r.getAttribute(t).split(h$1),
+            e = /([.?@])?(.*)/.exec(i);
+          d.push({
+            type: 1,
+            index: c,
+            name: e[2],
+            strings: s,
+            ctor: "." === e[1] ? k : "?" === e[1] ? H : "@" === e[1] ? I : R
+          }), r.removeAttribute(t);
+        } else t.startsWith(h$1) && (d.push({
+          type: 6,
+          index: c
+        }), r.removeAttribute(t));
+        if ($.test(r.tagName)) {
+          const t = r.textContent.split(h$1),
+            s = t.length - 1;
+          if (s > 0) {
+            r.textContent = i ? i.emptyScript : "";
+            for (let i = 0; i < s; i++) r.append(t[i], l$1()), E.nextNode(), d.push({
+              type: 2,
+              index: ++c
+            });
+            r.append(t[s], l$1());
+          }
+        }
+      } else if (8 === r.nodeType) if (r.data === o$2) d.push({
+        type: 2,
+        index: c
+      });else {
+        let t = -1;
+        for (; -1 !== (t = r.data.indexOf(h$1, t + 1));) d.push({
+          type: 7,
+          index: c
+        }), t += h$1.length - 1;
+      }
+      c++;
+    }
+  }
+  static createElement(t, i) {
+    const s = r$2.createElement("template");
+    return s.innerHTML = t, s;
+  }
+}
+function N(t, i) {
+  let s = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : t;
+  let e = arguments.length > 3 ? arguments[3] : undefined;
+  if (i === w) return i;
+  let h = void 0 !== e ? s._$Co?.[e] : s._$Cl;
+  const o = c(i) ? void 0 : i._$litDirective$;
+  return h?.constructor !== o && (h?._$AO?.(!1), void 0 === o ? h = void 0 : (h = new o(t), h._$AT(t, s, e)), void 0 !== e ? (s._$Co ??= [])[e] = h : s._$Cl = h), void 0 !== h && (i = N(t, h._$AS(t, i.values), h, e)), i;
+}
+class S {
+  constructor(t, i) {
+    this._$AV = [], this._$AN = void 0, this._$AD = t, this._$AM = i;
+  }
+  get parentNode() {
+    return this._$AM.parentNode;
+  }
+  get _$AU() {
+    return this._$AM._$AU;
+  }
+  u(t) {
+    const {
+        el: {
+          content: i
+        },
+        parts: s
+      } = this._$AD,
+      e = (t?.creationScope ?? r$2).importNode(i, !0);
+    E.currentNode = e;
+    let h = E.nextNode(),
+      o = 0,
+      n = 0,
+      l = s[0];
+    for (; void 0 !== l;) {
+      if (o === l.index) {
+        let i;
+        2 === l.type ? i = new M(h, h.nextSibling, this, t) : 1 === l.type ? i = new l.ctor(h, l.name, l.strings, this, t) : 6 === l.type && (i = new L(h, this, t)), this._$AV.push(i), l = s[++n];
+      }
+      o !== l?.index && (h = E.nextNode(), o++);
+    }
+    return E.currentNode = r$2, e;
+  }
+  p(t) {
+    let i = 0;
+    for (const s of this._$AV) void 0 !== s && (void 0 !== s.strings ? (s._$AI(t, s, i), i += s.strings.length - 2) : s._$AI(t[i])), i++;
+  }
+}
+class M {
+  get _$AU() {
+    return this._$AM?._$AU ?? this._$Cv;
+  }
+  constructor(t, i, s, e) {
+    this.type = 2, this._$AH = T, this._$AN = void 0, this._$AA = t, this._$AB = i, this._$AM = s, this.options = e, this._$Cv = e?.isConnected ?? !0;
+  }
+  get parentNode() {
+    let t = this._$AA.parentNode;
+    const i = this._$AM;
+    return void 0 !== i && 11 === t?.nodeType && (t = i.parentNode), t;
+  }
+  get startNode() {
+    return this._$AA;
+  }
+  get endNode() {
+    return this._$AB;
+  }
+  _$AI(t) {
+    let i = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this;
+    t = N(this, t, i), c(t) ? t === T || null == t || "" === t ? (this._$AH !== T && this._$AR(), this._$AH = T) : t !== this._$AH && t !== w && this._(t) : void 0 !== t._$litType$ ? this.g(t) : void 0 !== t.nodeType ? this.$(t) : u$1(t) ? this.T(t) : this._(t);
+  }
+  k(t) {
+    return this._$AA.parentNode.insertBefore(t, this._$AB);
+  }
+  $(t) {
+    this._$AH !== t && (this._$AR(), this._$AH = this.k(t));
+  }
+  _(t) {
+    this._$AH !== T && c(this._$AH) ? this._$AA.nextSibling.data = t : this.$(r$2.createTextNode(t)), this._$AH = t;
+  }
+  g(t) {
+    const {
+        values: i,
+        _$litType$: s
+      } = t,
+      e = "number" == typeof s ? this._$AC(t) : (void 0 === s.el && (s.el = V.createElement(C(s.h, s.h[0]), this.options)), s);
+    if (this._$AH?._$AD === e) this._$AH.p(i);else {
+      const t = new S(e, this),
+        s = t.u(this.options);
+      t.p(i), this.$(s), this._$AH = t;
+    }
+  }
+  _$AC(t) {
+    let i = A.get(t.strings);
+    return void 0 === i && A.set(t.strings, i = new V(t)), i;
+  }
+  T(t) {
+    a$1(this._$AH) || (this._$AH = [], this._$AR());
+    const i = this._$AH;
+    let s,
+      e = 0;
+    for (const h of t) e === i.length ? i.push(s = new M(this.k(l$1()), this.k(l$1()), this, this.options)) : s = i[e], s._$AI(h), e++;
+    e < i.length && (this._$AR(s && s._$AB.nextSibling, e), i.length = e);
+  }
+  _$AR() {
+    let t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this._$AA.nextSibling;
+    let i = arguments.length > 1 ? arguments[1] : undefined;
+    for (this._$AP?.(!1, !0, i); t && t !== this._$AB;) {
+      const i = t.nextSibling;
+      t.remove(), t = i;
+    }
+  }
+  setConnected(t) {
+    void 0 === this._$AM && (this._$Cv = t, this._$AP?.(t));
+  }
+}
+class R {
+  get tagName() {
+    return this.element.tagName;
+  }
+  get _$AU() {
+    return this._$AM._$AU;
+  }
+  constructor(t, i, s, e, h) {
+    this.type = 1, this._$AH = T, this._$AN = void 0, this.element = t, this.name = i, this._$AM = e, this.options = h, s.length > 2 || "" !== s[0] || "" !== s[1] ? (this._$AH = Array(s.length - 1).fill(new String()), this.strings = s) : this._$AH = T;
+  }
+  _$AI(t) {
+    let i = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this;
+    let s = arguments.length > 2 ? arguments[2] : undefined;
+    let e = arguments.length > 3 ? arguments[3] : undefined;
+    const h = this.strings;
+    let o = !1;
+    if (void 0 === h) t = N(this, t, i, 0), o = !c(t) || t !== this._$AH && t !== w, o && (this._$AH = t);else {
+      const e = t;
+      let n, r;
+      for (t = h[0], n = 0; n < h.length - 1; n++) r = N(this, e[s + n], i, n), r === w && (r = this._$AH[n]), o ||= !c(r) || r !== this._$AH[n], r === T ? t = T : t !== T && (t += (r ?? "") + h[n + 1]), this._$AH[n] = r;
+    }
+    o && !e && this.O(t);
+  }
+  O(t) {
+    t === T ? this.element.removeAttribute(this.name) : this.element.setAttribute(this.name, t ?? "");
+  }
+}
+class k extends R {
+  constructor() {
+    super(...arguments), this.type = 3;
+  }
+  O(t) {
+    this.element[this.name] = t === T ? void 0 : t;
+  }
+}
+class H extends R {
+  constructor() {
+    super(...arguments), this.type = 4;
+  }
+  O(t) {
+    this.element.toggleAttribute(this.name, !!t && t !== T);
+  }
+}
+class I extends R {
+  constructor(t, i, s, e, h) {
+    super(t, i, s, e, h), this.type = 5;
+  }
+  _$AI(t) {
+    let i = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this;
+    if ((t = N(this, t, i, 0) ?? T) === w) return;
+    const s = this._$AH,
+      e = t === T && s !== T || t.capture !== s.capture || t.once !== s.once || t.passive !== s.passive,
+      h = t !== T && (s === T || e);
+    e && this.element.removeEventListener(this.name, this, s), h && this.element.addEventListener(this.name, this, t), this._$AH = t;
+  }
+  handleEvent(t) {
+    "function" == typeof this._$AH ? this._$AH.call(this.options?.host ?? this.element, t) : this._$AH.handleEvent(t);
+  }
+}
+class L {
+  constructor(t, i, s) {
+    this.element = t, this.type = 6, this._$AN = void 0, this._$AM = i, this.options = s;
+  }
+  get _$AU() {
+    return this._$AM._$AU;
+  }
+  _$AI(t) {
+    N(this, t);
+  }
+}
+const Z = t.litHtmlPolyfillSupport;
+Z?.(V, M), (t.litHtmlVersions ??= []).push("3.1.0");
+const j = (t, i, s) => {
+  const e = s?.renderBefore ?? i;
+  let h = e._$litPart$;
+  if (void 0 === h) {
+    const t = s?.renderBefore ?? null;
+    e._$litPart$ = h = new M(i.insertBefore(l$1(), t), t, void 0, s ?? {});
+  }
+  return h._$AI(t), h;
+};
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+class s extends b$1 {
+  constructor() {
+    super(...arguments), this.renderOptions = {
+      host: this
+    }, this._$Do = void 0;
+  }
+  createRenderRoot() {
+    const t = super.createRenderRoot();
+    return this.renderOptions.renderBefore ??= t.firstChild, t;
+  }
+  update(t) {
+    const i = this.render();
+    this.hasUpdated || (this.renderOptions.isConnected = this.isConnected), super.update(t), this._$Do = j(i, this.renderRoot, this.renderOptions);
+  }
+  connectedCallback() {
+    super.connectedCallback(), this._$Do?.setConnected(!0);
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback(), this._$Do?.setConnected(!1);
+  }
+  render() {
+    return w;
+  }
+}
+s._$litElement$ = !0, s["finalized"] = !0, globalThis.litElementHydrateSupport?.({
+  LitElement: s
+});
+const r$1 = globalThis.litElementPolyfillSupport;
+r$1?.({
+  LitElement: s
+});
+(globalThis.litElementVersions ??= []).push("4.0.2");
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const o$1 = {
+    attribute: !0,
+    type: String,
+    converter: u$2,
+    reflect: !1,
+    hasChanged: f$2
+  },
+  r = function () {
+    let t = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : o$1;
+    let e = arguments.length > 1 ? arguments[1] : undefined;
+    let r = arguments.length > 2 ? arguments[2] : undefined;
+    const {
+      kind: n,
+      metadata: i
+    } = r;
+    let s = globalThis.litPropertyMetadata.get(i);
+    if (void 0 === s && globalThis.litPropertyMetadata.set(i, s = new Map()), s.set(r.name, t), "accessor" === n) {
+      const {
+        name: o
+      } = r;
+      return {
+        set(r) {
+          const n = e.get.call(this);
+          e.set.call(this, r), this.requestUpdate(o, n, t);
+        },
+        init(e) {
+          return void 0 !== e && this.C(o, void 0, t), e;
+        }
+      };
+    }
+    if ("setter" === n) {
+      const {
+        name: o
+      } = r;
+      return function (r) {
+        const n = this[o];
+        e.call(this, r), this.requestUpdate(o, n, t);
+      };
+    }
+    throw Error("Unsupported decorator location: " + n);
+  };
+function n$1(t) {
+  return (e, o) => "object" == typeof o ? r(t, e, o) : ((t, e, o) => {
+    const r = e.hasOwnProperty(o);
+    return e.constructor.createProperty(o, r ? {
+      ...t,
+      wrapped: !0
+    } : t), r ? Object.getOwnPropertyDescriptor(e, o) : void 0;
+  })(t, e, o);
+}
+var u;
+const o = /* @__PURE__ */new WeakMap(),
+  l = () => {},
+  n = class n {
+    constructor(s) {
+      this.subscribers = [], this.settlement = null, this[u] = "Unpromise", typeof s == "function" ? this.promise = new Promise(s) : this.promise = s;
+      const e = this.promise.then(t => {
+        const {
+          subscribers: r
+        } = this;
+        this.subscribers = null, this.settlement = {
+          status: "fulfilled",
+          value: t
+        }, r == null || r.forEach(_ref2 => {
+          let {
+            resolve: c
+          } = _ref2;
+          c(t);
+        });
+      });
+      "catch" in e && e.catch(t => {
+        const {
+          subscribers: r
+        } = this;
+        this.subscribers = null, this.settlement = {
+          status: "rejected",
+          reason: t
+        }, r == null || r.forEach(_ref3 => {
+          let {
+            reject: c
+          } = _ref3;
+          c(t);
+        });
+      });
+    }
+    /** Create a promise that mitigates uncontrolled subscription to a long-lived
+     * Promise via .then() and .catch() - otherwise a source of memory leaks.
+     *
+     * The returned promise has an `unsubscribe()` method which can be called when
+     * the Promise is no longer being tracked by application logic, and which
+     * ensures that there is no reference chain from the original promise to the
+     * new one, and therefore no memory leak.
+     *
+     * If original promise has not yet settled, this adds a new unique promise
+     * that listens to then/catch events, along with an `unsubscribe()` method to
+     * detach it.
+     *
+     * If original promise has settled, then creates a new Promise.resolve() or
+     * Promise.reject() and provided unsubscribe is a noop.
+     *
+     * If you call `unsubscribe()` before the returned Promise has settled, it
+     * will never settle.
+     */
+    subscribe() {
+      let s, e;
+      const {
+        settlement: t
+      } = this;
+      if (t === null) {
+        if (this.subscribers === null) throw new Error("Unpromise settled but still has subscribers");
+        const r = h();
+        this.subscribers = f(this.subscribers, r), s = r.promise, e = () => {
+          this.subscribers !== null && (this.subscribers = y(this.subscribers, r));
+        };
+      } else {
+        const {
+          status: r
+        } = t;
+        r === "fulfilled" ? s = Promise.resolve(t.value) : s = Promise.reject(t.reason), e = l;
+      }
+      return Object.assign(s, {
+        unsubscribe: e
+      });
+    }
+    /** STANDARD PROMISE METHODS (but returning a SubscribedPromise) */
+    then(s, e) {
+      const t = this.subscribe(),
+        {
+          unsubscribe: r
+        } = t;
+      return Object.assign(t.then(s, e), {
+        unsubscribe: r
+      });
+    }
+    catch(s) {
+      const e = this.subscribe(),
+        {
+          unsubscribe: t
+        } = e;
+      return Object.assign(e.catch(s), {
+        unsubscribe: t
+      });
+    }
+    finally(s) {
+      const e = this.subscribe(),
+        {
+          unsubscribe: t
+        } = e;
+      return Object.assign(e.finally(s), {
+        unsubscribe: t
+      });
+    }
+    /** Unpromise STATIC METHODS */
+    /** Create or Retrieve the proxy Unpromise (a re-used Unpromise for the VM lifetime
+     * of the provided Promise reference) */
+    static proxy(s) {
+      const e = n.getSubscribablePromise(s);
+      return typeof e < "u" ? e : n.createSubscribablePromise(s);
+    }
+    /** Create and store an Unpromise keyed by an original Promise. */
+    static createSubscribablePromise(s) {
+      const e = new n(s);
+      return o.set(s, e), o.set(e, e), e;
+    }
+    /** Retrieve a previously-created Unpromise keyed by an original Promise. */
+    static getSubscribablePromise(s) {
+      return o.get(s);
+    }
+    /** Promise STATIC METHODS */
+    /** Lookup the Unpromise for this promise, and derive a SubscribedPromise from
+     * it (that can be later unsubscribed to eliminate Memory leaks) */
+    static resolve(s) {
+      const e = typeof s == "object" && s !== null && "then" in s && typeof s.then == "function" ? s : Promise.resolve(s);
+      return n.proxy(e).subscribe();
+    }
+    static async any(s) {
+      const t = (Array.isArray(s) ? s : [...s]).map(n.resolve);
+      try {
+        return await Promise.any(t);
+      } finally {
+        t.forEach(_ref4 => {
+          let {
+            unsubscribe: r
+          } = _ref4;
+          r();
+        });
+      }
+    }
+    static async race(s) {
+      const t = (Array.isArray(s) ? s : [...s]).map(n.resolve);
+      try {
+        return await Promise.race(t);
+      } finally {
+        t.forEach(_ref5 => {
+          let {
+            unsubscribe: r
+          } = _ref5;
+          r();
+        });
+      }
+    }
+    /** Create a race of SubscribedPromises that will fulfil to a single winning
+     * Promise (in a 1-Tuple). Eliminates memory leaks from long-lived promises
+     * accumulating .then() and .catch() subscribers. Allows simple logic to
+     * consume the result, like...
+     * ```ts
+     * const [ winner ] = await Unpromise.race([ promiseA, promiseB ]);
+     * if(winner === promiseB){
+     *   const result = await promiseB;
+     *   // do the thing
+     * }
+     * ```
+     * */
+    static async raceReferences(s) {
+      const e = s.map(a);
+      try {
+        return await Promise.race(e);
+      } finally {
+        for (const t of e) t.unsubscribe();
+      }
+    }
+  };
+u = Symbol.toStringTag;
+let b = n;
+function a(i) {
+  return b.proxy(i).then(() => [i]);
+}
+function h() {
+  let i, s;
+  return {
+    promise: new Promise((t, r) => {
+      i = t, s = r;
+    }),
+    resolve: i,
+    reject: s
+  };
+}
+function f(i, s) {
+  return [...i, s];
+}
+function m(i, s) {
+  return [...i.slice(0, s), ...i.slice(s + 1)];
+}
+function y(i, s) {
+  const e = i.indexOf(s);
+  return e !== -1 ? m(i, e) : i;
+}
+async function hass_base_el() {
+  await b.race([customElements.whenDefined("home-assistant"), customElements.whenDefined("hc-main")]);
+  const element = customElements.get("home-assistant") ? "home-assistant" : "hc-main";
+  while (!document.querySelector(element)) await new Promise(r => window.setTimeout(r, 100));
+  return document.querySelector(element);
+}
+async function hass() {
+  const base = await hass_base_el();
+  while (!base.hass) await new Promise(r => window.setTimeout(r, 100));
+  return base.hass;
+}
+const ID_STORAGE_KEY = "browser_mod-browser-id";
+function BrowserID() {
+  if (document.querySelector("hc-main")) return "CAST";
+  if (localStorage[ID_STORAGE_KEY]) return localStorage[ID_STORAGE_KEY];
+  return "";
+}
+window.cardMod_template_cache = window.cardMod_template_cache || {};
+const cachedTemplates = window.cardMod_template_cache;
+function template_updated(key, result) {
+  const cache = cachedTemplates[key];
+  if (!cache) {
+    return;
+  }
+  cache.value = result.result;
+  cache.callbacks.forEach(f => f(result.result));
+}
+function hasTemplate(str) {
+  if (!str) return false;
+  return String(str).includes("{%") || String(str).includes("{{");
+}
+async function bind_template(callback, template, variables) {
+  const hs = await hass();
+  const connection = hs.connection;
+  const cacheKey = JSON.stringify([template, variables]);
+  let cache = cachedTemplates[cacheKey];
+  if (!cache) {
+    unbind_template(callback);
+    callback("");
+    variables = Object.assign({
+      user: hs.user.name,
+      browser: BrowserID(),
+      hash: location.hash.substr(1) || ""
+    }, variables);
+    cachedTemplates[cacheKey] = cache = {
+      template,
+      variables,
+      value: "",
+      callbacks: new Set([callback]),
+      unsubscribe: connection.subscribeMessage(result => template_updated(cacheKey, result), {
+        type: "render_template",
+        template,
+        variables
+      })
+    };
+  } else {
+    if (!cache.callbacks.has(callback)) unbind_template(callback);
+    callback(cache.value);
+    cache.callbacks.add(callback);
+  }
+}
+async function unbind_template(callback) {
+  let unsubscriber;
+  for (const [key, cache] of Object.entries(cachedTemplates)) {
+    if (cache.callbacks.has(callback)) {
+      cache.callbacks.delete(callback);
+      if (cache.callbacks.size == 0) {
+        unsubscriber = cache.unsubscribe;
+        delete cachedTemplates[key];
+      }
+      break;
+    }
+  }
+  if (unsubscriber) await (await unsubscriber)();
+}
+var name = "card-mod";
+var browserslist = "> 0.25%, not dead";
+var version = "3.4.5";
+var description = "";
+var scripts = {
+  build: "rollup -c",
+  watch: "rollup -c --watch"
+};
+var keywords = [];
+var author = "Thomas Lovén";
+var license = "MIT";
+var devDependencies = {
+  "@babel/core": "^7.23.6",
+  "@babel/preset-env": "^7.23.6",
+  "@rollup/plugin-babel": "^6.0.4",
+  "@rollup/plugin-json": "^6.1.0",
+  "@rollup/plugin-node-resolve": "^15.2.3",
+  rollup: "^2.79.1",
+  "rollup-plugin-terser": "^7.0.2",
+  "rollup-plugin-typescript2": "^0.36.0",
+  typescript: "^5.3.3"
+};
+var dependencies = {
+  "@watchable/unpromise": "^1.0.2",
+  lit: "^3.1.0",
+  tslib: "^2.6.2"
+};
+var pjson = {
+  name: name,
+  browserslist: browserslist,
+  "private": true,
+  version: version,
+  description: description,
+  scripts: scripts,
+  keywords: keywords,
+  author: author,
+  license: license,
+  devDependencies: devDependencies,
+  dependencies: dependencies
+};
+const _load_yaml2json = async () => {
+  if (customElements.get("developer-tools-event")) return;
+  await customElements.whenDefined("partial-panel-resolver");
+  const ppr = document.createElement("partial-panel-resolver");
+  ppr.hass = {
+    panels: [{
+      url_path: "tmp",
+      component_name: "developer-tools"
+    }]
+  };
+  ppr._updateRoutes();
+  await ppr.routerOptions.routes.tmp.load();
+  await customElements.whenDefined("developer-tools-router");
+  const dtr = document.createElement("developer-tools-router");
+  await dtr.routerOptions.routes.event.load();
+};
+const yaml2json = async yaml => {
+  await _load_yaml2json();
+  const el = document.createElement("ha-yaml-editor");
+  el._onChange(new CustomEvent("yaml", {
+    detail: {
+      value: yaml
+    }
+  }));
+  return el.value;
+};
+async function get_theme(root) {
+  var _a;
+  if (!root.type) return null;
+  const el = root.parentElement ? root.parentElement : root;
+  const theme = window.getComputedStyle(el).getPropertyValue("--card-mod-theme");
+  const hs = await hass();
+  if (!hs) return {};
+  const themes = (_a = hs === null || hs === void 0 ? void 0 : hs.themes.themes) !== null && _a !== void 0 ? _a : {};
+  if (!themes[theme]) return {};
+  if (themes[theme][`card-mod-${root.type}-yaml`]) {
+    return yaml2json(themes[theme][`card-mod-${root.type}-yaml`]);
+  } else if (themes[theme][`card-mod-${root.type}`]) {
+    return {
+      ".": themes[theme][`card-mod-${root.type}`]
+    };
+  } else {
+    return {};
+  }
+}
+const TIMEOUT_ERROR = "SELECTTREE-TIMEOUT";
+async function await_element(el) {
+  let hard = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var _a;
+  if ((_a = el.localName) === null || _a === void 0 ? void 0 : _a.includes("-")) await customElements.whenDefined(el.localName);
+  if (el.updateComplete) await el.updateComplete;
+  if (hard) {
+    if (el.pageRendered) await el.pageRendered;
+    if (el._panelState) {
+      let rounds = 0;
+      while (el._panelState !== "loaded" && rounds++ < 5) await new Promise(r => setTimeout(r, 100));
+    }
+  }
+}
+async function _selectTree(root, path) {
+  let all = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  let el = [root];
+  // Split and clean path
+  if (typeof path === "string") {
+    path = path.split(/(\$| )/);
+  }
+  while (path[path.length - 1] === "") path.pop();
+  // For each element in the path
+  for (const [i, p] of path.entries()) {
+    if (p === "$") {
+      await Promise.all([...el].map(e => await_element(e)));
+      el = [...el].map(e => e.shadowRoot);
+      continue;
+    }
+    // Only pick the first one for the next step
+    const e = el[0];
+    if (!e) return null;
+    if (!p.trim().length) continue;
+    await await_element(e);
+    el = e.querySelectorAll(p);
+  }
+  return all ? el : el[0];
+}
+async function selectTree(root, path) {
+  let all = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  let timeout = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 10000;
+  return b.race([_selectTree(root, path, all), new Promise((_, reject) => setTimeout(() => reject(new Error(TIMEOUT_ERROR)), timeout))]).catch(err => {
+    if (!err.message || err.message !== TIMEOUT_ERROR) throw err;
+    return null;
+  });
+}
+class ModdedElement extends s {
+  constructor() {
+    super(...arguments);
+    this._cardMod = [];
+  }
+  setConfig(_orig, config) {
+    for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+      args[_key2 - 2] = arguments[_key2];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(config, ...args);
+    this._cardMod.forEach(cm => {
+      var _a;
+      cm.variables = {
+        config
+      };
+      cm.styles = ((_a = config.card_mod) === null || _a === void 0 ? void 0 : _a.style) || {};
+    });
+  }
+  updated(_orig) {
+    for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+      args[_key3 - 1] = arguments[_key3];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    Promise.all([this.updateComplete]).then(() => this._cardMod.forEach(cm => {
+      var _a;
+      return (_a = cm.refresh) === null || _a === void 0 ? void 0 : _a.call(cm);
+    }));
+  }
+}
+async function apply_card_mod_compatible(element, type) {
+  let cm_config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
+  let variables = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  let shadow = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+  let cls = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : undefined;
+  // TODO: Remove in June 2024
+  // This is for backwards compatibility with Card mod version 3.3 and earlier.
+  // Do not remove this before June 2024 unless Card-mod 4.0 is released.
+  var _a, _b;
+  // Wrapper for backwards compatibility (with deprecation warning)
+  // Old signature:
+  //   el: Node
+  //   type: string
+  //   styles: CardModStyle = ""
+  //   variables: object = {}
+  //   _: any = null
+  //   shadow: boolean = true
+  //
+  // New signature
+  //   el: Node
+  //   type: string
+  //   cm_config: CardModConfig
+  //   variables: object = {}
+  //   shadow: boolean = true
+  //   cls: str = undefined
+  let oldStyle = false;
+  if (cls !== undefined) {
+    if (typeof cls !== "string") {
+      // Old style call
+      oldStyle = true;
+      shadow = cls;
+      cls = undefined;
+    }
+  }
+  if (typeof shadow !== "boolean") {
+    // Old style call
+    shadow = true;
+    oldStyle = true;
+  }
+  if (typeof cm_config === "string") {
+    // Old style call with string styles
+    cm_config = {
+      style: cm_config
+    };
+    oldStyle = true;
+  }
+  if (cm_config && Object.keys(cm_config).length !== 0 && ((_b = (_a = cm_config === null || cm_config === void 0 ? void 0 : cm_config.style) !== null && _a !== void 0 ? _a : cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) !== null && _b !== void 0 ? _b : cm_config === null || cm_config === void 0 ? void 0 : cm_config.debug) === undefined) {
+    // Old style call with object styles
+    cm_config = {
+      style: cm_config
+    };
+    oldStyle = true;
+  }
+  if (oldStyle && !window.cm_compatibility_warning) {
+    window.cm_compatibility_warning = true;
+    console.groupCollapsed("Card-mod warning");
+    console.info("You are using a custom card which relies on card-mod, and uses an outdated signature for applyToElement.");
+    console.info("The outdated signature will be removed at some point in the future. Hopefully the developer of your card will have updated their card by then.");
+    console.info("The card used card-mod to apply styles here:", element);
+    console.groupEnd();
+  }
+  return apply_card_mod(element, type, cm_config, variables, shadow, cls);
+}
+async function apply_card_mod(element, type) {
+  let cm_config = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
+  let variables = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  let shadow = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+  let cls = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : undefined;
+  var _a, _b, _c, _d, _e, _f, _g;
+  const debug = (cm_config === null || cm_config === void 0 ? void 0 : cm_config.debug) ? function () {
+    for (var _len4 = arguments.length, msg = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+      msg[_key4] = arguments[_key4];
+    }
+    return console.log("CardMod Debug:", ...msg);
+  } : function () {};
+  debug("Applying card-mod to:", ...((element === null || element === void 0 ? void 0 : element.host) ? ["#shadow-root of:", element === null || element === void 0 ? void 0 : element.host] : [element]), "type: ", type, "configuration: ", cm_config);
+  if (!element) return;
+  // Wait for target element to exist
+  if ((_a = element.localName) === null || _a === void 0 ? void 0 : _a.includes("-")) await customElements.whenDefined(element.localName);
+  element._cardMod = element._cardMod || [];
+  // Find any existing card-mod elements of the right type
+  const cm = (_b = element._cardMod.find(cm => cm.type === type)) !== null && _b !== void 0 ? _b : document.createElement("card-mod");
+  debug("Applying card-mod in:", cm);
+  cm.type = type;
+  cm.debug = (_c = cm_config === null || cm_config === void 0 ? void 0 : cm_config.debug) !== null && _c !== void 0 ? _c : false;
+  // (cm as any).setAttribute("card-mod-type", type);
+  if (!element._cardMod.includes(cm)) element._cardMod.push(cm);
+  window.setTimeout(async () => {
+    var _a, _b, _c;
+    await Promise.all([element.updateComplete]);
+    const target = ((_a = element.modElement) !== null && _a !== void 0 ? _a : shadow) ? (_b = element.shadowRoot) !== null && _b !== void 0 ? _b : element : element;
+    if (!target.contains(cm)) target.appendChild(cm);
+    cm.variables = variables;
+    cm.styles = (_c = cm_config === null || cm_config === void 0 ? void 0 : cm_config.style) !== null && _c !== void 0 ? _c : "";
+  }, 1);
+  const classes = (_f = typeof (cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) == "string" ? (_e = (_d = cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) === null || _d === void 0 ? void 0 : _d.split) === null || _e === void 0 ? void 0 : _e.call(_d, " ") : cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) !== null && _f !== void 0 ? _f : [];
+  (_g = element.classList) === null || _g === void 0 ? void 0 : _g.add(...classes, cls);
+  return cm;
+}
+function merge_deep(target, source) {
+  const isObject = i => {
+    return i && typeof i === "object" && !Array.isArray(i);
+  };
+  if (isObject(target) && isObject(source)) {
+    for (const key in source) {
+      if (isObject(source[key])) {
+        if (!target[key]) Object.assign(target, {
+          [key]: {}
+        });
+        if (typeof target[key] === "string") target[key] = {
+          ".": target[key]
+        };
+        merge_deep(target[key], source[key]);
+      } else {
+        if (target[key]) target[key] = source[key] + target[key];else target[key] = source[key];
+      }
+    }
+  }
+  return target;
+}
+function compare_deep(a, b) {
+  if (a === b) return true;
+  if (typeof a !== typeof b) return false;
+  if (!(a instanceof Object && b instanceof Object)) return false;
+  for (const x in a) {
+    if (!a.hasOwnProperty(x)) continue;
+    if (!b.hasOwnProperty(x)) return false;
+    if (a[x] === b[x]) continue;
+    if (typeof a[x] !== "object") return false;
+    if (!compare_deep(a[x], b[x])) return false;
+  }
+  for (const x in b) {
+    if (!b.hasOwnProperty(x)) continue;
+    if (!a.hasOwnProperty(x)) return false;
+  }
+  return true;
+}
+class CardMod extends s {
+  static get applyToElement() {
+    // This gets the compatibility wrapper for backwards compatibility with card-mod 3.3.
+    // The wrapper should be removed at earliest June 2024, or if card-mod 4.0 is released
+    return apply_card_mod_compatible;
+  }
+  constructor() {
+    super();
+    this.card_mod_children = {};
+    this.card_mod_parent = undefined;
+    this.debug = false;
+    this._fixed_styles = {};
+    this._styles = "";
+    this._rendered_styles = "";
+    this._observer = new MutationObserver(mutations => {
+      // MutationObserver to keep track of any changes to the parent element
+      // e.g. when elements are changed after creation.
+      // The observer is activated in _connect() only if there are any styles
+      //  which should be applied to children
+      for (const m of mutations) {
+        if (m.target.localName === "card-mod") return;
+        if (m.addedNodes.length) m.addedNodes.forEach(n => {
+          if (n.localName !== "card-mod") ;
+        });
+        if (m.removedNodes.length) m.removedNodes.forEach(n => {
+          if (n.localName !== "card-mod") ;
+        });
+      }
+      if (stop) return;
+      this.refresh();
+    });
+    // cm_update is issued when themes are reloaded
+    document.addEventListener("cm_update", () => {
+      this._process_styles(this.card_mod_input);
+    });
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this.refresh();
+    // Make sure the card-mod element is invisible
+    this.setAttribute("slot", "none");
+    this.style.display = "none";
+  }
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this._disconnect();
+  }
+  set styles(stl) {
+    // Parsing styles is expensive, so only do it if things have actually changed
+    if (compare_deep(stl, this.card_mod_input)) return;
+    this.card_mod_input = stl;
+    this._process_styles(stl);
+  }
+  get styles() {
+    // Return only styles that apply to this element
+    return this._styles;
+  }
+  refresh() {
+    this._connect();
+  }
+  _debug() {
+    for (var _len5 = arguments.length, msg = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+      msg[_key5] = arguments[_key5];
+    }
+    if (this.debug) console.log("CardMod Debug:", ...msg);
+  }
+  async _process_styles(stl) {
+    let styles = typeof stl === "string" ? {
+      ".": stl
+    } : JSON.parse(JSON.stringify(stl));
+    // Merge card_mod styles with theme styles
+    const theme_styles = await get_theme(this);
+    merge_deep(styles, theme_styles);
+    // Save processed styles
+    this._fixed_styles = styles;
+    this.refresh();
+  }
+  async _style_child(path, style) {
+    let retries = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+    const parent = this.parentElement || this.parentNode;
+    const elements = await selectTree(parent, path, true);
+    if (!elements || !elements.length) {
+      if (retries > 5) throw new Error("NoElements");
+      await new Promise(resolve => setTimeout(resolve, retries * 100));
+      return this._style_child(path, style, retries + 1);
+    }
+    return [...elements].map(async ch => {
+      const cm = await apply_card_mod(ch, `${this.type}-child`, {
+        style,
+        debug: this.debug
+      }, this.variables, false);
+      if (cm) cm.card_mod_parent = this;
+      return cm;
+    });
+  }
+  async _connect() {
+    var _a, _b, _c, _d;
+    const styles = (_a = this._fixed_styles) !== null && _a !== void 0 ? _a : {};
+    const styleChildren = {};
+    let thisStyle = "";
+    let hasChildren = false;
+    this.parentElement || this.parentNode;
+    this._debug("(Re)connecting", this);
+    // Go through each path in the styles
+    for (const [key, value] of Object.entries(styles)) {
+      if (key === ".") {
+        if (typeof value === "string") thisStyle = value;else this._debug("Style of '.' must be a string: ", value);
+      } else {
+        hasChildren = true;
+        styleChildren[key] = this._style_child(key, value).catch(e => {
+          if (e.message == "NoElements") {
+            if (this.debug) {
+              console.groupCollapsed("card-mod found no elements");
+              console.info(`Looked for ${key}`);
+              console.info(this);
+              console.groupEnd();
+            }
+            return;
+          }
+          throw e;
+        });
+      }
+    }
+    // Prune old child elements
+    for (const key in this.card_mod_children) {
+      if (!styleChildren[key]) {
+        (_b = await this.card_mod_children[key]) === null || _b === void 0 ? void 0 : _b.forEach(async ch => (await ch).styles = "");
+      }
+    }
+    this.card_mod_children = styleChildren;
+    // Process styles applicable to this card-mod element
+    if (this._styles === thisStyle) return;
+    this._styles = thisStyle;
+    if (hasTemplate(this._styles)) {
+      this._renderer = this._renderer || this._style_rendered.bind(this);
+      bind_template(this._renderer, this._styles, this.variables);
+    } else {
+      this._style_rendered(this._styles || "");
+    }
+    if (hasChildren) {
+      this._observer.disconnect();
+      const parentEl = (_c = this.parentElement) !== null && _c !== void 0 ? _c : this.parentNode;
+      this._observer.observe((_d = parentEl === null || parentEl === void 0 ? void 0 : parentEl.host) !== null && _d !== void 0 ? _d : parentEl, {
+        childList: true
+      });
+    }
+  }
+  async _disconnect() {
+    var _a, _b;
+    this._observer.disconnect();
+    this._styles = "";
+    await unbind_template(this._renderer);
+    (_b = (_a = this.card_mod_parent) === null || _a === void 0 ? void 0 : _a.refresh) === null || _b === void 0 ? void 0 : _b.call(_a);
+  }
+  _style_rendered(result) {
+    if (this._rendered_styles !== result) this._rendered_styles = result;
+    // This event is listened for by icons
+    this.dispatchEvent(new Event("card-mod-update"));
+  }
+  createRenderRoot() {
+    return this;
+  }
+  render() {
+    return x`
+      <style>
+        ${this._rendered_styles}
+      </style>
+    `;
+  }
+}
+__decorate([n$1({
+  attribute: "card-mod-type",
+  reflect: true
+})], CardMod.prototype, "type", void 0);
+__decorate([n$1()], CardMod.prototype, "_rendered_styles", void 0);
+if (!customElements.get("card-mod")) {
+  customElements.define("card-mod", CardMod);
+  console.info(`%cCARD-MOD ${pjson.version} IS INSTALLED`, "color: green; font-weight: bold");
+}
+(async () => {
+  // Wait for scoped customElements registry to be set up
+  // and then redefine card-mod if necessary
+  // otherwise the customElements registry card-mod is defined in
+  // may get overwritten by the polyfill if card-mod is loaded as a module
+  while (customElements.get("home-assistant") === undefined) await new Promise(resolve => window.setTimeout(resolve, 100));
+  if (!customElements.get("card-mod")) {
+    customElements.define("card-mod", CardMod);
+  }
+})();
+const patch_method = function (obj, method, override) {
+  if (method === "constructor") return;
+  const original = obj[method];
+  if (original === null || original === void 0 ? void 0 : original.cm_patched) return;
+  const fn = function () {
+    for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+      args[_key6] = arguments[_key6];
+    }
+    try {
+      return override.call(this, original === null || original === void 0 ? void 0 : original.bind(this), ...args);
+    } catch (e) {
+      console.error("Card-mod", e);
+      return original === null || original === void 0 ? void 0 : original.bind(this)(...args);
+    }
+  };
+  fn.cm_patched = true;
+  obj[method] = fn;
+};
+const patch_object = (obj, patch) => {
+  if (!obj) return;
+  for (const method in Object.getOwnPropertyDescriptors(patch.prototype)) {
+    patch_method(obj, method, patch.prototype[method]);
+  }
+};
+const patch_prototype = async (cls, patch, afterwards) => {
+  if (typeof cls === "string") {
+    await customElements.whenDefined(cls);
+    cls = customElements.get(cls);
+  }
+  const patched = patch_object(cls.prototype, patch);
+  afterwards === null || afterwards === void 0 ? void 0 : afterwards();
+  return patched;
+};
+// Decorator for patching a custom-element
+function patch_element(element, afterwards) {
+  return function patched(constructor) {
+    patch_prototype(element, constructor, afterwards);
+  };
+}
+
+/*
+Patch the ha-card element to on first update:
+- try to find the config parameter of it's parent element
+- Apply card_mod styles according to that config
+*/
+let HaCardPatch = class HaCardPatch extends ModdedElement {
+  constructor() {
+    super(...arguments);
+    this._cardMod = [];
+  }
+  async firstUpdated(_orig) {
+    var _a, _b, _c;
+    for (var _len7 = arguments.length, args = new Array(_len7 > 1 ? _len7 - 1 : 0), _key7 = 1; _key7 < _len7; _key7++) {
+      args[_key7 - 1] = arguments[_key7];
+    }
+    await (_orig === null || _orig === void 0 ? void 0 : _orig(...args));
+    const config = findConfig(this);
+    const cls = `type-${(_b = (_a = config === null || config === void 0 ? void 0 : config.type) === null || _a === void 0 ? void 0 : _a.replace) === null || _b === void 0 ? void 0 : _b.call(_a, ":", "-")}`;
+    await apply_card_mod(this, "card", config === null || config === void 0 ? void 0 : config.card_mod, {
+      config
+    }, false, cls);
+    const parent = (_c = this.parentNode) === null || _c === void 0 ? void 0 : _c.host;
+    if (!parent) return;
+    patch_object(parent, ModdedElement);
+    parent._cardMod = this._cardMod;
+  }
+};
+HaCardPatch = __decorate([patch_element("ha-card")], HaCardPatch);
+function findConfig(node) {
+  if (node.config) return node.config;
+  if (node._config) return node._config;
+  if (node.host) return findConfig(node.host);
+  if (node.parentElement) return findConfig(node.parentElement);
+  if (node.parentNode) return findConfig(node.parentNode);
+  return null;
+}
+
+/*
+Patch the hui-entities-card specifically in order to handle individual styling of each row
+*/
+let HuiEntitiesCardPatch = class HuiEntitiesCardPatch extends ModdedElement {
+  _renderEntity(_orig, config) {
+    var _a, _b;
+    for (var _len8 = arguments.length, rest = new Array(_len8 > 2 ? _len8 - 2 : 0), _key8 = 2; _key8 < _len8; _key8++) {
+      rest[_key8 - 2] = arguments[_key8];
+    }
+    const retval = _orig === null || _orig === void 0 ? void 0 : _orig(config, ...rest);
+    if ((config === null || config === void 0 ? void 0 : config.type) === "custom:mod-card") return retval;
+    if (!(retval === null || retval === void 0 ? void 0 : retval.values)) return retval;
+    const row = retval.values[0];
+    if (!row) return retval;
+    const cls = `type-${(_b = (_a = config === null || config === void 0 ? void 0 : config.type) === null || _a === void 0 ? void 0 : _a.replace) === null || _b === void 0 ? void 0 : _b.call(_a, ":", "-")}`;
+    const apply = async () => {
+      await await_element(row);
+      patch_object(row, ModdedElement);
+      apply_card_mod(row, "row", config === null || config === void 0 ? void 0 : config.card_mod, {
+        config
+      }, true, cls);
+      row.addEventListener("ll-rebuild", apply);
+    };
+    Promise.all([this.updateComplete]).then(() => apply());
+    return retval;
+  }
+};
+HuiEntitiesCardPatch = __decorate([patch_element("hui-entities-card")], HuiEntitiesCardPatch);
+
+/*
+Patch the hui-glance-card specifically in order to handle individual styling of each item
+Items in glance cards are not isolated like rows in entities cards, so the styling options
+are somewhat limited. Therefore this patch creates a separate shadowRoot for each item.
+*/
+// https://github.com/home-assistant/frontend/blob/8c39ed46a83e7e889c389af466c0fd1b07fbf6fd/src/panels/lovelace/cards/hui-glance-card.ts#L202-L211
+// https://github.com/home-assistant/frontend/blob/8c39ed46a83e7e889c389af466c0fd1b07fbf6fd/src/panels/lovelace/cards/hui-glance-card.ts#L231-L233
+const ENTITY_STYLES = `
+div {
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.name {
+  min-height: var(--paper-font-body1_-_line-height, 20px);
+}
+state-badge {
+  margin: 8px 0;
+}
+`;
+let HuiGlanceCardPatch = class HuiGlanceCardPatch extends ModdedElement {
+  // hui-glance-card has a renderEntity method, but the return from that is too messy
+  // Instead find every icon after render in the updated method.
+  updated(_orig) {
+    var _a, _b, _c;
+    for (var _len9 = arguments.length, args = new Array(_len9 > 1 ? _len9 - 1 : 0), _key9 = 1; _key9 < _len9; _key9++) {
+      args[_key9 - 1] = arguments[_key9];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    // Each entity of a glance card is contained in a div.entity
+    // Go through each and apply styling individually
+    for (const el of this.shadowRoot.querySelectorAll("ha-card div.entity")) {
+      patch_object(el, ModdedElement);
+      // Create a shadowroot for each entity
+      // This makes it easier to style entities individually without styles "leaking" out
+      const root = (_a = el.shadowRoot) !== null && _a !== void 0 ? _a : el.attachShadow({
+        mode: "open"
+      });
+      while (el.firstChild) root.append(el.firstChild);
+      // Add default styles into shadowRoot
+      const styleTag = (_b = el.querySelector("style[card-mod]")) !== null && _b !== void 0 ? _b : document.createElement("style");
+      styleTag.setAttribute("card-mod", "");
+      styleTag.innerHTML = ENTITY_STYLES;
+      root.append(styleTag);
+      // Thankfully the configuration data for the glance entity is added to the div for some reason
+      // https://github.com/home-assistant/frontend/blob/8c39ed46a83e7e889c389af466c0fd1b07fbf6fd/src/panels/lovelace/cards/hui-glance-card.ts#L275
+      const config = (_c = el["config"]) !== null && _c !== void 0 ? _c : el["entityConfig"];
+      apply_card_mod(el, "glance", config === null || config === void 0 ? void 0 : config.card_mod, {
+        config
+      });
+    }
+  }
+};
+HuiGlanceCardPatch = __decorate([patch_element("hui-glance-card")], HuiGlanceCardPatch);
+
+/*
+Patch the hui-state-label-badge to take styles from the config
+( those are the optional badges at the top of the view )
+*/
+let StateLabelBadgePatch = class StateLabelBadgePatch extends ModdedElement {
+  async firstUpdated(_orig) {
+    for (var _len10 = arguments.length, args = new Array(_len10 > 1 ? _len10 - 1 : 0), _key10 = 1; _key10 < _len10; _key10++) {
+      args[_key10 - 1] = arguments[_key10];
+    }
+    await (_orig === null || _orig === void 0 ? void 0 : _orig(...args));
+    const config = this["_config"];
+    await apply_card_mod(this, "badge", config === null || config === void 0 ? void 0 : config.card_mod, {
+      config
+    });
+  }
+};
+StateLabelBadgePatch = __decorate([patch_element("hui-state-label-badge")], StateLabelBadgePatch);
+
+/*
+Patch hui-view for theme styling
+
+There is no style passed to apply_card_mod here, everything comes only from themes.
+
+*/
+let HuiViewPatch = class HuiViewPatch extends ModdedElement {
+  updated(_orig) {
+    for (var _len11 = arguments.length, args = new Array(_len11 > 1 ? _len11 - 1 : 0), _key11 = 1; _key11 < _len11; _key11++) {
+      args[_key11 - 1] = arguments[_key11];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    apply_card_mod(this, "view", undefined, {}, false);
+  }
+};
+HuiViewPatch = __decorate([patch_element("hui-view")], HuiViewPatch);
+
+/*
+Patch hui-root for theme styling
+
+There is no style passed to apply_card_mod here, everything comes only from themes.
+
+An earlier version of card-mod would also re-run firstUpdated of any existing element after patching.
+This shouldn't be necessary if card-mod is loaded as a module.
+*/
+// hui-root may have been used before the patch was applied
+const apply$1 = () => {
+  selectTree(document, "home-assistant$home-assistant-main$partial-panel-resolver ha-panel-lovelace$hui-root", false).then(root => root === null || root === void 0 ? void 0 : root.firstUpdated());
+};
+let HuiRootPatch = class HuiRootPatch extends ModdedElement {
+  firstUpdated(_orig) {
+    for (var _len12 = arguments.length, args = new Array(_len12 > 1 ? _len12 - 1 : 0), _key12 = 1; _key12 < _len12; _key12++) {
+      args[_key12 - 1] = arguments[_key12];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    apply_card_mod(this, "root");
+  }
+};
+HuiRootPatch = __decorate([patch_element("hui-root", apply$1)], HuiRootPatch);
+
+/*
+Patch ha-more-info-dialog to style more-info popups.
+
+There is no style passed to apply_card_mod here, everything comes only from themes.
+
+An earlier version of card-mod would also look for any already opened dialogs
+home-assistant$ha-more-info-dialog
+If that existed it would replace the showDialog method of that with the patched version, and then re-run it.
+This should only be necessary if someone manages to open a dialog before card-mod loads in, which shouldn't happen
+at all if card-mod is loaded as a module.
+*/
+let MoreInfoDIalogPatch = class MoreInfoDIalogPatch extends ModdedElement {
+  showDialog(_orig, params) {
+    for (var _len13 = arguments.length, rest = new Array(_len13 > 2 ? _len13 - 2 : 0), _key13 = 2; _key13 < _len13; _key13++) {
+      rest[_key13 - 2] = arguments[_key13];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(params, ...rest);
+    this.requestUpdate();
+    this.updateComplete.then(async () => {
+      const haDialog = this.shadowRoot.querySelector("ha-dialog");
+      if (!haDialog) return;
+      apply_card_mod(haDialog, "more-info", undefined, {
+        config: params
+      }, false);
+    });
+  }
+};
+MoreInfoDIalogPatch = __decorate([patch_element("ha-more-info-dialog")], MoreInfoDIalogPatch);
+
+/*
+Patch ha-sidebar for theme styling
+
+There is no style passed to apply_card_mod here, everything comes only from themes.
+
+An earlier version of card-mod would also re-run firstUpdated of any existing element after patching.
+This shouldn't be necessary if card-mod is loaded as a module.
+*/
+// ha-sidebar may have been used before the patch was applied
+const apply = () => {
+  selectTree(document, "home-assistant$home-assistant-main$ha-sidebar", false).then(root => root === null || root === void 0 ? void 0 : root.firstUpdated());
+};
+let SidebarPatch = class SidebarPatch extends ModdedElement {
+  // @ts-ignore
+  firstUpdated(_orig) {
+    for (var _len14 = arguments.length, args = new Array(_len14 > 1 ? _len14 - 1 : 0), _key14 = 1; _key14 < _len14; _key14++) {
+      args[_key14 - 1] = arguments[_key14];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    apply_card_mod(this, "sidebar");
+  }
+};
+SidebarPatch = __decorate([patch_element("ha-sidebar", apply)], SidebarPatch);
+class ConfigElementPatch extends s {
+  setConfig(_orig, config) {
+    var _a, _b, _c, _d, _e;
+    const newConfig = JSON.parse(JSON.stringify(config));
+    // Save card_mod config
+    this._cardModData = {
+      card: newConfig.card_mod,
+      entities: []
+    };
+    delete newConfig.card_mod;
+    // Save card_mod config for individual entities
+    if (Array.isArray(newConfig.entities)) {
+      for (const [i, e] of (_b = (_a = newConfig.entities) === null || _a === void 0 ? void 0 : _a.entries) === null || _b === void 0 ? void 0 : _b.call(_a)) {
+        this._cardModData.entities[i] = e.card_mod;
+        delete e.card_mod;
+      }
+    }
+    for (var _len15 = arguments.length, rest = new Array(_len15 > 2 ? _len15 - 2 : 0), _key15 = 2; _key15 < _len15; _key15++) {
+      rest[_key15 - 2] = arguments[_key15];
+    }
+    _orig(newConfig, ...rest);
+    // Restore card_mod config for entities
+    if (Array.isArray(newConfig.entities)) {
+      for (const [i, e] of (_d = (_c = newConfig.entities) === null || _c === void 0 ? void 0 : _c.entries) === null || _d === void 0 ? void 0 : _d.call(_c)) {
+        if ((_e = this._cardModData) === null || _e === void 0 ? void 0 : _e.entities[i]) e.card_mod = this._cardModData.entities[i];
+      }
+    }
+  }
+}
+let HuiCardElementEditorPatch = class HuiCardElementEditorPatch extends s {
+  async getConfigElement(_orig) {
+    for (var _len16 = arguments.length, args = new Array(_len16 > 1 ? _len16 - 1 : 0), _key16 = 1; _key16 < _len16; _key16++) {
+      args[_key16 - 1] = arguments[_key16];
+    }
+    const retval = await _orig(...args);
+    patch_object(retval, ConfigElementPatch);
+    return retval;
+  }
+  _handleUIConfigChanged(_orig, ev) {
+    var _a;
+    const cmData = (_a = this._configElement) === null || _a === void 0 ? void 0 : _a._cardModData;
+    if (cmData) {
+      ev.detail.config.card_mod = cmData.card;
+    }
+    for (var _len17 = arguments.length, rest = new Array(_len17 > 2 ? _len17 - 2 : 0), _key17 = 2; _key17 < _len17; _key17++) {
+      rest[_key17 - 2] = arguments[_key17];
+    }
+    _orig(ev, ...rest);
+  }
+};
+HuiCardElementEditorPatch = __decorate([patch_element("hui-card-element-editor")], HuiCardElementEditorPatch);
+let HuiDialogEditCardPatch = class HuiDialogEditCardPatch extends s {
+  updated(_orig) {
+    var _a, _b, _c, _d, _e;
+    for (var _len18 = arguments.length, args = new Array(_len18 > 1 ? _len18 - 1 : 0), _key18 = 1; _key18 < _len18; _key18++) {
+      args[_key18 - 1] = arguments[_key18];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    if (!this._cardModIcon) {
+      this._cardModIcon = document.createElement("ha-icon");
+      this._cardModIcon.icon = "mdi:brush";
+    }
+    const button = this.shadowRoot.querySelector("mwc-button[slot=secondaryAction]");
+    if (!button) return;
+    button.appendChild(this._cardModIcon);
+    if (((_a = this._cardConfig) === null || _a === void 0 ? void 0 : _a.card_mod) || Array.isArray((_b = this._cardConfig) === null || _b === void 0 ? void 0 : _b.entities) && ((_e = (_d = (_c = this._cardConfig) === null || _c === void 0 ? void 0 : _c.entities) === null || _d === void 0 ? void 0 : _d.some) === null || _e === void 0 ? void 0 : _e.call(_d, e => e.card_mod))) {
+      this._cardModIcon.style.visibility = "visible";
+    } else {
+      this._cardModIcon.style.visibility = "hidden";
+    }
+  }
+};
+HuiDialogEditCardPatch = __decorate([patch_element("hui-dialog-edit-card")], HuiDialogEditCardPatch);
+
+/*
+Patch the hui-epicture-elements-card specifically in order to handle individual styling of each element
+*/
+let PictureElementsCardPatch = class PictureElementsCardPatch extends ModdedElement {
+  setConfig(_orig) {
+    var _a, _b;
+    for (var _len19 = arguments.length, args = new Array(_len19 > 1 ? _len19 - 1 : 0), _key19 = 1; _key19 < _len19; _key19++) {
+      args[_key19 - 1] = arguments[_key19];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    for (const [i, el] of this._elements.entries()) {
+      await_element(el);
+      patch_object(el, ModdedElement);
+      const config = this._config.elements[i];
+      const cls = `type-${(_b = (_a = config === null || config === void 0 ? void 0 : config.type) === null || _a === void 0 ? void 0 : _a.replace) === null || _b === void 0 ? void 0 : _b.call(_a, ":", "-")}`;
+      apply_card_mod(el, "element", config === null || config === void 0 ? void 0 : config.card_mod, {
+        config
+      }, true, cls);
+    }
+  }
+};
+PictureElementsCardPatch = __decorate([patch_element("hui-picture-elements-card")], PictureElementsCardPatch);
+
+/*
+Patch various icon elements to consider the following variables:
+--card-mod-icon
+--card-mod-icon-color
+--card-mod-icon-dim
+*/
+const updateIcon = el => {
+  var _a;
+  const styles = el._cm_live_styles = (_a = el._cm_live_styles) !== null && _a !== void 0 ? _a : window.getComputedStyle(el);
+  if (el._update_queued) return;
+  el._update_queued = true;
+  requestAnimationFrame(() => {
+    const icon = styles.getPropertyValue("--card-mod-icon");
+    if (icon) el.icon = icon.trim();
+    const color = styles.getPropertyValue("--card-mod-icon-color");
+    if (color) el.style.color = color;
+    const filter = styles.getPropertyValue("--card-mod-icon-dim");
+    if (filter === "none") el.style.filter = "none";
+  });
+};
+const bindCardMod = async function (el) {
+  let update = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var _a;
+  // Find the most relevant card-mods in order to listen to change events so we can react quickly
+  el._boundCardMod = (_a = el._boundCardMod) !== null && _a !== void 0 ? _a : new Set();
+  const newCardMods = await findParentCardMod(el);
+  if (update || newCardMods.size > 0) updateIcon(el);
+  for (const cm of newCardMods) {
+    if (el._boundCardMod.has(cm)) continue;
+    cm.addEventListener("card-mod-update", async () => {
+      console.log("card-mod-update", cm);
+      await cm.updateComplete;
+      updateIcon(el);
+    });
+    el._boundCardMod.add(cm);
+  }
+  // Find card-mod elements created later, increased interval
+  if (el.cm_retries < 5) {
+    el.cm_retries++;
+    return window.setTimeout(() => bindCardMod(el, false), 250 * el.cm_retries);
+  }
+};
+let HaStateIconPatch = class HaStateIconPatch extends ModdedElement {
+  constructor() {
+    super(...arguments);
+    this.cm_retries = 0;
+  }
+  updated(_orig) {
+    for (var _len20 = arguments.length, args = new Array(_len20 > 1 ? _len20 - 1 : 0), _key20 = 1; _key20 < _len20; _key20++) {
+      args[_key20 - 1] = arguments[_key20];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    this.cm_retries = 0;
+    bindCardMod(this);
+  }
+};
+HaStateIconPatch = __decorate([patch_element("ha-state-icon")], HaStateIconPatch);
+let HaIconPatch = class HaIconPatch extends ModdedElement {
+  constructor() {
+    super(...arguments);
+    this.cm_retries = 0;
+  }
+  updated(_orig) {
+    for (var _len21 = arguments.length, args = new Array(_len21 > 1 ? _len21 - 1 : 0), _key21 = 1; _key21 < _len21; _key21++) {
+      args[_key21 - 1] = arguments[_key21];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    this.cm_retries = 0;
+    bindCardMod(this);
+  }
+};
+HaIconPatch = __decorate([patch_element("ha-icon")], HaIconPatch);
+let HaSvgIconPatch = class HaSvgIconPatch extends ModdedElement {
+  constructor() {
+    super(...arguments);
+    this.cm_retries = 0;
+  }
+  updated(_orig) {
+    var _a, _b;
+    for (var _len22 = arguments.length, args = new Array(_len22 > 1 ? _len22 - 1 : 0), _key22 = 1; _key22 < _len22; _key22++) {
+      args[_key22 - 1] = arguments[_key22];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    if (((_b = (_a = this.parentNode) === null || _a === void 0 ? void 0 : _a.host) === null || _b === void 0 ? void 0 : _b.localName) === "ha-icon") return;
+    this.cm_retries = 0;
+    bindCardMod(this);
+  }
+};
+HaSvgIconPatch = __decorate([patch_element("ha-svg-icon")], HaSvgIconPatch);
+function joinSet(dst, src) {
+  for (const s of src) dst.add(s);
+}
+async function findParentCardMod(node) {
+  let step = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  let cardMods = new Set();
+  if (step == 10) return cardMods;
+  if (!node) return cardMods;
+  if (node.updateComplete) await node.updateComplete;
+  if (node._cardMod) {
+    for (const cm of node._cardMod) {
+      if (cm.styles) cardMods.add(cm);
+    }
+  }
+  if (node.parentElement) joinSet(cardMods, await findParentCardMod(node.parentElement, step + 1));else if (node.parentNode) joinSet(cardMods, await findParentCardMod(node.parentNode, step + 1));
+  if (node.host) joinSet(cardMods, await findParentCardMod(node.host, step + 1));
+  return cardMods;
+}
+const NO_STYLE = `
+ha-card {
+  background: none;
+  box-shadow: none;
+  border: none;
+  transition: none;
+}`;
+class ModCard extends s {
+  setConfig(config) {
+    var _a;
+    this._config = JSON.parse(JSON.stringify(config));
+    let style = ((_a = this._config.card_mod) === null || _a === void 0 ? void 0 : _a.style) || this._config.style;
+    if (style === undefined) {
+      style = NO_STYLE;
+    } else if (typeof style === "string") {
+      style = NO_STYLE + style;
+    } else if (style["."]) {
+      style["."] = NO_STYLE + style["."];
+    } else {
+      style["."] = NO_STYLE;
+    }
+    this._config.card_mod = {
+      style
+    };
+    this.build_card(config.card);
+  }
+  async build_card(config) {
+    if (this._hass === undefined) await new Promise(resolve => this._hassResolve = resolve);
+    this._hassResolve = undefined;
+    const helpers = await window.loadCardHelpers();
+    this.card = await helpers.createCardElement(config);
+    this.card.hass = this._hass;
+  }
+  firstUpdated() {
+    window.setTimeout(() => {
+      var _a, _b;
+      if ((_b = (_a = this.card) === null || _a === void 0 ? void 0 : _a.shadowRoot) === null || _b === void 0 ? void 0 : _b.querySelector("ha-card")) {
+        console.info("%cYou are doing it wrong!", "color: red; font-weight: bold");
+        let cardName = this.card.localName.replace(/hui-(.*)-card/, "$1");
+        console.info(`mod-card should NEVER be used with a card that already has a ha-card element, such as ${cardName}`);
+      }
+    }, 3000);
+  }
+  set hass(hass) {
+    this._hass = hass;
+    if (this.card) this.card.hass = hass;
+    if (this._hassResolve) this._hassResolve();
+  }
+  render() {
+    return x` <ha-card modcard> ${this.card} </ha-card> `;
+  }
+  getCardSize() {
+    if (this._config.report_size) return this._config.report_size;
+    let ret = this.shadowRoot;
+    if (ret) ret = ret.querySelector("ha-card card-maker");
+    if (ret) ret = ret.getCardSize;
+    if (ret) ret = ret();
+    if (ret) return ret;
+    return 1;
+  }
+}
+__decorate([n$1()], ModCard.prototype, "card", void 0);
+if (!customElements.get("mod-card")) {
+  customElements.define("mod-card", ModCard);
+}
+(async () => {
+  // See explanation in card-mod.ts
+  while (customElements.get("home-assistant") === undefined) await new Promise(resolve => window.setTimeout(resolve, 100));
+  if (!customElements.get("mod-card")) {
+    customElements.define("mod-card", ModCard);
+  }
+})();
+function refresh_theme() {
+  document.dispatchEvent(new Event("cm_update"));
+}
+const bases = [customElements.whenDefined("home-assistant"), customElements.whenDefined("hc-main")];
+b.race(bases).then(() => {
+  window.setTimeout(async () => {
+    var _a, _b;
+    const hs = await hass();
+    while (!hs) {
+      await new Promise(resolve => window.setTimeout(resolve, 500));
+    }
+    hs.connection.subscribeEvents(() => {
+      window.setTimeout(refresh_theme, 500);
+    }, "themes_updated");
+    (_a = document.querySelector("home-assistant")) === null || _a === void 0 ? void 0 : _a.addEventListener("settheme", refresh_theme);
+    (_b = document.querySelector("hc-main")) === null || _b === void 0 ? void 0 : _b.addEventListener("settheme", refresh_theme);
+  }, 1000);
+});
+var _a, _b, _c;
+const scriptElements = document.querySelectorAll("script");
+const resources = [];
+for (const script of scriptElements) {
+  if ((_b = (_a = script === null || script === void 0 ? void 0 : script.innerText) === null || _a === void 0 ? void 0 : _a.trim()) === null || _b === void 0 ? void 0 : _b.startsWith("import(")) {
+    const imports = (_c = script.innerText.split("\n")) === null || _c === void 0 ? void 0 : _c.map(e => e.trim());
+    for (const imp of imports) {
+      resources.push(imp.replace(/^import\(\"/, "").replace(/\"\);/, ""));
+    }
+  }
+}
+if (resources.some(r => r.includes("/card-mod.js"))) ;else {
+  console.info("You may not be getting optimal performance out of card-mod.\nSee https://github.com/thomasloven/lovelace-card-mod#performance-improvements");
+}
