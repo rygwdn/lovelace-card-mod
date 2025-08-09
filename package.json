@@ -1,5 +1,6 @@
 {
   "name": "card-mod",
+  "browserslist": "> 0.25%, not dead",
   "private": true,
   "version": "4.0.0",
   "description": "",
