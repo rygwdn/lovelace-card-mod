@@ -38,7 +38,6 @@ const bindCardMod = async (el, update = true) => {
     if (el._boundCardMod.has(cm)) continue;
 
     cm.addEventListener("card-mod-update", async () => {
-      console.log("card-mod-update", cm);
       await cm.updateComplete;
       updateIcon(el);
     });
