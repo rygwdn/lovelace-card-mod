@@ -1,3 +1,4 @@
+import { defineConfig } from "rollup";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import json from "@rollup/plugin-json";
 import typescript from "rollup-plugin-typescript2";
@@ -6,7 +7,7 @@ import { getBabelOutputPlugin } from "@rollup/plugin-babel";
 
 const dev = process.env.ROLLUP_WATCH;
 
-export default {
+export default defineConfig({
   input: "src/main.ts",
   output: {
     file: "card-mod.js",
@@ -17,6 +18,6 @@ export default {
     json(),
     typescript(),
     getBabelOutputPlugin({ presets: ["@babel/preset-env"] }),
-    !dev && terser({ format: { comments: false } }),
+    //!dev && terser({ format: { comments: false  } }),
   ],
-};
+});
