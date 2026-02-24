@@ -1,3 +1,52 @@
+// Add a listener to allow to clear Frontend cache via Home Assistant action
+window.addEventListener("card-mod-bootstrap", async ev => {
+  ev.stopPropagation();
+  document.addEventListener("ll-custom", event => {
+    const detail = event.detail;
+    if (!detail || typeof detail !== "object") {
+      return;
+    }
+    const cardMod = detail.card_mod;
+    if (!cardMod || typeof cardMod !== "object") {
+      return;
+    }
+    const actionName = cardMod.action;
+    if (actionName && typeof actionName === "string" && typeof Actions[actionName] === "function") {
+      try {
+        const result = Actions[actionName]();
+        if (result && typeof result.catch === "function") {
+          result.catch(error => {
+            console.error(`Error while executing action "${actionName}":`, error);
+          });
+        }
+      } catch (error) {
+        console.error(`Error while executing action "${actionName}":`, error);
+      }
+    }
+  });
+});
+class Actions {
+  static async clear_cache() {
+    if (window.caches) {
+      try {
+        const cacheNames = await window.caches.keys();
+        const deletePromises = [];
+        cacheNames.forEach(cacheName => {
+          deletePromises.push(window.caches.delete(cacheName));
+        });
+        await Promise.all(deletePromises);
+        window.location.reload();
+      } catch (error) {
+        console.error("Failed to clear caches:", error);
+        // Fallback: force a full reload even if cache clearing fails
+        window.location.reload();
+      }
+    } else {
+      window.location.reload();
+    }
+  }
+}
+
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -1149,15 +1198,33 @@ function template_updated(key, result) {
   if (!cache) {
     return;
   }
-  cache.value = result.result;
-  if (cache.debug) {
-    console.groupCollapsed("CardMod: Template updated");
-    console.log("Template:", cache.template);
-    console.log("Variables:", cache.variables);
-    console.log("Value:", cache.value);
-    console.groupEnd();
+  if ("error" in result) {
+    cache.error = result;
+    cache.value = "";
+    if (cache.debug) {
+      console.groupCollapsed(`CardMod: Template ${cache.error.level}`);
+      console.log({
+        template: cache.template,
+        variables: cache.variables,
+        value: cache.value,
+        error: cache.error
+      });
+      console.groupEnd();
+    }
+  } else {
+    cache.value = result.result;
+    if (cache.debug) {
+      console.groupCollapsed("CardMod: Template updated");
+      console.log({
+        template: cache.template,
+        variables: cache.variables,
+        value: cache.value,
+        error: cache.error
+      });
+      console.groupEnd();
+    }
   }
-  cache.callbacks.forEach(f => f(result.result));
+  cache.callbacks.forEach(f => f(cache.value));
 }
 function hasTemplate(str) {
   if (!str) return false;
@@ -1180,8 +1247,10 @@ async function bind_template(callback, template, variables) {
     if (template.includes("card_mod.debug")) {
       debug = true;
       console.groupCollapsed("CardMod: Binding template");
-      console.log("Template:", template);
-      console.log("Variables:", variables);
+      console.log({
+        template,
+        variables
+      });
       console.groupEnd();
     }
     cachedTemplates[cacheKey] = cache = {
@@ -1193,15 +1262,19 @@ async function bind_template(callback, template, variables) {
       unsubscribe: connection.subscribeMessage(result => template_updated(cacheKey, result), {
         type: "render_template",
         template,
-        variables
+        variables,
+        report_errors: debug
       })
     };
   } else {
     if (cache.debug) {
       console.groupCollapsed("CardMod: Reusing template");
-      console.log("Template:", cache.template);
-      console.log("Variables:", cache.variables);
-      console.log("Value:", cache.value);
+      console.log({
+        template: cache.template,
+        variables: cache.variables,
+        value: cache.value,
+        error: cache.error
+      });
       console.groupEnd();
     }
     if (!cache.callbacks.has(callback)) unbind_template(callback);
@@ -1218,8 +1291,10 @@ async function unbind_template(callback) {
       if (cache.callbacks.size == 0) {
         if (cache.debug) {
           console.groupCollapsed("CardMod: Template unbound and will be unsubscribed after cooldown");
-          console.log("Template:", cache.template);
-          console.log("Variables:", cache.variables);
+          console.log({
+            template: cache.template,
+            variables: cache.variables
+          });
           console.groupEnd();
         }
         cache.cooldownTimeoutID = window.setTimeout(unsubscribe_template, 20000, key);
@@ -1236,8 +1311,10 @@ async function unsubscribe_template(key) {
   }
   if (cache.debug) {
     console.groupCollapsed("CardMod: Unsubscribing template after cooldown");
-    console.log("Template:", cache.template);
-    console.log("Variables:", cache.variables);
+    console.log({
+      template: cache.template,
+      variables: cache.variables
+    });
     console.groupEnd();
   }
   delete cachedTemplates[key];
@@ -1245,7 +1322,7 @@ async function unsubscribe_template(key) {
 }
 var name = "card-mod";
 var browserslist = "> 0.25%, not dead";
-var version = "4.0.0";
+var version = "4.2.1";
 var description = "";
 var scripts = {
   build: "rollup -c",
@@ -1260,7 +1337,7 @@ var devDependencies = {
   "@rollup/plugin-babel": "^6.0.4",
   "@rollup/plugin-json": "^6.1.0",
   "@rollup/plugin-node-resolve": "^15.2.3",
-  rollup: "^2.79.1",
+  rollup: "^2.79.2",
   "rollup-plugin-terser": "^7.0.2",
   "rollup-plugin-typescript2": "^0.36.0",
   typescript: "^5.3.3"
@@ -1284,29 +1361,43 @@ var pjson = {
   dependencies: dependencies
 };
 const _load_yaml2json = async () => {
+  var _a;
   if (customElements.get("developer-tools-event")) return;
-  await customElements.whenDefined("partial-panel-resolver");
-  const ppr = document.createElement("partial-panel-resolver");
-  ppr.hass = {
-    panels: [{
-      url_path: "tmp",
-      component_name: "developer-tools"
-    }]
-  };
-  ppr._updateRoutes();
-  await ppr.routerOptions.routes.tmp.load();
-  await customElements.whenDefined("developer-tools-router");
-  const dtr = document.createElement("developer-tools-router");
-  await dtr.routerOptions.routes.event.load();
+  try {
+    await customElements.whenDefined("partial-panel-resolver");
+    const ppr = document.createElement("partial-panel-resolver");
+    ppr.hass = {
+      panels: [{
+        url_path: "tmp",
+        component_name: "config"
+      }]
+    };
+    ppr._updateRoutes();
+    await ppr.routerOptions.routes.tmp.load();
+    await customElements.whenDefined("ha-panel-config");
+    const hpc = document.createElement("ha-panel-config");
+    await ((_a = hpc.routerOptions.routes['developer-tools']) === null || _a === void 0 ? void 0 : _a.load());
+    await customElements.whenDefined("developer-tools-router");
+    const dtr = document.createElement("developer-tools-router");
+    await dtr.routerOptions.routes.event.load();
+  } catch (err) {
+    console.error("CARD-MOD: Error loading yaml2json:", err);
+  }
 };
 const yaml2json = async yaml => {
   await _load_yaml2json();
   const el = document.createElement("ha-yaml-editor");
+  el.hass = {};
+  el.hass.localize = any => "Invalid YAML";
   el._onChange(new CustomEvent("yaml", {
     detail: {
       value: yaml
     }
   }));
+  if (!el.isValid) {
+    console.error("CARD-MOD: Error loading theme yaml:", yaml);
+    return {};
+  }
   return el.value;
 };
 function refresh_theme() {
@@ -1362,12 +1453,33 @@ function themesReady() {
     })();
   });
 }
+function cssValueIsTrue(v) {
+  if (!v) return false;
+  const t = v.trim().toLowerCase();
+  return t === "true" || t === "1" || t === "yes" || t === "on";
+}
 async function get_theme(root) {
   var _a;
   if (!root.type) return null;
   await themesReady();
   const el = root.parentElement ? root.parentElement : root;
-  const theme = window.getComputedStyle(el).getPropertyValue("--card-mod-theme");
+  const cs = window.getComputedStyle(el);
+  const theme = cs.getPropertyValue("--card-mod-theme");
+  // Determine debug flag from CSS variables.
+  // Checked patterns:
+  //  - --card-mod-<type>-debug
+  //  - --card-mod-<type>-<class>-debug
+  let debug = false;
+  const typeDebug = cs.getPropertyValue(`--card-mod-${root.type}-debug`);
+  if (cssValueIsTrue(typeDebug)) debug = true;
+  for (const cls of root.classes) {
+    const debugVar = cs.getPropertyValue(`--card-mod-${root.type}-${cls}-debug`);
+    if (cssValueIsTrue(debugVar)) {
+      debug = true;
+      break;
+    }
+  }
+  root.debug || (root.debug = !!debug);
   root.debug && console.log("CardMod Debug: Theme:", theme);
   const hs = await hass();
   if (!hs) return {};
@@ -1492,28 +1604,40 @@ async function apply_card_mod(element, type) {
   // Wait for target element to exist
   if ((_a = element.localName) === null || _a === void 0 ? void 0 : _a.includes("-")) await customElements.whenDefined(element.localName);
   element._cardMod = element._cardMod || [];
+  // Await card-mod element definition
+  if (!customElements.get("card-mod")) {
+    debug("Waiting for card-mod customElement to be defined");
+    await customElements.whenDefined("card-mod");
+  }
   // Find any existing card-mod elements of the right type
   const cm = (_b = element._cardMod.find(cm => cm.type === type)) !== null && _b !== void 0 ? _b : document.createElement("card-mod");
   debug("Applying card-mod in:", cm);
   cm.type = type;
+  cm.card_mod_class = cls;
   cm.debug = (_c = cm_config === null || cm_config === void 0 ? void 0 : cm_config.debug) !== null && _c !== void 0 ? _c : false;
   cm.cancelStyleChild();
   // (cm as any).setAttribute("card-mod-type", type);
   if (!element._cardMod.includes(cm)) element._cardMod.push(cm);
   window.setTimeout(async () => {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     await Promise.all([element.updateComplete]);
     const target = ((_a = element.modElement) !== null && _a !== void 0 ? _a : shadow) ? (_b = element.shadowRoot) !== null && _b !== void 0 ? _b : element : element;
     if (!target.contains(cm)) {
-      target.appendChild(cm);
-      if (cm_config === null || cm_config === void 0 ? void 0 : cm_config.prepend) target.prepend(cm);
+      // Prepend if set or if Lit is in a buggy state
+      const litWorkaround = ((_c = element === null || element === void 0 ? void 0 : element.renderOptions) === null || _c === void 0 ? void 0 : _c.renderBefore) === null;
+      if (litWorkaround) debug("Lit prepend workaround applied for:", element);
+      if ((cm_config === null || cm_config === void 0 ? void 0 : cm_config.prepend) || litWorkaround) {
+        target.prepend(cm);
+      } else {
+        target.appendChild(cm);
+      }
     }
     cm.variables = variables;
-    cm.styles = (_c = cm_config === null || cm_config === void 0 ? void 0 : cm_config.style) !== null && _c !== void 0 ? _c : "";
+    cm.styles = (_d = cm_config === null || cm_config === void 0 ? void 0 : cm_config.style) !== null && _d !== void 0 ? _d : "";
   }, 1);
-  const classes = typeof (cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) == "string" ? (_e = (_d = cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) === null || _d === void 0 ? void 0 : _d.split) === null || _e === void 0 ? void 0 : _e.call(_d, " ") : [...((_f = cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) !== null && _f !== void 0 ? _f : [])];
-  cls && classes.push(cls);
-  (_g = element.classList) === null || _g === void 0 ? void 0 : _g.add(...classes);
+  cm.classes = typeof (cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) == "string" ? (_e = (_d = cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) === null || _d === void 0 ? void 0 : _d.split) === null || _e === void 0 ? void 0 : _e.call(_d, " ") : [...((_f = cm_config === null || cm_config === void 0 ? void 0 : cm_config.class) !== null && _f !== void 0 ? _f : [])];
+  cls && cm.classes.push(cls);
+  (_g = element.classList) === null || _g === void 0 ? void 0 : _g.add(...cm.classes);
   return cm;
 }
 function merge_deep(target, source) {
@@ -1565,9 +1689,12 @@ class CardMod extends s {
     this.dynamicVariablesHaveChanged = false;
     this.card_mod_children = {};
     this.card_mod_parent = undefined;
+    this.card_mod_class = undefined;
+    this.classes = [];
     this.debug = false;
     this._fixed_styles = {};
     this._styles = "";
+    this._processStylesOnConnect = false;
     this._rendered_styles = "";
     this._cancel_style_child = [];
     this._observer = new MutationObserver(mutations => {
@@ -1575,6 +1702,9 @@ class CardMod extends s {
       // e.g. when elements are changed after creation.
       // The observer is activated in _connect() only if there are any styles
       //  which should be applied to children
+      if (this.debug) {
+        this._debug("Mutations observed:", mutations);
+      }
       let stop = true;
       for (const m of mutations) {
         if (m.target.localName === "card-mod") return;
@@ -1592,14 +1722,24 @@ class CardMod extends s {
     document.addEventListener("cm_update", ev => {
       var _a;
       // Don't process disconnected elements
-      if (!this.isConnected) return;
       this.dynamicVariablesHaveChanged = ((_a = ev.detail) === null || _a === void 0 ? void 0 : _a.variablesChanged) || false;
+      if (!this.isConnected) {
+        this._processStylesOnConnect = true;
+        return;
+      }
       this._process_styles(this.card_mod_input);
     });
   }
   connectedCallback() {
+    var _a, _b, _c;
     super.connectedCallback();
-    this.refresh();
+    if (this._processStylesOnConnect) {
+      this._processStylesOnConnect = false;
+      this._debug("Processing styles on (Re)connect:", "type:", this.type, "for:", ...(((_a = this === null || this === void 0 ? void 0 : this.parentNode) === null || _a === void 0 ? void 0 : _a.host) ? ["#shadow-root of:", (_b = this === null || this === void 0 ? void 0 : this.parentNode) === null || _b === void 0 ? void 0 : _b.host] : [(_c = this.parentElement) !== null && _c !== void 0 ? _c : this.parentNode]));
+      this._process_styles(this.card_mod_input);
+    } else {
+      this.refresh();
+    }
     // Make sure the card-mod element is invisible
     this.setAttribute("slot", "none");
     this.style.display = "none";
@@ -1612,6 +1752,10 @@ class CardMod extends s {
     // Parsing styles is expensive, so only do it if things have actually changed
     if (compare_deep(stl, this.card_mod_input)) return;
     this.card_mod_input = stl;
+    if (!this.isConnected) {
+      this._processStylesOnConnect = true;
+      return;
+    }
     this._process_styles(stl);
   }
   get styles() {
@@ -1632,8 +1776,8 @@ class CardMod extends s {
     if (this.debug) console.log("CardMod Debug:", ...msg);
   }
   async _process_styles(stl) {
-    let styles = typeof stl === "string" ? {
-      ".": stl
+    let styles = typeof stl === "string" || stl === undefined ? {
+      ".": stl !== null && stl !== void 0 ? stl : ""
     } : JSON.parse(JSON.stringify(stl));
     // Merge card_mod styles with theme styles
     const theme_styles = await get_theme(this);
@@ -1667,12 +1811,12 @@ class CardMod extends s {
     });
   }
   async _connect() {
-    var _a, _b, _c, _d;
+    var _a, _b, _c, _d, _e, _f;
     const styles = (_a = this._fixed_styles) !== null && _a !== void 0 ? _a : {};
     const styleChildren = {};
     let thisStyle = "";
     let hasChildren = false;
-    this._debug("(Re)connecting", this);
+    this._debug("(Re)connecting:", "type:", this.type, "to:", ...(((_b = this === null || this === void 0 ? void 0 : this.parentNode) === null || _b === void 0 ? void 0 : _b.host) ? ["#shadow-root of:", (_c = this === null || this === void 0 ? void 0 : this.parentNode) === null || _c === void 0 ? void 0 : _c.host] : [(_d = this.parentElement) !== null && _d !== void 0 ? _d : this.parentNode]));
     this.cancelStyleChild();
     // Go through each path in the styles
     for (const [key, value] of Object.entries(styles)) {
@@ -1706,10 +1850,32 @@ class CardMod extends s {
     // Prune old child elements
     for (const key in this.card_mod_children) {
       if (!styleChildren[key]) {
-        (_b = await this.card_mod_children[key]) === null || _b === void 0 ? void 0 : _b.forEach(async ch => await ch.then(cm => cm.styles = "").catch(() => {}));
+        (_e = await this.card_mod_children[key]) === null || _e === void 0 ? void 0 : _e.forEach(async ch => await ch.then(cm => cm.styles = "").catch(() => {}));
       }
     }
     this.card_mod_children = styleChildren;
+    if (hasChildren) {
+      this._observer.disconnect();
+      const parentEl = (_f = this.parentElement) !== null && _f !== void 0 ? _f : this.parentNode;
+      if (parentEl) {
+        // Observe changes to the parent element to catch any changes
+        if (this.debug) {
+          this._debug("Observing for changes on:", parentEl);
+        }
+        this._observer.observe(parentEl, {
+          childList: true
+        });
+        if (parentEl.host) {
+          // If parent is a shadow root, also observe changes to the host
+          if (this.debug) {
+            this._debug("Observing for changes on:", parentEl.host);
+          }
+          this._observer.observe(parentEl.host, {
+            childList: true
+          });
+        }
+      }
+    }
     // Process styles applicable to this card-mod element
     if (this._styles === thisStyle && !this.dynamicVariablesHaveChanged) return;
     this._styles = thisStyle;
@@ -1719,15 +1885,6 @@ class CardMod extends s {
       bind_template(this._renderer, this._styles, this.variables);
     } else {
       this._style_rendered(this._styles || "");
-    }
-    if (hasChildren) {
-      this._observer.disconnect();
-      const parentEl = (_c = this.parentElement) !== null && _c !== void 0 ? _c : this.parentNode;
-      if (parentEl) {
-        this._observer.observe((_d = parentEl === null || parentEl === void 0 ? void 0 : parentEl.host) !== null && _d !== void 0 ? _d : parentEl, {
-          childList: true
-        });
-      }
     }
   }
   async _disconnect() {
@@ -1793,12 +1950,15 @@ const patch_method = function (obj, method, override) {
 };
 const set_patched = element => {
   const key = typeof element === "string" ? element : element.constructor.name;
-  patchState[key] = true;
+  patchState[key] = {
+    patched: true,
+    version: pjson.version
+  };
 };
 const is_patched = element => {
-  var _a;
+  var _a, _b, _c;
   const key = typeof element === "string" ? element : element.constructor.name;
-  return (_a = patchState[key]) !== null && _a !== void 0 ? _a : false;
+  return (_c = (_b = (_a = patchState[key]) === null || _a === void 0 ? void 0 : _a.patched) !== null && _b !== void 0 ? _b : patchState[key]) !== null && _c !== void 0 ? _c : false;
 };
 const patch_object = (obj, patch) => {
   if (!obj) return;
@@ -1818,37 +1978,56 @@ const patch_prototype = async (cls, patch, afterwards) => {
 // Decorator for patching a custom-element
 function patch_element(element, afterwards) {
   return function patched(constructor) {
-    var _a;
+    var _a, _b, _c;
     const key = typeof element === "string" ? element : element.name;
-    const patched = (_a = patchState[key]) !== null && _a !== void 0 ? _a : false;
+    const patched = (_c = (_b = (_a = patchState[key]) === null || _a === void 0 ? void 0 : _a.patched) !== null && _b !== void 0 ? _b : patchState[key]) !== null && _c !== void 0 ? _c : false;
     if (patched) {
-      patch_warning(key);
+      log_patch_warning(key);
       return;
     }
-    patchState[key] = true;
+    patchState[key] = {
+      patched: true,
+      version: pjson.version
+    };
     patch_prototype(element, constructor, afterwards);
   };
 }
-function patch_warning(key) {
+function log_patch_warning(key) {
+  var _a;
   if (window.cm_patch_warning) return;
   window.cm_patch_warning = true;
-  console.groupCollapsed(`%cCARD-MOD: ${key} already patched!`, "color: red; font-weight: bold");
-  console.info("Card-mod likely loaded twice with different resource URLs.");
-  console.info("Make sure all card-mod resource URLs including hacstag match EXACTLY.");
-  console.info("Also check other custom elemets inculding cards and themes which may load card-mod.");
-  console.groupEnd();
+  const message = `CARD-MOD (${pjson.version}): ${key} already patched by ${((_a = patchState[key]) === null || _a === void 0 ? void 0 : _a.version) || "unknown version"}!`;
+  const details = ["Card-mod likely loaded twice with different resource URLs.", "Make sure all card-mod resource URLs including hacstag match EXACTLY.", "Also check other custom elements including cards and themes which may load card-mod.", "See https://github.com/thomasloven/lovelace-card-mod/blob/master/README.md#performance-improvements for details.", "If you have corrected this issue in config, then the device generating this notification needs its Frontend cache cleared."];
+  selectTree(document.body, "home-assistant").then(haEl => {
+    var _a, _b, _c, _d, _e;
+    if (haEl === null || haEl === void 0 ? void 0 : haEl.hass) {
+      (_d = (_b = (_a = haEl.hass.user) === null || _a === void 0 ? void 0 : _a.name) !== null && _b !== void 0 ? _b : (_c = haEl.hass.user) === null || _c === void 0 ? void 0 : _c.id) !== null && _d !== void 0 ? _d : "unknown_user";
+      const info = `User: ${((_e = haEl.hass.user) === null || _e === void 0 ? void 0 : _e.name) || "unknown"}\n\nBrowser: ${navigator.userAgent}`;
+      haEl.hass.callService("system_log", "write", {
+        logger: `card-mod.${pjson.version}`,
+        level: "warning",
+        message: `${message} ${details.join(" ")} ${info}`
+      }, undefined, false).catch(error => {
+        console.error("CARD-MOD: Failed to create duplicate patch warning notification", error);
+      });
+    }
+  });
 }
+const EXCLUDED_CARDS = ["conditional", "entity-filter"];
 let HuiCardPatch = class HuiCardPatch extends ModdedElement {
   constructor() {
     super(...arguments);
     this._cardMod = [];
   }
   async _add_card_mod() {
-    var _a, _b, _c;
+    var _a, _b, _c, _d;
     if (!this._element) return;
-    const cls = `type-${(_c = (_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.type) === null || _b === void 0 ? void 0 : _b.replace) === null || _c === void 0 ? void 0 : _c.call(_b, ":", "-")}`;
-    await apply_card_mod(this._element, "card", this.config.card_mod, {
-      config: this.config
+    if (EXCLUDED_CARDS.includes((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.type) === null || _b === void 0 ? void 0 : _b.toLowerCase())) return;
+    const element = this._element;
+    const config = (element === null || element === void 0 ? void 0 : element.config) || (element === null || element === void 0 ? void 0 : element._config) || this.config;
+    const cls = `type-${(_d = (_c = config === null || config === void 0 ? void 0 : config.type) === null || _c === void 0 ? void 0 : _c.replace) === null || _d === void 0 ? void 0 : _d.call(_c, ":", "-")}`;
+    await apply_card_mod(this._element, "card", config === null || config === void 0 ? void 0 : config.card_mod, {
+      config
     }, true, cls);
   }
   _loadElement(_orig) {
@@ -1943,11 +2122,13 @@ let HuiSectionPatch = class HuiSectionPatch extends ModdedElement {
   }
 };
 HuiSectionPatch = __decorate([patch_element("hui-section")], HuiSectionPatch);
-let HuiBadgePatch = class HuiBadgePatch extends ModdedElement {
+const EXCLUDED_BADGES = ["entity-filter"];
+let HuiBadgePatch$1 = class HuiBadgePatch extends ModdedElement {
   async _add_card_mod() {
-    var _a, _b, _c;
+    var _a, _b, _c, _d, _e;
     if (!this._element) return;
-    const cls = `type-${(_c = (_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.type) === null || _b === void 0 ? void 0 : _b.replace) === null || _c === void 0 ? void 0 : _c.call(_b, ":", "-")}`;
+    if (EXCLUDED_BADGES.includes((_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.type) === null || _b === void 0 ? void 0 : _b.toLowerCase())) return;
+    const cls = `type-${(_e = (_d = (_c = this.config) === null || _c === void 0 ? void 0 : _c.type) === null || _d === void 0 ? void 0 : _d.replace) === null || _e === void 0 ? void 0 : _e.call(_d, ":", "-")}`;
     await apply_card_mod(this._element, "badge", this.config.card_mod, {
       config: this.config
     }, true, cls);
@@ -1960,8 +2141,58 @@ let HuiBadgePatch = class HuiBadgePatch extends ModdedElement {
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     this._add_card_mod();
   }
+  _updateElement(_orig) {
+    for (var _len11 = arguments.length, args = new Array(_len11 > 1 ? _len11 - 1 : 0), _key11 = 1; _key11 < _len11; _key11++) {
+      args[_key11 - 1] = arguments[_key11];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    this._add_card_mod();
+  }
 };
-HuiBadgePatch = __decorate([patch_element("hui-badge")], HuiBadgePatch);
+HuiBadgePatch$1 = __decorate([patch_element("hui-badge")], HuiBadgePatch$1);
+let HuiBadgePatch = class HuiBadgePatch extends ModdedElement {
+  async _add_card_mod() {
+    var _a, _b, _c;
+    if (!this._element) return;
+    const cls = `type-${(_c = (_b = (_a = this.config) === null || _a === void 0 ? void 0 : _a.type) === null || _b === void 0 ? void 0 : _b.replace) === null || _c === void 0 ? void 0 : _c.call(_b, ":", "-")}`;
+    await apply_card_mod(this._element, "heading-badge", this.config.card_mod, {
+      config: this.config
+    }, true, cls);
+    this._cardMod = this._element._cardMod;
+  }
+  _loadElement(_orig) {
+    for (var _len12 = arguments.length, args = new Array(_len12 > 1 ? _len12 - 1 : 0), _key12 = 1; _key12 < _len12; _key12++) {
+      args[_key12 - 1] = arguments[_key12];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    this._add_card_mod();
+  }
+  _updateElement(_orig) {
+    for (var _len13 = arguments.length, args = new Array(_len13 > 1 ? _len13 - 1 : 0), _key13 = 1; _key13 < _len13; _key13++) {
+      args[_key13 - 1] = arguments[_key13];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    this._add_card_mod();
+  }
+};
+HuiBadgePatch = __decorate([patch_element("hui-heading-badge")], HuiBadgePatch);
+
+/*
+Patch ha-assist-chip on first update
+*/
+let HaAssistChipPatch = class HaAssistChipPatch extends ModdedElement {
+  async firstUpdated(_orig) {
+    var _a;
+    for (var _len14 = arguments.length, args = new Array(_len14 > 1 ? _len14 - 1 : 0), _key14 = 1; _key14 < _len14; _key14++) {
+      args[_key14 - 1] = arguments[_key14];
+    }
+    await (_orig === null || _orig === void 0 ? void 0 : _orig(...args));
+    await apply_card_mod(this, "assist-chip", (_a = this.config) === null || _a === void 0 ? void 0 : _a.card_mod, {
+      config: this.config
+    }, true, "type-assist-chip");
+  }
+};
+HaAssistChipPatch = __decorate([patch_element("ha-assist-chip")], HaAssistChipPatch);
 
 /*
 Patch the hui-entities-card specifically in order to handle individual styling of each row
@@ -1969,15 +2200,15 @@ Patch the hui-entities-card specifically in order to handle individual styling o
 let HuiEntitiesCardPatch = class HuiEntitiesCardPatch extends ModdedElement {
   _renderEntity(_orig, config) {
     var _a, _b;
-    for (var _len11 = arguments.length, rest = new Array(_len11 > 2 ? _len11 - 2 : 0), _key11 = 2; _key11 < _len11; _key11++) {
-      rest[_key11 - 2] = arguments[_key11];
+    for (var _len15 = arguments.length, rest = new Array(_len15 > 2 ? _len15 - 2 : 0), _key15 = 2; _key15 < _len15; _key15++) {
+      rest[_key15 - 2] = arguments[_key15];
     }
     const retval = _orig === null || _orig === void 0 ? void 0 : _orig(config, ...rest);
     if ((config === null || config === void 0 ? void 0 : config.type) === "custom:mod-card") return retval;
     if (!(retval === null || retval === void 0 ? void 0 : retval.values)) return retval;
     const row = retval.values[1];
     if (!row) return retval;
-    const cls = `type-${(_b = (_a = config === null || config === void 0 ? void 0 : config.type) === null || _a === void 0 ? void 0 : _a.replace) === null || _b === void 0 ? void 0 : _b.call(_a, ":", "-")}`;
+    const cls = (config === null || config === void 0 ? void 0 : config.type) ? `type-${(_b = (_a = config.type).replace) === null || _b === void 0 ? void 0 : _b.call(_a, ":", "-")}` : "type-entity";
     const apply = async () => {
       await await_element(row);
       patch_object(row, ModdedElement);
@@ -1991,6 +2222,32 @@ let HuiEntitiesCardPatch = class HuiEntitiesCardPatch extends ModdedElement {
   }
 };
 HuiEntitiesCardPatch = __decorate([patch_element("hui-entities-card")], HuiEntitiesCardPatch);
+/*
+Patch conditional row specifically as it creates rows dynamically
+*/
+let HuiConditionalRowPatch = class HuiConditionalRowPatch extends ModdedElement {
+  setConfig(_orig, config) {
+    var _a, _b, _c, _d;
+    for (var _len16 = arguments.length, args = new Array(_len16 > 2 ? _len16 - 2 : 0), _key16 = 2; _key16 < _len16; _key16++) {
+      args[_key16 - 2] = arguments[_key16];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(config, ...args);
+    const row = this._element;
+    if (!row) return;
+    if (!(config === null || config === void 0 ? void 0 : config.row) || ((_a = config === null || config === void 0 ? void 0 : config.row) === null || _a === void 0 ? void 0 : _a.type) === "custom:mod-card") return;
+    const cls = ((_b = config === null || config === void 0 ? void 0 : config.row) === null || _b === void 0 ? void 0 : _b.type) ? `type-${(_d = (_c = config.row.type).replace) === null || _d === void 0 ? void 0 : _d.call(_c, ":", "-")}` : "type-entity";
+    const apply = async () => {
+      await await_element(row);
+      patch_object(row, ModdedElement);
+      apply_card_mod(row, "row", config.row.card_mod, {
+        config: config.row
+      }, true, cls);
+      row.addEventListener("ll-rebuild", apply);
+    };
+    Promise.all([this.updateComplete]).then(() => apply());
+  }
+};
+HuiConditionalRowPatch = __decorate([patch_element("hui-conditional-row")], HuiConditionalRowPatch);
 
 /*
 Patch the hui-glance-card specifically in order to handle individual styling of each item
@@ -2019,8 +2276,8 @@ let HuiGlanceCardPatch = class HuiGlanceCardPatch extends ModdedElement {
   // Instead find every icon after render in the updated method.
   updated(_orig) {
     var _a, _b, _c;
-    for (var _len12 = arguments.length, args = new Array(_len12 > 1 ? _len12 - 1 : 0), _key12 = 1; _key12 < _len12; _key12++) {
-      args[_key12 - 1] = arguments[_key12];
+    for (var _len17 = arguments.length, args = new Array(_len17 > 1 ? _len17 - 1 : 0), _key17 = 1; _key17 < _len17; _key17++) {
+      args[_key17 - 1] = arguments[_key17];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     // Each entity of a glance card is contained in a div.entity
@@ -2050,27 +2307,55 @@ let HuiGlanceCardPatch = class HuiGlanceCardPatch extends ModdedElement {
 HuiGlanceCardPatch = __decorate([patch_element("hui-glance-card")], HuiGlanceCardPatch);
 
 /*
-Patch the hui-epicture-elements-card specifically in order to handle individual styling of each element
+Patch the hui-picture-elements-card specifically in order to handle individual styling of each element
 */
 let PictureElementsCardPatch = class PictureElementsCardPatch extends ModdedElement {
   setConfig(_orig) {
-    var _a, _b;
-    for (var _len13 = arguments.length, args = new Array(_len13 > 1 ? _len13 - 1 : 0), _key13 = 1; _key13 < _len13; _key13++) {
-      args[_key13 - 1] = arguments[_key13];
+    for (var _len18 = arguments.length, args = new Array(_len18 > 1 ? _len18 - 1 : 0), _key18 = 1; _key18 < _len18; _key18++) {
+      args[_key18 - 1] = arguments[_key18];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
-    for (const [i, el] of this._elements.entries()) {
-      await_element(el);
-      patch_object(el, ModdedElement);
-      const config = this._config.elements[i];
-      const cls = `type-${(_b = (_a = config === null || config === void 0 ? void 0 : config.type) === null || _a === void 0 ? void 0 : _a.replace) === null || _b === void 0 ? void 0 : _b.call(_a, ":", "-")}`;
-      apply_card_mod(el, "element", config === null || config === void 0 ? void 0 : config.card_mod, {
-        config
-      }, true, cls);
-    }
+    const apply = async () => {
+      var _a, _b;
+      for (const [i, el] of this._elements.entries()) {
+        await await_element(el);
+        patch_object(el, ModdedElement);
+        const config = this._config.elements[i];
+        const cls = `type-${(_b = (_a = config === null || config === void 0 ? void 0 : config.type) === null || _a === void 0 ? void 0 : _a.replace) === null || _b === void 0 ? void 0 : _b.call(_a, ":", "-")}`;
+        apply_card_mod(el, "element", config === null || config === void 0 ? void 0 : config.card_mod, {
+          config
+        }, true, cls);
+      }
+    };
+    Promise.all([this.updateComplete]).then(() => apply());
   }
 };
 PictureElementsCardPatch = __decorate([patch_element("hui-picture-elements-card")], PictureElementsCardPatch);
+/*
+Patch conditional element specifically as it creates elements dynamically
+*/
+let HuiConditionalElementPatch = class HuiConditionalElementPatch extends ModdedElement {
+  setConfig(_orig) {
+    for (var _len19 = arguments.length, args = new Array(_len19 > 1 ? _len19 - 1 : 0), _key19 = 1; _key19 < _len19; _key19++) {
+      args[_key19 - 1] = arguments[_key19];
+    }
+    _orig === null || _orig === void 0 ? void 0 : _orig(...args);
+    const apply = async () => {
+      var _a, _b;
+      for (const [i, el] of this._elements.entries()) {
+        await await_element(el);
+        patch_object(el, ModdedElement);
+        const config = this._config.elements[i];
+        const cls = `type-${(_b = (_a = config === null || config === void 0 ? void 0 : config.type) === null || _a === void 0 ? void 0 : _a.replace) === null || _b === void 0 ? void 0 : _b.call(_a, ":", "-")}`;
+        apply_card_mod(el, "element", config === null || config === void 0 ? void 0 : config.card_mod, {
+          config
+        }, true, cls);
+      }
+    };
+    Promise.all([this.updateComplete]).then(() => apply());
+  }
+};
+HuiConditionalElementPatch = __decorate([patch_element("hui-conditional-element")], HuiConditionalElementPatch);
 
 /*
 Patch various icon elements to consider the following variables:
@@ -2119,8 +2404,8 @@ let HaStateIconPatch = class HaStateIconPatch extends ModdedElement {
     this.cm_retries = 0;
   }
   updated(_orig) {
-    for (var _len14 = arguments.length, args = new Array(_len14 > 1 ? _len14 - 1 : 0), _key14 = 1; _key14 < _len14; _key14++) {
-      args[_key14 - 1] = arguments[_key14];
+    for (var _len20 = arguments.length, args = new Array(_len20 > 1 ? _len20 - 1 : 0), _key20 = 1; _key20 < _len20; _key20++) {
+      args[_key20 - 1] = arguments[_key20];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     this.cm_retries = 0;
@@ -2134,8 +2419,8 @@ let HaIconPatch = class HaIconPatch extends ModdedElement {
     this.cm_retries = 0;
   }
   updated(_orig) {
-    for (var _len15 = arguments.length, args = new Array(_len15 > 1 ? _len15 - 1 : 0), _key15 = 1; _key15 < _len15; _key15++) {
-      args[_key15 - 1] = arguments[_key15];
+    for (var _len21 = arguments.length, args = new Array(_len21 > 1 ? _len21 - 1 : 0), _key21 = 1; _key21 < _len21; _key21++) {
+      args[_key21 - 1] = arguments[_key21];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     this.cm_retries = 0;
@@ -2150,8 +2435,8 @@ let HaSvgIconPatch = class HaSvgIconPatch extends ModdedElement {
   }
   updated(_orig) {
     var _a, _b;
-    for (var _len16 = arguments.length, args = new Array(_len16 > 1 ? _len16 - 1 : 0), _key16 = 1; _key16 < _len16; _key16++) {
-      args[_key16 - 1] = arguments[_key16];
+    for (var _len22 = arguments.length, args = new Array(_len22 > 1 ? _len22 - 1 : 0), _key22 = 1; _key22 < _len22; _key22++) {
+      args[_key22 - 1] = arguments[_key22];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     if (((_b = (_a = this.parentNode) === null || _a === void 0 ? void 0 : _a.host) === null || _b === void 0 ? void 0 : _b.localName) === "ha-icon") return;
@@ -2187,8 +2472,8 @@ There is no style passed to apply_card_mod here, everything comes only from them
 */
 let HuiViewPatch = class HuiViewPatch extends ModdedElement {
   updated(_orig) {
-    for (var _len17 = arguments.length, args = new Array(_len17 > 1 ? _len17 - 1 : 0), _key17 = 1; _key17 < _len17; _key17++) {
-      args[_key17 - 1] = arguments[_key17];
+    for (var _len23 = arguments.length, args = new Array(_len23 > 1 ? _len23 - 1 : 0), _key23 = 1; _key23 < _len23; _key23++) {
+      args[_key23 - 1] = arguments[_key23];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     apply_card_mod(this, "view", undefined, {}, false);
@@ -2210,8 +2495,8 @@ const apply$1 = () => {
 };
 let HuiRootPatch = class HuiRootPatch extends ModdedElement {
   firstUpdated(_orig) {
-    for (var _len18 = arguments.length, args = new Array(_len18 > 1 ? _len18 - 1 : 0), _key18 = 1; _key18 < _len18; _key18++) {
-      args[_key18 - 1] = arguments[_key18];
+    for (var _len24 = arguments.length, args = new Array(_len24 > 1 ? _len24 - 1 : 0), _key24 = 1; _key24 < _len24; _key24++) {
+      args[_key24 - 1] = arguments[_key24];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     apply_card_mod(this, "root");
@@ -2248,8 +2533,8 @@ function stripHtmlAndFunctions(value) {
 }
 class HaDialogPatch extends ModdedElement {
   async showDialog(_orig, params) {
-    for (var _len19 = arguments.length, rest = new Array(_len19 > 2 ? _len19 - 2 : 0), _key19 = 2; _key19 < _len19; _key19++) {
-      rest[_key19 - 2] = arguments[_key19];
+    for (var _len25 = arguments.length, rest = new Array(_len25 > 2 ? _len25 - 2 : 0), _key25 = 2; _key25 < _len25; _key25++) {
+      rest[_key25 - 2] = arguments[_key25];
     }
     await (_orig === null || _orig === void 0 ? void 0 : _orig(params, ...rest));
     this.requestUpdate();
@@ -2299,8 +2584,8 @@ at all if card-mod is loaded as a module.
 */
 let MoreInfoDIalogPatch = class MoreInfoDIalogPatch extends ModdedElement {
   showDialog(_orig, params) {
-    for (var _len20 = arguments.length, rest = new Array(_len20 > 2 ? _len20 - 2 : 0), _key20 = 2; _key20 < _len20; _key20++) {
-      rest[_key20 - 2] = arguments[_key20];
+    for (var _len26 = arguments.length, rest = new Array(_len26 > 2 ? _len26 - 2 : 0), _key26 = 2; _key26 < _len26; _key26++) {
+      rest[_key26 - 2] = arguments[_key26];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(params, ...rest);
     this.requestUpdate();
@@ -2330,8 +2615,8 @@ const apply = () => {
 let SidebarPatch = class SidebarPatch extends ModdedElement {
   // @ts-ignore
   firstUpdated(_orig) {
-    for (var _len21 = arguments.length, args = new Array(_len21 > 1 ? _len21 - 1 : 0), _key21 = 1; _key21 < _len21; _key21++) {
-      args[_key21 - 1] = arguments[_key21];
+    for (var _len27 = arguments.length, args = new Array(_len27 > 1 ? _len27 - 1 : 0), _key27 = 1; _key27 < _len27; _key27++) {
+      args[_key27 - 1] = arguments[_key27];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     apply_card_mod(this, "sidebar");
@@ -2355,8 +2640,8 @@ class ConfigElementPatch extends s {
         delete e.card_mod;
       }
     }
-    for (var _len22 = arguments.length, rest = new Array(_len22 > 2 ? _len22 - 2 : 0), _key22 = 2; _key22 < _len22; _key22++) {
-      rest[_key22 - 2] = arguments[_key22];
+    for (var _len28 = arguments.length, rest = new Array(_len28 > 2 ? _len28 - 2 : 0), _key28 = 2; _key28 < _len28; _key28++) {
+      rest[_key28 - 2] = arguments[_key28];
     }
     _orig(newConfig, ...rest);
     // Restore card_mod config for entities
@@ -2369,8 +2654,8 @@ class ConfigElementPatch extends s {
 }
 let HuiCardElementEditorPatch = class HuiCardElementEditorPatch extends s {
   async getConfigElement(_orig) {
-    for (var _len23 = arguments.length, args = new Array(_len23 > 1 ? _len23 - 1 : 0), _key23 = 1; _key23 < _len23; _key23++) {
-      args[_key23 - 1] = arguments[_key23];
+    for (var _len29 = arguments.length, args = new Array(_len29 > 1 ? _len29 - 1 : 0), _key29 = 1; _key29 < _len29; _key29++) {
+      args[_key29 - 1] = arguments[_key29];
     }
     const retval = await _orig(...args);
     patch_object(retval, ConfigElementPatch);
@@ -2382,8 +2667,8 @@ let HuiCardElementEditorPatch = class HuiCardElementEditorPatch extends s {
     if (cmData) {
       ev.detail.config.card_mod = cmData.card;
     }
-    for (var _len24 = arguments.length, rest = new Array(_len24 > 2 ? _len24 - 2 : 0), _key24 = 2; _key24 < _len24; _key24++) {
-      rest[_key24 - 2] = arguments[_key24];
+    for (var _len30 = arguments.length, rest = new Array(_len30 > 2 ? _len30 - 2 : 0), _key30 = 2; _key30 < _len30; _key30++) {
+      rest[_key30 - 2] = arguments[_key30];
     }
     _orig(ev, ...rest);
   }
@@ -2391,19 +2676,19 @@ let HuiCardElementEditorPatch = class HuiCardElementEditorPatch extends s {
 HuiCardElementEditorPatch = __decorate([patch_element("hui-card-element-editor")], HuiCardElementEditorPatch);
 let HuiDialogEditCardPatch = class HuiDialogEditCardPatch extends s {
   updated(_orig) {
-    var _a, _b, _c, _d, _e;
-    for (var _len25 = arguments.length, args = new Array(_len25 > 1 ? _len25 - 1 : 0), _key25 = 1; _key25 < _len25; _key25++) {
-      args[_key25 - 1] = arguments[_key25];
+    var _a;
+    for (var _len31 = arguments.length, args = new Array(_len31 > 1 ? _len31 - 1 : 0), _key31 = 1; _key31 < _len31; _key31++) {
+      args[_key31 - 1] = arguments[_key31];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     if (!this._cardModIcon) {
       this._cardModIcon = document.createElement("ha-icon");
       this._cardModIcon.icon = "mdi:brush";
     }
-    const button = this.shadowRoot.querySelector("mwc-button[slot=secondaryAction]");
+    const button = this.shadowRoot.querySelector("ha-button[slot=secondaryAction]");
     if (!button) return;
     button.appendChild(this._cardModIcon);
-    if (((_a = this._cardConfig) === null || _a === void 0 ? void 0 : _a.card_mod) || Array.isArray((_b = this._cardConfig) === null || _b === void 0 ? void 0 : _b.entities) && ((_e = (_d = (_c = this._cardConfig) === null || _c === void 0 ? void 0 : _c.entities) === null || _d === void 0 ? void 0 : _d.some) === null || _e === void 0 ? void 0 : _e.call(_d, e => e.card_mod))) {
+    if ((_a = JSON.stringify(this._cardConfig)) === null || _a === void 0 ? void 0 : _a.includes("card_mod")) {
       this._cardModIcon.style.visibility = "visible";
     } else {
       this._cardModIcon.style.visibility = "hidden";
@@ -2423,8 +2708,8 @@ This will only work if card-mod loaded as a Frontend module.
 */
 let HaConfigPatch = class HaConfigPatch extends ModdedElement {
   updated(_orig) {
-    for (var _len26 = arguments.length, args = new Array(_len26 > 1 ? _len26 - 1 : 0), _key26 = 1; _key26 < _len26; _key26++) {
-      args[_key26 - 1] = arguments[_key26];
+    for (var _len32 = arguments.length, args = new Array(_len32 > 1 ? _len32 - 1 : 0), _key32 = 1; _key32 < _len32; _key32++) {
+      args[_key32 - 1] = arguments[_key32];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     apply_card_mod(this, "config", {
@@ -2438,8 +2723,8 @@ Patch ha-panel-custom
 */
 let HaPanelCustomPatch = class HaPanelCustomPatch extends ModdedElement {
   updated(_orig) {
-    for (var _len27 = arguments.length, args = new Array(_len27 > 1 ? _len27 - 1 : 0), _key27 = 1; _key27 < _len27; _key27++) {
-      args[_key27 - 1] = arguments[_key27];
+    for (var _len33 = arguments.length, args = new Array(_len33 > 1 ? _len33 - 1 : 0), _key33 = 1; _key33 < _len33; _key33++) {
+      args[_key33 - 1] = arguments[_key33];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     apply_card_mod(this, "panel-custom", {
@@ -2454,8 +2739,8 @@ The ultimate background styling for config panels come from this element.
 */
 let HaTopAppBarFixedPatch = class HaTopAppBarFixedPatch extends ModdedElement {
   updated(_orig) {
-    for (var _len28 = arguments.length, args = new Array(_len28 > 1 ? _len28 - 1 : 0), _key28 = 1; _key28 < _len28; _key28++) {
-      args[_key28 - 1] = arguments[_key28];
+    for (var _len34 = arguments.length, args = new Array(_len34 > 1 ? _len34 - 1 : 0), _key34 = 1; _key34 < _len34; _key34++) {
+      args[_key34 - 1] = arguments[_key34];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     apply_card_mod(this, "top-app-bar-fixed");
@@ -2472,8 +2757,8 @@ This will only work if card-mod loaded as a Frontend module.
 */
 let HaPanelDeveloperToolsPatch = class HaPanelDeveloperToolsPatch extends ModdedElement {
   updated(_orig) {
-    for (var _len29 = arguments.length, args = new Array(_len29 > 1 ? _len29 - 1 : 0), _key29 = 1; _key29 < _len29; _key29++) {
-      args[_key29 - 1] = arguments[_key29];
+    for (var _len35 = arguments.length, args = new Array(_len35 > 1 ? _len35 - 1 : 0), _key35 = 1; _key35 < _len35; _key35++) {
+      args[_key35 - 1] = arguments[_key35];
     }
     _orig === null || _orig === void 0 ? void 0 : _orig(...args);
     apply_card_mod(this, "developer-tools");
